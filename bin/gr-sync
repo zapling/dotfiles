@@ -1,0 +1,51 @@
+#! /usr/bin/zsh
+#
+# gr-sync [SERVER] [SYNC_DIR]
+#
+# Sync local repo changes to a remote server
+#
+# Example
+#   gr-sync home.myserver.com /www/sync_folder/
+#
+
+SERVER=$1
+SYNC_DIR=$2
+
+# Check so that working dir is a git repo
+check_dir () {
+  /usr/bin/git status &> /dev/null
+  if [ $? -eq 0 ]; then
+    echo &> /dev/null
+  else
+    echo "Not in git repo"
+    exit 1
+  fi
+}
+
+# Check so we have required arguments
+check_args () {
+  if [[ -z ${SERVER} || -z ${SYNC_DIR} ]] ; then
+    echo "Insufficient arguments"
+    echo "[SERVER] [PATH]"
+    exit 1
+  fi
+}
+
+# Check is we have a file diff 
+check_diff () {
+  FILE_COUNT=$(/usr/bin/git diff --name-only | /usr/bin/wc -l)
+  if [[ ${FILE_COUNT} == 0 ]] ; then
+    echo "No diff"
+    exit
+  fi
+}
+
+# Sync diffed files to remote server
+sync_changes () {
+  /usr/bin/git diff -z --name-only | /usr/bin/xargs -0I REPLACE /usr/bin/rsync -aR REPLACE ${SERVER}:${SYNC_DIR}
+}
+
+check_dir
+check_args
+check_diff
+sync_changes
