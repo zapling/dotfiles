@@ -1,0 +1,3 @@
+alias mic="TERM=xterm-256color && ~/./micro"
+alias kitty="~/.local/kitty.app/bin/kitty"
+alias abc="~/.scripts/./abc.sh"
