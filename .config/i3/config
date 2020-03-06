@@ -9,7 +9,6 @@
 #########
 
 set $mod Mod4
-set $TERMINAL "~/.local/kitty.app/bin/kitty"
 
 ##########
 # Fonts
@@ -21,15 +20,13 @@ font pango:monospace 10
 # Autostart
 ##########
 
-exec --no-startup-id ~/Documents/./monitors.sh
-exec --no-startup-id feh --bg-center ~/Pictures/wallpapers/tunnel.jpg ~/Pictures/wallpapers/gradient.jpg
 exec --no-startup-id nm-applet
-exec --no-startup-id /usr/lib/notification-daemon/notification-daemon
-exec --no-startup-id ~/.local/kitty.app/bin/kitty --name dropdown1
-exec --no-startup-id ~/.local/kitty.app/bin/kitty --name dropdown2
+
+exec --no-startup-id /usr/bin/kitty --name dropdown1
+exec --no-startup-id /usr/bin/kitty --name dropdown2
 
 bar {
-	i3bar_command ~/.scripts/./start-polybar.sh
+	#i3bar_command
 }
 
 ##########
@@ -73,17 +70,19 @@ client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 # Keybinds
 ##########
 
+# Dropdown terminals
 bindsym $mod+u [instance="dropdown1"] scratchpad show
 bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
-bindsym $mod+l exec i3lock --color=48100f
 
-bindsym $mod+Shift+t exec chromium
-bindsym $mod+Shift+n exec chromium --incognito
+# Browser
+bindsym $mod+Shift+t exec firefox
+bindsym $mod+Shift+n exec firefox -private-window
 
+# File-manager
 bindsym $mod+Shift+f exec thunar
 
-bindsym --release $mod+Print exec gnome-screenshot -a
-bindsym --release $mod+Shift+Print exec gnome-screenshot
+# System
+bindsym $mod+l exec i3lock --color=48100f
 
 ##########
 # Semi-default i3 config
@@ -91,7 +90,7 @@ bindsym --release $mod+Shift+Print exec gnome-screenshot
 
 floating_modifier $mod
 
-bindsym $mod+Return exec $TERMINAL
+bindsym $mod+Return exec /usr/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+q [con_id="__focused__" instance="^((?!dropdown).)*$"] kill
