@@ -25,8 +25,10 @@ exec --no-startup-id nm-applet
 exec --no-startup-id /usr/bin/kitty --name dropdown1
 exec --no-startup-id /usr/bin/kitty --name dropdown2
 
+#exec_always --no-startup-id ~/.local/bin/./polybar.sh &
+
 bar {
-	#i3bar_command
+    status_command i3status
 }
 
 ##########
@@ -70,6 +72,8 @@ client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 # Keybinds
 ##########
 
+set $i3lock i3lock --color=48100f
+
 # Dropdown terminals
 bindsym $mod+u [instance="dropdown1"] scratchpad show
 bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
@@ -82,7 +86,17 @@ bindsym $mod+Shift+n exec firefox -private-window
 bindsym $mod+Shift+f exec thunar
 
 # System
-bindsym $mod+l exec i3lock --color=48100f
+bindsym $mod+l exec $i3lock
+bindsym $mod+Shift+Delete exec "$i3lock && systemctl suspend" 
+
+# Audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 ##########
 # Semi-default i3 config
