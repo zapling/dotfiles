@@ -1,24 +1,18 @@
 #
-# i3-gaps config
+# i3 config
 #
 # Andreas Palm 🌴
 #
 
-#########
-# Variables
-#########
+#--------/ Variables /------#
 
 set $mod Mod4
 
-##########
-# Fonts
-##########
+#--------/ Fonts /----------#
 
 font pango:monospace 10
 
-##########
-# Autostart
-##########
+#--------/ Autostart /------#
 
 exec --no-startup-id ~/.local/bin/i3-autodisplay &
 exec --no-startup-id nm-applet
@@ -28,13 +22,45 @@ exec --no-startup-id /usr/bin/kitty --name dropdown2
 
 #exec_always --no-startup-id ~/.local/bin/./polybar.sh &
 
+#--------/ Status bar /-----#
+
 bar {
+    font pango: Bitstream Vera Sans Mono 10
     status_command i3status
 }
 
-##########
-# Styling
-##########
+#-------/ Keybinds /--------#
+
+set $i3lock i3lock --color=48100f
+
+# Dropdown terminals
+bindsym $mod+u [instance="dropdown1"] scratchpad show
+bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
+
+# Browser
+bindsym $mod+Shift+t exec firefox
+bindsym $mod+Shift+n exec firefox -private-window
+
+# File-manager
+bindsym $mod+Shift+f exec thunar
+
+# System
+bindsym $mod+l exec $i3lock
+bindsym $mod+Shift+Delete exec "$i3lock && systemctl suspend"
+
+# Audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 100
+bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 100
+
+#--------/ Styling /--------#
 
 # Disable titlebar on all windows, need for gaps.
 for_window [class="^.*"] border pixel 0
@@ -69,39 +95,7 @@ client.unfocused        #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 client.urgent           #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 
-##########
-# Keybinds
-##########
-
-set $i3lock i3lock --color=48100f
-
-# Dropdown terminals
-bindsym $mod+u [instance="dropdown1"] scratchpad show
-bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
-
-# Browser
-bindsym $mod+Shift+t exec firefox
-bindsym $mod+Shift+n exec firefox -private-window
-
-# File-manager
-bindsym $mod+Shift+f exec thunar
-
-# System
-bindsym $mod+l exec $i3lock
-bindsym $mod+Shift+Delete exec "$i3lock && systemctl suspend" 
-
-# Audio
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-
-# Brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
-
-##########
-# Semi-default i3 config
-##########
+#--------/ Base i3 cfg /----#
 
 floating_modifier $mod
 
