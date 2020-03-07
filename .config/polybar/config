@@ -87,7 +87,7 @@ cursor-scroll = ns-resize
 [module/customdate]
 ; https://github.com/polybar/polybar/wiki/Module:-script
 type = custom/script
-exec = echo "`date +'%a %d %b'` `date +'%H:%M'` | `TZ=":Asia/Kolkata" date +"%H:%M"`";
+exec = echo "`date +'%a %d %b'` `date +'%H:%M'`";
 click-left = gsimplecal &
 format = <label>
 format-underline = #0a6cf5 
