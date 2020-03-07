@@ -20,6 +20,7 @@ font pango:monospace 10
 # Autostart
 ##########
 
+exec --no-startup-id ~/.local/bin/i3-autodisplay &
 exec --no-startup-id nm-applet
 
 exec --no-startup-id /usr/bin/kitty --name dropdown1
