@@ -12,7 +12,7 @@ install_packages() {
     packages+=' mesa'
 
     # i3 wm
-    packages+=' i3-gaps i3status-manjaro i3-lock dmenu-manjaro polybar'
+    packages+=' i3-gaps i3status-manjaro i3-lock dmenu-manjaro polybar feh'
 
     # Terminal
     packages+=' zsh kitty'
