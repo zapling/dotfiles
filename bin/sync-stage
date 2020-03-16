@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+gr-sync shopstage.textalk.se /www/andreasstage.textalk.se/
+ssh shopstage.textalk.se "cd /www/andreasstage.textalk.se/build/fastmulang/ && php fastmulang.php deploy sv Admin"
+

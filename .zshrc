@@ -8,3 +8,4 @@ source $ZSH/oh-my-zsh.sh
 
 # Alias
 alias ssh="kitty +kitten ssh $1"
+alias ss="sync-stage"
