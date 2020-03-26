@@ -49,6 +49,7 @@ bindsym $mod+Shift+f exec thunar
 # System
 bindsym $mod+l exec $i3lock
 bindsym $mod+Shift+Delete exec "$i3lock && systemctl suspend"
+bindsym $mod+Shift+s exec pavucontrol
 
 # Audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
@@ -89,6 +90,12 @@ for_window [instance="dropdown2"] scratchpad show
 for_window [instance="dropdown2"] move scratchpad
 for_window [instance="dropdown2"] resize set 740 480
 
+# Firefox dropout video
+for_window [window_role="PictureInPicture"] sticky enable
+
+# Pavucontrol sound
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Pavucontrol"] resize set 740 480
 
 # class                 border  bground text    indicator child_border
 client.focused          #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
