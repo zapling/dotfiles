@@ -14,22 +14,20 @@ font pango:monospace 10
 
 #--------/ Autostart /------#
 
-exec --no-startup-id ~/.local/bin/i3-autodisplay &
+exec --no-startup-id /usr/bin/i3-autodisplay &
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
 
 exec --no-startup-id /usr/bin/kitty --name dropdown1
 exec --no-startup-id /usr/bin/kitty --name dropdown2
 
-#exec_always --no-startup-id ~/.local/bin/./polybar.sh &
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
 
 #--------/ Status bar /-----#
 
 bar {
     font pango: Bitstream Vera Sans Mono 10
-    #status_command i3status
-    status_command ~/.local/bin/i3-keylayout.sh
+    status_command ~/.local/bin/system/i3status-keyboard-lang
 }
 
 #-------/ Keybinds /--------#
