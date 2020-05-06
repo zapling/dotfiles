@@ -18,8 +18,9 @@ protectDropdownTerminal () {
 # Disable "exit" command for dropdown terminals
 protectDropdownTerminal
 
+export PATH=~/.local/bin/personal:$PATH
 export PATH=~/go/bin:$PATH
 
 # Alias
 alias ssh="kitty +kitten ssh $1"
-alias ss="sync-stage"
+alias ss="echo Syncing to stage; sync-stage"
