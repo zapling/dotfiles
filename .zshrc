@@ -18,7 +18,6 @@ protectDropdownTerminal () {
 # Disable "exit" command for dropdown terminals
 protectDropdownTerminal
 
-# Go path
 export PATH=~/go/bin:$PATH
 
 # Alias

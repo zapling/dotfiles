@@ -7,6 +7,7 @@
 #--------/ Variables /------#
 
 set $mod Mod4
+set $gaps_inner 50
 
 #--------/ Fonts /----------#
 
@@ -21,15 +22,16 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id /usr/bin/kitty --name dropdown1
 exec --no-startup-id /usr/bin/kitty --name dropdown2
 
-exec --no-startup-id /usr/bin/xwallpaper --center rain_fog_road.jpg
+exec --no-startup-id /usr/bin/xwallpaper --center ~/dotfiles/.wallpapers/rain_fog_road.jpg
 
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
 
 #--------/ Status bar /-----#
 
 bar {
-    font pango: Bitstream Vera Sans Mono 10
-    status_command ~/.local/bin/system/i3status-keyboard-lang
+    font pango:monospace 10
+    #status_command ~/.local/bin/system/i3status-keyboard-lang
+    status_command i3blocks
 }
 
 #-------/ Keybinds /--------#
@@ -107,6 +109,11 @@ client.focused_inactive #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 client.unfocused        #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 client.urgent           #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
 client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
+
+#--------/ Gaps /-----------#
+
+workspace $ws1 gaps inner $gaps_inner 
+workspace $ws2 gaps inner $gaps_inner
 
 #--------/ Base i3 cfg /----#
 

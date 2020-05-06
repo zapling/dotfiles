@@ -1,0 +1,106 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+# Change $SCRIPT_DIR to the location of your scripts!
+command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[keyboard_layout]
+command=xkblayout-state print "%s" ; echo
+interval=1
+color=#ed11ab
+
+[volume-pulseaudio]
+interval=2
+signal=1
+#MIXER=[determined automatically]
+#SCONTROL=[determined automatically]
+##exposed format variables: ${SYMB}, ${VOL}, ${INDEX}, ${NAME}
+LONG_FORMAT="${SYMB}${VOL}%"
+#SHORT_FORMAT="2 ${SYMB} ${VOL}% [${INDEX}]"
+#AUDIO_HIGH_SYMBOL='  '
+#AUDIO_MED_THRESH=50
+#AUDIO_MED_SYMBOL='  '
+#AUDIO_LOW_THRESH=0
+#AUDIO_LOW_SYMBOL='  '
+#AUDIO_DELTA=5
+DEFAULT_COLOR="#fcc726"
+#MUTED_COLOR="#a0a0a0"
+#USE_ALSA_NAME=0
+#USE_DESCRIPTION=0
+## SUBSCRIBE=1 requires interval=persist and always uses LONG_FORMAT
+#SUBSCRIBE=0
+
+[nm-vpn]
+#init_color=#FFFF00
+#on_color=#00FF00
+label=VPN: 
+interval=5
+
+[cpu_usage]
+interval=10
+LABEL=CPU: 
+#min_width=CPU: 100.00%
+#T_WARN=50
+#T_CRIT=80
+#DECIMALS=2
+color=#11ede9
+
+[memory]
+label=MEM: 
+interval=30
+color=#11b2ed
+
+[disk]
+LABEL=:/ 
+DIR=/
+#ALERT_LOW=10
+interval=30
+color=#fcc726
+
+[batterybar]
+#label=bat:
+interval=5
+markup=pango
+min_width=■■■■■
+# Discharging colors low to high
+C1=#FF0027
+C2=#FF3B05
+C3=#FFB923
+C4=#FFD000
+C5=#E4FF00
+C6=#ADFF00
+C7=#6DFF00
+C8=#10BA00
+CHARGING_COLOR=#00AFE3
+FULL_COLOR=#4287f5
+AC_COLOR=#535353
+
+[time]
+command=date '+%Y-%m-%d %H:%M'
+interval=5
+color=#fa8023
