@@ -55,7 +55,7 @@ set $ws10 "10"
 
 #-------/ Keybinds /--------#
 
-set $i3lock i3lock --color=48100f
+set $i3lock i3lock --color=1b1b1b
 
 # Dropdown terminals
 bindsym $mod+u [instance="dropdown1"] scratchpad show
