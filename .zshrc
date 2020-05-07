@@ -24,3 +24,4 @@ export PATH=~/go/bin:$PATH
 # Alias
 alias ssh="kitty +kitten ssh $1"
 alias ss="echo Syncing to stage; sync-stage"
+alias india="echo `TZ=":Asia/Kolkata" date +"%H:%M"`"
