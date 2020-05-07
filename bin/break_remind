@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+/usr/bin/nmcli -t connection show --active | grep Textalk > /dev/null && \
+/usr/bin/yad --center \
+    --display=:0.0 \
+    --border=10 \
+    --width=500 \
+    --title="Break-Reminder" \
+    --button="Done":0 \
+    --border=100 \
+    --text="\
+    Time for a short break (5min)"
