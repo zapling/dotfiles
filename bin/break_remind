@@ -7,5 +7,7 @@
     --title="Break-Reminder" \
     --button="Done":0 \
     --border=100 \
+    --timeout=300 \
+    --timeout-indicator=top \
     --text="\
     Time for a short break (5min)"
