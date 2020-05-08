@@ -18,9 +18,6 @@ protectDropdownTerminal () {
 # Disable "exit" command for dropdown terminals
 protectDropdownTerminal
 
-# Enable cron to start x11 apps
-xhost local:$USER > /dev/null
-
 export PATH=~/.local/bin/personal:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
