@@ -112,6 +112,8 @@ for_window [instance="dropdown2"] scratchpad show
 for_window [instance="dropdown2"] move scratchpad
 for_window [instance="dropdown2"] resize set 740 480
 
+# Break reminder
+for_window [title="Break-Reminder"] sticky enable
 for_window [title="Break-Reminder"] floating enable
 
 # Firefox dropout video
