@@ -15,6 +15,9 @@ Plug 'junegunn/fzf.vim'
 " Lightline statusbar
 Plug 'itchyny/lightline.vim'
 
+" Nerdtree
+Plug 'preservim/nerdtree'
+
 call plug#end()
 
 """""""""""""
@@ -22,10 +25,10 @@ call plug#end()
 """""""""""""
 
 " clear search highlighting
-nnoremap <esc> :noh<cr>
+nnoremap <CR> :noh<CR><CR>
 
-" fzf - fuzzy finder
 map ; :Files<CR>
+map <C-b> :NERDTreeToggle<CR> 
 
 """"""
 " UI "
