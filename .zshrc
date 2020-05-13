@@ -23,6 +23,7 @@ export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 
 # Alias
+alias stage="ssh andreasstage.textalk.se"
 alias ssh="kitty +kitten ssh $1"
-alias ss="echo Syncing to stage; sync-stage"
+alias ss="sync-stage"
 alias india="echo `TZ=":Asia/Kolkata" date +"%H:%M"`"
