@@ -35,8 +35,8 @@ check_args () {
 check_diff () {
   FILE_COUNT=$(/usr/bin/git diff --name-only | /usr/bin/wc -l)
   if [[ ${FILE_COUNT} == 0 ]] ; then
-    echo "No diff"
-    exit
+    echo "No git diff"
+    exit 1
   fi
 }
 
