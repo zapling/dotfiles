@@ -23,6 +23,7 @@ export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 
 # Alias
+alias vim="nvim"
 alias stage="ssh andreasstage.textalk.se"
 alias ssh="kitty +kitten ssh $1"
 alias ss="sync-stage"
