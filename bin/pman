@@ -1,17 +1,14 @@
 #!/bin/zsh
-
 ProgName=$(basename $0)
   
 sub_help(){
     echo "Usage: $ProgName <subcommand> [options]\n"
+    echo "pman is a simple wrapper script for the pacman package manager\n"
     echo "Subcommands:"
     echo "    list     List available updates"
     echo "    fetch    Update package database"
     echo "    search   Search for a package"
     echo "    install  Install a package"
-    echo ""
-    echo "For help with each subcommand run:"
-    echo "$ProgName <subcommand> -h|--help"
     echo ""
 }
   
@@ -27,12 +24,12 @@ sub_fetch(){
 
 # Search for package
 sub_search(){
-    pacman -Ss $2
+    pacman -Ss $1
 }
 
 # Install package
 sub_install(){
-    sudo pacman -S $2
+    sudo pacman -S $1
 }
   
 subcommand=$1
