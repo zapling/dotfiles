@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+/usr/bin/yad --center \
+    --display=:0.0 \
+    --width=400 \
+    --title="Break-Reminder" \
+    --button="Done":0 \
+    --timeout=$1 \
+    --timeout-indicator=top \
+    --text=$2
