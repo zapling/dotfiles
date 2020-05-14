@@ -5,10 +5,5 @@ REMOTE_BRANCH=$(ssh shopstage.textalk.se "cd /www/andreasstage.textalk.se/ && gi
 echo "Syncing to stage..."
 gr-sync shopstage.textalk.se /www/andreasstage.textalk.se/ && \
 ssh shopstage.textalk.se "cd /www/andreasstage.textalk.se/build/fastmulang/ && php fastmulang.php deploy sv Admin" && \
-notify-send -i folder-remote "Synced local changes to stage"
-
-# Warn if remote is not on the same branch as local
-if [ "$CURRENT_BRANCH" != "$REMOTE_BRANCH" ]; then
-    echo "\033[1;36mRemote is not on the same branch"
-    exit 1
-fi
+notify-send -i folder-remote "Synced local changes to stage" && \
+[ "$CURRENT_BRANCH" != "$REMOTE_BRANCH" ] && echo "\033[1;36mRemote is not on the same branch" && exit 1
