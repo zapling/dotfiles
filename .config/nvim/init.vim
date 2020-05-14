@@ -22,7 +22,9 @@ Plug 'preservim/nerdtree'
 Plug 'https://github.com/airblade/vim-gitgutter'
 
 " Dev icons
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons', {'commit': '58e57b6'}
+
 call plug#end()
 
 """""""""""""""""""
@@ -58,8 +60,8 @@ set directory=~/.vim/backupf
 set number
 
 " text wrapping
-set textwidth=80
-set colorcolumn=80
+set textwidth=100
+set colorcolumn=100
 
 " status bar
 set laststatus=2
