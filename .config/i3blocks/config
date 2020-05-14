@@ -101,6 +101,5 @@ FULL_COLOR=#4287f5
 AC_COLOR=#535353
 
 [time]
-command=date '+%a %Y-%m-%d %H:%M'
+command=LC_TIME=en_US.utf8; date '+%a %Y-%m-%d %H:%M'
 interval=5
-#color=#fa8023
