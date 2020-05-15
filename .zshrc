@@ -22,10 +22,16 @@ export PATH=~/.local/bin/personal:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 
-# Alias
+###########
+# Aliases #
+###########
+
+# Programs
 alias vim="nvim"
-alias stage="ssh andreasstage.textalk.se"
 alias ssh="kitty +kitten ssh $1"
+
+# Other
+alias stage="ssh andreasstage.textalk.se"
 alias ss="sync-stage"
 alias india="echo `TZ=":Asia/Kolkata" date +"%H:%M"`"
 alias pay="payday 25"
