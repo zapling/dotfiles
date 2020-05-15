@@ -9,6 +9,7 @@ sub_help(){
     echo "    fetch    Update package database"
     echo "    search   Search for a package"
     echo "    install  Install a package"
+    echo "    remove   Remove a package"
     echo ""
 }
   
@@ -31,7 +32,12 @@ sub_search(){
 sub_install(){
     sudo pacman -S $1
 }
-  
+
+# Remove package
+sub_remove(){
+    sudo pacman -Rs $1
+}
+
 subcommand=$1
 case $subcommand in
     "" | "-h" | "--help")
