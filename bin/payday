@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+dom=$1; \
+days=$[ ${dom}-$(date +%-d) ] ; \
+[ ${days} -lt 0 ] && days=$[ ${days} + $(date +%d -d "$(date +%Y%m01 -d 'next month') yesterday") ] ; \
+echo ${days} days until payday
