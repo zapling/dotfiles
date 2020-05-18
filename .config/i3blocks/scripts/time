@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+LC_TIME=en_US.utf8
+if [ "$button" -eq 1 ] ; then
+	echo `TZ=":Asia/Kolkata" date +"%a %Y-%m-%d %H:%M"` 🇮🇳
+else
+	echo `date +"%a %Y-%m-%d %H:%M"` 🇸🇪
+fi
+
