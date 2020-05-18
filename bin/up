@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+if [ $(curl -o /dev/null -I -L -s -w "%{http_code}" http://$1) -eq 200 ]; then
+	echo "$1 is up"
+else
+	echo "$1 is down"
+	exit 1
+fi
+
