@@ -29,6 +29,11 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[payday]
+command=echo "`~/.local/bin/payday 25` "
+interval=once
+color=#fcc726
+
 [keyboard_layout]
 command=xkblayout-state print "%s" ; echo
 interval=1
@@ -101,5 +106,4 @@ FULL_COLOR=#4287f5
 AC_COLOR=#535353
 
 [time]
-command=LC_TIME=en_US.utf8; date '+%a %Y-%m-%d %H:%M'
 interval=5
