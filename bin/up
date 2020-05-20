@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 if [ $(curl -o /dev/null -I -L -s -w "%{http_code}" $1) -eq 200 ]; then
-	echo "$1 is up"
+	echo "\033[0;32m$1 is up"
 else
 	echo "\033[0;31m$1 is down"
 	exit 1
