@@ -14,6 +14,11 @@ Custom scripts are located under `bin/`.
 - `certcheck` Check the expire date of given certificate
 - `personal/5min-break` Display a window reminding you to take breaks every hour, if you are connected to specific VPN.
 
+Custom `i3blocks` scripts are located under `.config/i3blocks/scripts/`
+
+- `time` Show current Swedish time, when clicked show current time in India
+- `spotify-current-song` Show the song currently playing
+- `certificate-checker` Show warning if VPN certificate is expired
 
 ## Main players
 
