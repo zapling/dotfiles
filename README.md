@@ -11,7 +11,9 @@ Custom scripts are located under `bin/`.
   - `pman search` Search for a package
   - `pman install` Install a package
   - `pman remove` Remove a package
+- `certcheck` Check the expire date of given certificate
 - `personal/5min-break` Display a window reminding you to take breaks every hour, if you are connected to specific VPN.
+
 
 ## Main players
 
