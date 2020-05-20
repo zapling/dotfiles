@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+END_DATE=$(openssl x509 -enddate -noout -in $1 | awk '{print substr($0,10)}')
+if openssl x509 -checkend 86400 -noout -in $1 > /dev/null
+then
+    echo "\033[0;32m$END_DATE"
+else
+    echo "\033[0;31m$END_DATE"
+    exit 1
+fi
