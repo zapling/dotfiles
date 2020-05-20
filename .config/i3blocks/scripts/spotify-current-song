@@ -219,4 +219,6 @@ if __name__ == "__main__":
         sys.exit(0)
 
     song = Spotify.getCurrentSong()
+    if (song is None):
+        return
     print(song)
