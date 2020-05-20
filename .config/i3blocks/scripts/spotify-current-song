@@ -1,0 +1,98 @@
+#!/usr/bin/python3
+import sys
+import http.server
+import urllib.request
+import urllib.parse
+import json
+
+REDIRECT_URI = 'http://localhost:8080/'
+
+CLIENT_ID = ""
+CLIENT_SECRET = ""
+
+HTTP_SERVER = None
+
+class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        url_parse = urllib.parse.urlparse(self.path)
+        params = urllib.parse.parse_qs(url_parse.query)
+
+        if len(params['code']) != 1:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write(b'Missing code param')
+            return
+
+        code = params['code'][0]
+
+        data = urllib.parse.urlencode(
+            {
+                'grant_type': 'authorization_code',
+                'code': code,
+                'redirect_uri': REDIRECT_URI,
+                'client_id': CLIENT_ID,
+                'client_secret': CLIENT_SECRET
+            }
+        ).encode()
+        request = urllib.request.Request(
+            url='https://accounts.spotify.com/api/token',
+            data=data,
+            headers={
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        )
+
+        response = json.loads(urllib.request.urlopen(request).read())
+
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+
+        self.wfile.write(json.dumps(response).encode())
+
+def StartHTTPServer():
+    handler = SimpleHTTPRequestHandler
+    server_address = ('', 8080)
+    HTTP_SERVER = http.server.HTTPServer(server_address, handler)
+    HTTP_SERVER.serve_forever()
+
+def GetCurrentSong(access_token):
+    request = urllib.request.Request(
+        url='https://api.spotify.com/v1/me/player/currently-playing',
+        headers={
+            'Authorization': 'Bearer ' + access_token
+        }
+    )
+    response = json.loads(urllib.request.urlopen(request).read())
+
+    if (response['is_playing'] is False):
+        return
+
+    item = response['item']
+
+    text = "{} - {}".format(item['name'], item['artists'][0]['name'])
+
+
+    print(text)
+
+if __name__ == "__main__":
+    if (sys.argv[1] == "--auth"):
+        clientId = sys.argv[2]
+        secret = sys.argv[3]
+        CLIENT_ID = clientId
+        CLIENT_SECRET = secret
+
+        print(
+            "https://accounts.spotify.com/authorize" +
+            "?client_id={}".format(clientId) +
+            "&response_type=code" +
+            "&redirect_uri={}".format(REDIRECT_URI) +
+            "&scope=user-read-currently-playing"
+        )
+        StartHTTPServer()
+        sys.exit(0)
+
+    access_token = sys.argv[1]
+    GetCurrentSong(access_token)
+
