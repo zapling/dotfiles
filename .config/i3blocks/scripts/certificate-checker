@@ -1,0 +1,19 @@
+#!/usr/bin/zsh
+CERT=false
+
+# Textalk certificate
+TEXTALK=$(~/.local/bin/certcheck ~/Documents/vpn/textalk/cert.pem)
+if [ $? -eq 1 ]; then
+    CERT="Textalk VPN certificate expired!"
+fi
+
+if [ "$CERT" != "false" ]; then
+    echo $CERT
+else
+    echo "" # empty string, nothing is showed
+fi
+
+echo "" # short_text
+echo "#fc2003" # color
+echo "#000000" # background color
+

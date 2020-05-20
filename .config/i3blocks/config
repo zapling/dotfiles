@@ -29,10 +29,8 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-#[payday]
-#command=echo "`~/.local/bin/payday 25` "
-#interval=once
-#color=#fcc726
+[certificate-checker]
+interval=86400 # once a day
 
 [keyboard_layout]
 command=xkblayout-state print "%s" ; echo
