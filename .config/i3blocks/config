@@ -29,6 +29,10 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[spotify-current-song]
+interval=5
+color=#1DB954
+
 [certificate-checker]
 interval=86400 # once a day
 
