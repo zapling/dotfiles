@@ -1,4 +1,31 @@
 #!/usr/bin/python3
+#
+# Display the song currently playing in Spotify
+#
+# === Setup ===
+# To use the Spotify API you will need to create an app https://developer.spotify.com/dashboard/applications
+#
+# Get your apps 'client_id' and 'secret' and run the following command:
+#
+# spotify-current-song --setup <client_id> <secret>
+#
+# An URL will be printed to the console, follow it and click through. Until it says 'Setup complete!'
+#
+# You are now ready to use 'spotify-current-song'
+#
+# === Usage ===
+# spotify-current-song
+# Displays the song currently playing
+#
+# spotify-current-song --refresh
+# Refreshes the token
+#
+# spotify-current-song --setup <client_id> <secret>
+# Setup the app for usage.
+# 'token' and 'request_token' will be saved to '~/.config/spotify-current-song/tokens'
+# App info 'client_id' and 'secret' will be saved to '~/.config/spotify-current-song/app'
+#
+
 import sys
 import http.server
 import urllib.request
