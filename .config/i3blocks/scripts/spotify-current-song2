@@ -1,0 +1,260 @@
+#!/usr/bin/python3
+import sys
+import pathlib
+import http.server
+import urllib.parse
+import urllib.request
+import json
+
+USAGE = (
+  "spotify-current-song\n\n"
+  "Get the song currently playing in Spotify\n\n"
+  "usage: spotify-current-song [option]\n"
+  "  options:\n"
+  "    --setup [client_id] [secret]\n"
+  "        Required setup of OAUTH flow.\n"
+  "    --refresh\n"
+  "        Force refresh the access token."
+)
+
+class SpotifyException(Exception):
+  pass
+
+class SystemHelper(object):
+
+  ##
+  # File helpers
+  ##
+
+  @classmethod
+  def getConfigPath(cls, filename = None):
+    path = str(pathlib.Path.home()) + '/.config/spotify-current-song2/'
+
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+
+    if (filename is not None):
+      return path + filename
+    return path
+
+  @classmethod
+  def writeDataToFile(cls, filename, data):
+    full_path = cls.getConfigPath(filename=filename)
+
+    f = open(full_path, 'w')
+    with f as out:
+      out.write(data)
+
+  @classmethod
+  def getDataFromFile(cls, filename):
+    full_path = cls.getConfigPath(filename=filename)
+
+    f = open(full_path, 'r')
+    lines = f.readlines()
+
+    fixed_lines = []
+    for line in lines:
+      fixed_lines.append(line.strip('\n'))
+
+    return fixed_lines
+
+  ##
+  # Request helpers
+  ##
+
+  @classmethod
+  def request(cls, url, headers, body=None):
+    if body is not None:
+      body = urllib.parse.urlencode(body).encode()
+
+    request = urllib.request.Request(
+      url=url,
+      data=body,
+      headers=headers
+    )
+
+    try:
+      response = urllib.request.urlopen(request)
+
+      if response.code == 204:
+        return None
+
+      return json.loads(response.read())
+    except urllib.error.HTTPError as e:
+      if (e.code == 401): # token has expired
+        Spotify.requestNewToken()
+        return cls.request(url=url, headers=headers, body=body)
+
+      raise SpotifyException(e.read())
+
+
+class SetupHandler(http.server.BaseHTTPRequestHandler):
+
+  def do_GET(self):
+    params = self._getURLParams()
+
+    # Check if we have 'code' param
+    if len(params['code']) != 1:
+      self.send_response(400)
+      self.end_headers()
+      self.wfile.write(b'Missing required code param')
+      return
+
+    try:
+      tokens = self._requestSpotifyTokens(code=params['code'][0])
+
+    except Exception as e:
+      self.send_response(500)
+      self.end_headers()
+      self.wfile.write(b'Server error')
+      return
+
+    tokens = "{}\n{}".format(tokens['access_token'], tokens['refresh_token'])
+    Spotify.writeDataToFile(filename='tokens', data=tokens)
+
+    self.send_response(200)
+    self.end_headers()
+    self.wfile.write(b'Setup completed!')
+
+    print("Setup completed")
+
+  def _getURLParams(self):
+    parsed_url = urllib.parse.urlparse(self.path)
+    return urllib.parse.parse_qs(parsed_url.query)
+
+  def _requestSpotifyTokens(self, code):
+    app = Spotify.getAppData()
+
+    body = {
+      'grant_type': 'authorization_code',
+      'code': code,
+      'redirect_uri': Spotify.REDIRECT_URI,
+      'client_id': app['client_id'],
+      'client_secret': app['secret']
+    }
+
+    headers = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    try:
+      data = Spotify.request(
+        url='https://accounts.spotify.com/api/token',
+        headers=headers,
+        body=body
+      )
+
+      return data
+
+    except SpotifyException as e:
+      raise Exception(e)
+
+class Spotify(SystemHelper):
+
+  REDIRECT_URI = 'http://localhost:8080/'
+
+  @classmethod
+  def getCurrentSong(cls):
+    tokens = cls.getTokenData()
+
+    response = cls.request(
+      url="https://api.spotify.com/v1/me/player/currently-playing",
+      headers={
+        'Authorization': 'Bearer ' + tokens['token']
+      }
+    )
+
+    if response is None:
+      print("")
+      sys.exit(0)
+
+    if response['is_playing'] is False:
+      print("")
+      sys.exit(0)
+
+    item = response['item']
+
+    text = "{} - {}".format(item['name'], item['artists'][0]['name'])
+
+    print(text)
+
+  @classmethod
+  def requestNewToken(cls):
+    app = cls.getAppData()
+    tokens = cls.getTokenData()
+
+    body = {
+      'grant_type': 'refresh_token',
+      'refresh_token': tokens['refresh'],
+      'client_id': app['client_id'],
+      'client_secret': app['secret']
+    }
+
+    headers = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = cls.request(
+      url='https://accounts.spotify.com/api/token',
+      headers=headers,
+      body=body
+    )
+
+    new_token_data = "{}\n{}".format(response['access_token'], tokens['refresh'])
+    cls.writeDataToFile(filename='tokens', data=new_token_data)
+
+  @classmethod
+  def setup(cls, client_id, secret):
+    # Save client_id and secret to file
+    data = "{}\n{}".format(client_id, secret)
+    cls.writeDataToFile(filename='app', data=data)
+
+    oauth_url = ("https://accounts.spotify.com/authorize"
+                 "?client_id={}"
+                 "&response_type=code"
+                 "&redirect_uri={}"
+                 "&scope=user-read-currently-playing"
+                ).format(client_id, cls.REDIRECT_URI)
+
+    print(oauth_url)
+
+    handler = SetupHandler
+    server = http.server.HTTPServer(('', 8080), handler)
+
+    try:
+      server.serve_forever()
+    except:
+      pass
+
+  @classmethod
+  def getTokenData(cls):
+    data = cls.getDataFromFile(filename='tokens')
+    return {'token': data[0], 'refresh': data[1]}
+
+  @classmethod
+  def getAppData(cls):
+    data = cls.getDataFromFile(filename='app')
+    return {'client_id': data[0], 'secret': data[1]}
+
+if __name__ == "__main__":
+  spotify = Spotify()
+
+  if (len(sys.argv) > 1):
+    allowed_args = ['--setup', '--refresh']
+    arg = sys.argv[1]
+    if arg not in allowed_args:
+      print(USAGE)
+      sys.exit(1)
+
+    if arg == '--setup':
+      client_id = sys.argv[2]
+      secret = sys.argv[3]
+
+      spotify.setup(client_id, secret)
+      sys.exit(0)
+
+    if arg == '--refresh':
+      print("Requesting new token")
+      Spotify.requestNewToken()
+      sys.exit(0)
+
+  spotify.getCurrentSong()
