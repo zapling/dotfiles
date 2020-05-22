@@ -29,7 +29,7 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[spotify-current-song]
+[current-spotify-song]
 interval=5
 color=#1DB954
 
