@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import os
 import sys
 import json
 import pathlib
@@ -161,7 +162,7 @@ def refreshToken():
   writeConfigData('tokens', new_token_data)
 
 """ Get the song currently playing """
-def getCurrentSong():
+def getCurrentSong(button):
   tokens = getConfigData('tokens')
   res = request(
     url="https://api.spotify.com/v1/me/player/currently-playing",
@@ -180,14 +181,36 @@ def getCurrentSong():
       return
 
     item = res['data']['item']
-    output = getFormattedOutput(item)
-    print(output)
+    output(item, button)
 
-def getFormattedOutput(item):
-  return "{} - {}".format(item['name'], item['artists'][0]['name'])
+""" Output the text """
+def output(item, button):
+  song_info = getSongInfo(item)
+  album = getAlbumInfo(item)
+
+  if button == "1":
+    text = album
+  else:
+    text = song_info
+
+  print("{}".format(text))
+
+def getSongInfo(item):
+  artists = []
+  for artist in item['artists']:
+    artists.append(artist['name'])
+
+  artists = ', '.join(artists)
+
+  return "{} - {}".format(item['name'], artists)
+
+def getAlbumInfo(item):
+  album_year = item['album']['release_date'].split('-')[0]
+  return "{} ({})".format(item['album']['name'], album_year)
 
 if __name__ == '__main__':
   if (len(sys.argv) > 1 and sys.argv[1] == 'setup'):
     setup()
 
-  getCurrentSong()
+  button = os.environ.get('button', 0)
+  getCurrentSong(button)
