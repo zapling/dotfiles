@@ -215,7 +215,7 @@ def getSongInfo(item, num_artists, max_length):
 
   # Cut if max_length is set and needed
   if max_length != 'false' and len(song) > int(max_length):
-    song = song[:int(max_length)]
+    song = song[:int(max_length)-3]
     song += "..."
 
   # Only add '-' if we have any artists
