@@ -17,7 +17,7 @@ Custom scripts are located under `bin/`.
 Custom `i3blocks` scripts are located under `.config/i3blocks/scripts/`
 
 - `time` Show current Swedish time, when clicked show current time in India
-- `spotify-current-song` Show the song currently playing
+- `current-spotify-song` Show the song currently playing
 - `certificate-checker` Show warning if VPN certificate is expired
 
 ## Main players
