@@ -162,7 +162,7 @@ def refreshToken():
   writeConfigData('tokens', new_token_data)
 
 """ Get the song currently playing """
-def getCurrentSong(button):
+def getCurrentSong(options):
   tokens = getConfigData('tokens')
   res = request(
     url="https://api.spotify.com/v1/me/player/currently-playing",
@@ -170,6 +170,10 @@ def getCurrentSong(button):
       'Authorization': 'Bearer ' + tokens[0]
     }
   )
+
+  if res['code'] == 429: # rate limit hit!
+    print("[Error: Rate limit hit!]")
+    return
 
   if res['code'] == 401: # token expired
     refreshToken()
@@ -181,29 +185,49 @@ def getCurrentSong(button):
       return
 
     item = res['data']['item']
-    output(item, button)
+    output(item, options)
 
 """ Output the text """
-def output(item, button):
-  song_info = getSongInfo(item)
+def output(item, options):
+  song_info = getSongInfo(item, options['artists'], options['max_length'])
   album = getAlbumInfo(item)
 
-  if button == "1":
+  if options['button'] == "1":
     text = album
   else:
     text = song_info
 
   print("{}".format(text))
 
-def getSongInfo(item):
+""" Get the song name and artists """
+def getSongInfo(item, num_artists, max_length):
   artists = []
   for artist in item['artists']:
-    artists.append(artist['name'])
+    if num_artists == 'all':
+      artists.append(artist['name'])
+      continue
 
-  artists = ', '.join(artists)
+    if len(artists) < int(num_artists):
+      artists.append(artist['name'])
+      continue
+  
+  song = item['name']
 
-  return "{} - {}".format(item['name'], artists)
+  # Cut if max_length is set and needed
+  if max_length != 'false' and len(song) > int(max_length):
+    song = song[:int(max_length)]
+    song += "..."
 
+  # Only add '-' if we have any artists
+  if len(artists) > 0:
+    artists = ', '.join(artists)
+    text = "{} - {}".format(song, artists)
+  else:
+    text = song
+
+  return text
+
+""" Get album name and release year """
 def getAlbumInfo(item):
   album_year = item['album']['release_date'].split('-')[0]
   return "{} ({})".format(item['album']['name'], album_year)
@@ -212,5 +236,10 @@ if __name__ == '__main__':
   if (len(sys.argv) > 1 and sys.argv[1] == 'setup'):
     setup()
 
-  button = os.environ.get('button', 0)
-  getCurrentSong(button)
+  options = {
+    'button': os.environ.get('button', '0'),
+    'artists': os.environ.get('artists', 'all'),
+    'max_length': os.environ.get('max_length', 'false'),
+  }
+
+  getCurrentSong(options)
