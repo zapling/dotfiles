@@ -33,4 +33,3 @@ alias ssh="kitty +kitten ssh $1"
 # Other
 alias stage="ssh andreasstage.textalk.se"
 alias ss="sync-stage"
-alias india="echo `TZ=":Asia/Kolkata" date +"%H:%M"`"
