@@ -242,4 +242,5 @@ if __name__ == '__main__':
     'max_length': os.environ.get('max_length', 'false'),
   }
 
+  # ps cax | grep aux 
   getCurrentSong(options)
