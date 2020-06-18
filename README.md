@@ -7,6 +7,7 @@ Custom scripts are located under `bin/`.
 - `gr-sync` Sync local git repository diff to a remote server
 - `pman` Syntactic sugar for `pacman`
   - `pman list` List available package updates
+  - `pman info` Information about installed package
   - `pman fetch` Update package database
   - `pman search` Search for a package
   - `pman install` Install a package
