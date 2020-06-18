@@ -6,13 +6,19 @@ sub_help(){
     echo "pman is a simple wrapper script for the pacman package manager\n"
     echo "Subcommands:"
     echo "    list     List available updates"
+    echo "    info     Information about installed package"
     echo "    fetch    Update package database"
     echo "    search   Search for a package"
     echo "    install  Install a package"
     echo "    remove   Remove a package"
     echo ""
 }
-  
+
+# Info about installed package
+sub_info(){
+    pacman -Qi $1
+}
+
 # List available updates
 sub_list(){
     pacman -Qu
