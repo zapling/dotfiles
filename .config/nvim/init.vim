@@ -21,9 +21,8 @@ Plug 'preservim/nerdtree'
 " Git gutter
 Plug 'https://github.com/airblade/vim-gitgutter'
 
-" Dev icons
-"Plug 'ryanoasis/vim-devicons'
-Plug 'ryanoasis/vim-devicons', {'commit': '58e57b6'}
+" Comment
+Plug 'joom/vim-commentary'
 
 call plug#end()
 
@@ -44,6 +43,10 @@ nnoremap <CR> :noh<CR>
 map ; :Files<CR>
 " File tree
 map ' :NERDTreeToggle<CR>
+
+" Re-generate ctags when saving PHP files
+" index classes, functions, interfaces, but not variables or JavaScript functions.
+au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
 
 """"""
 " UI "
@@ -75,6 +78,9 @@ set ofu=syntaxcomplete#Complete
 " let vim open up to 100 tabs at once
 set tabpagemax=100
 
+" vim update timeout
+set updatetime=100
+
 """""""""""""
 " Searching "
 """""""""""""
@@ -85,6 +91,19 @@ set smartcase "override the 'ignorecase' option if the search pattern contains u
 set gdefault "imply global for new searches
 
 """""""""
+" Input "
+"""""""""
+
+" tabstop:          Width of tab character
+" softtabstop:      Fine tunes the amount of white space to be added
+" shiftwidth        Determines the amount of whitespace to add in normal mode
+" expandtab:        When this option is enabled, vi will use spaces instead of tabs
+set tabstop     =4
+set softtabstop =4
+set shiftwidth  =4
+set expandtab
+
+"""""""""
 " Theme "
 """""""""
 
@@ -93,7 +112,7 @@ colorscheme onedark
 
 " Lightline One Dark theme
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
+  \     'colorscheme': 'onedark',
   \ }
 
 " Terminal true color
