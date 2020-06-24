@@ -35,5 +35,5 @@ Custom `i3blocks` scripts are located under `.config/i3blocks/scripts/`
 Clone repository to your home directroy and run the setup script.
 
 ```
-cd ~ && git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
+cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
 ```
