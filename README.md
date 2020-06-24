@@ -29,3 +29,11 @@ Custom `i3blocks` scripts are located under `.config/i3blocks/scripts/`
 - [kitty](https://github.com/kovidgoyal/kitty)
 
 ![Image of Desktop](i3wm.png)
+
+## Setup
+
+Clone repository to your home directroy and run the setup script.
+
+```
+cd ~ && git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
+```
