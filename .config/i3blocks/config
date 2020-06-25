@@ -90,5 +90,10 @@ CHARGING_COLOR=#00AFE3
 FULL_COLOR=#4287f5
 AC_COLOR=#535353
 
+[pacman-updates]
+color=#f7a728
+label=📦 
+interval=300
+
 [time]
 interval=5
