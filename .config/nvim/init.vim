@@ -1,12 +1,106 @@
+" =============================================================================================== "
 " neovim config
 " github.com/zapling
+" =============================================================================================== "
 
-""" Source files
-so ~/.config/nvim/plugins.vim
-so ~/.config/nvim/general.vim
-so ~/.config/nvim/autocmd.vim
-so ~/.config/nvim/theme.vim
-so ~/.config/nvim/keys.vim
+" =============================================================================================== "
+" Plugins
+" =============================================================================================== "
 
-""" Reload vim config
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }   " Search
+Plug 'junegunn/fzf.vim'
+
+Plug 'itchyny/lightline.vim'                          " Statusbar
+Plug 'preservim/nerdtree'                             " File tree
+Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
+Plug 'scrooloose/syntastic'                           " Linting
+Plug 'valloric/youcompleteme'                         " Auto complete
+
+Plug 'joom/vim-commentary'                            " Toggle comment
+Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
+Plug 'ap/vim-css-color'                               " Display CSS hex colors
+
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+" =============================================================================================== "
+" Commands
+" =============================================================================================== "
+
 command! Reload :so ~/.config/nvim/init.vim
+
+" =============================================================================================== "
+" Settings
+" =============================================================================================== "
+
+set nocompatible
+set updatetime=100
+set number
+
+""" dirs
+set backupdir=~/.vim/backup
+set directory=~/.vim/backupf
+
+""" text / tabs
+set textwidth   =100
+set colorcolumn =100
+set tabstop     =4
+set softtabstop =4
+set shiftwidth  =4
+set expandtab
+
+""" indentation
+set smartindent
+
+""" search
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+""" wrap lines
+set wrap
+set showbreak=>\ \ \
+
+""" ui
+set laststatus=2
+syntax enable
+colorscheme gruvbox
+
+" =============================================================================================== "
+" Plugin settings
+" =============================================================================================== "
+
+let g:lightline = {
+  \     'colorscheme': 'gruvbox',
+  \ }
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" =============================================================================================== "
+" Keybinds
+" =============================================================================================== "
+
+nnoremap <Backspace> <Nop>
+map <Backspace> <leader>
+
+nnoremap <CR> :noh<CR>
+
+map <leader>p :Files<CR>
+map <leader>b :NERDTreeToggle<CR>
+map <leader>B :NERDTreeFind<CR>
+map <leader>c gcc
+
+" =============================================================================================== "
+" Languages
+" =============================================================================================== "
+
+au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes
+    \ --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
+
