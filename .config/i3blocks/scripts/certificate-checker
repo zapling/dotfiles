@@ -10,7 +10,7 @@ fi
 if [ "$CERT" != "false" ]; then
     echo $CERT
 else
-    echo "" # empty string, nothing is showed
+    exit 0
 fi
 
 echo "" # short_text
