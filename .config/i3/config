@@ -35,7 +35,11 @@ bar {
         background #1b1b1d
 
         # <colorclass> <border> <background> <text>
-	focused_workspace #000000 #e96153 #1b1b1d
+        focused_workspace  #989719 #272727 #B8BA25
+        active_workspace   #333333 #272727 #B8BA25
+        inactive_workspace #333333 #272727 #888888
+        urgent_workspace   #2F343A #CC231C #EBDBB2
+        binding_mode       #2F343A #CC231C #EBDBB2
     }
     strip_workspace_numbers no
 }
@@ -148,7 +152,7 @@ bindsym $mod+Return exec /usr/bin/kitty
 bindsym $mod+Shift+q [con_id="__focused__" instance="^((?!dropdown).)*$"] kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#D94511' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu > '"
+bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#989719' -sf '#ebdbb2' -fn 'monospace-10' -p 'dmenu > '"
 
 # change focus
 #bindsym $mod+j focus left
