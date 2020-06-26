@@ -16,7 +16,7 @@ Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'preservim/nerdtree'                             " File tree
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'scrooloose/syntastic'                           " Linting
-Plug 'valloric/youcompleteme'                         " Auto complete
+"Plug 'lifepillar/vim-mucomplete'                      " Simple auto complete
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
@@ -24,6 +24,8 @@ Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'ap/vim-css-color'                               " Display CSS hex colors
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
+
+"Plug 'StanAngeloff/php.vim'
 
 Plug 'morhetz/gruvbox'
 
@@ -34,6 +36,7 @@ call plug#end()
 " =============================================================================================== "
 
 command! Reload :so ~/.config/nvim/init.vim
+command! Tags :AsyncRun php ~/build/phpctags -R=true --kinds=+cfi-vj
 
 " =============================================================================================== "
 " Settings
@@ -70,7 +73,9 @@ set wrap
 set showbreak=>\ \ \
 
 """ ui
-set laststatus=2
+" set laststatus=2
+" set completeopt+=menuone
+" set shortmess+=c
 syntax enable
 colorscheme gruvbox
 
