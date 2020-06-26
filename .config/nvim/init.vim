@@ -17,10 +17,13 @@ Plug 'preservim/nerdtree'                             " File tree
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'scrooloose/syntastic'                           " Linting
 Plug 'valloric/youcompleteme'                         " Auto complete
+Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'ap/vim-css-color'                               " Display CSS hex colors
+Plug 'editorconfig/editorconfig-vim'                  " Editor config
+Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
 Plug 'morhetz/gruvbox'
 
@@ -38,7 +41,8 @@ command! Reload :so ~/.config/nvim/init.vim
 
 set nocompatible
 set updatetime=100
-set number
+set number relativenumber
+set shellcmdflag=-ic
 
 """ dirs
 set backupdir=~/.vim/backup
@@ -83,6 +87,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:asyncrun_open = 6
+
 " =============================================================================================== "
 " Keybinds
 " =============================================================================================== "
@@ -101,6 +107,6 @@ map <leader>c gcc
 " Languages
 " =============================================================================================== "
 
-au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes
-    \ --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
+" au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes
+"     \ --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
 
