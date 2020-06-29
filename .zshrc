@@ -18,6 +18,8 @@ protectDropdownTerminal () {
 # Disable "exit" command for dropdown terminals
 protectDropdownTerminal
 
+export EDITOR=/usr/bin/nvim
+
 export PATH=~/.local/bin/personal:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
