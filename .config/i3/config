@@ -1,8 +1,8 @@
-#
-# i3 config
-#
-# Andreas Palm 🌴
-#
+# ------------------- #
+# i3 config           #
+# Andreas Palm 🌴     #
+# github.com/zapling  #
+# ------------------- #
 
 #--------/ Variables /------#
 
@@ -32,7 +32,7 @@ bar {
     font pango:monospace 10
     status_command i3blocks
     colors {
-        background #1b1b1d
+        background #272727
 
         # <colorclass> <border> <background> <text>
         focused_workspace  #989719 #272727 #B8BA25
@@ -131,15 +131,15 @@ for_window [class="Pavucontrol"] resize set 740 480
 for_window [class="Galculator"] floating enable
 
 # class                 border  bground text    indicator child_border
-client.focused          #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
-client.focused_inactive #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
-client.unfocused        #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
-client.urgent           #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
-client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #BA3B0E
+client.focused          #F84F13 #000000 #FFFFFF #F84F13   #989719
+client.focused_inactive #F84F13 #000000 #FFFFFF #F84F13   #989719
+client.unfocused        #F84F13 #000000 #FFFFFF #F84F13   #989719
+client.urgent           #F84F13 #000000 #FFFFFF #F84F13   #989719
+client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #989719
 
 #--------/ Gaps /-----------#
 
-workspace $ws1 gaps inner $gaps_inner 
+workspace $ws1 gaps inner $gaps_inner
 workspace $ws2 gaps inner $gaps_inner
 
 #--------/ Base i3 cfg /----#
@@ -306,13 +306,13 @@ mode "$mode_gaps_outer" {
 # Mouse pointer keyboard controls
 # set $pointer Pointer: (z) mouse click, (x) mouse 1 down
 # bindsym $mod+x mode "$pointer"
-# 
+#
 # mode "$pointer" {
 #         bindsym z "exec xdotool click --clearmodifiers 1"
 #         bindsym x mode "$pointer_select" ; exec "xdotool mousedown 1"
 #         bindsym Escape mode "default"
 # }
-# 
+#
 # set $pointer_select Pointer_select: (x) mouse 1 up
 # mode "$pointer_select" {
 #         bindsym x mode "$pointer"; exec "xdotool mouseup 1"
