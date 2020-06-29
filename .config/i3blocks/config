@@ -38,62 +38,73 @@ max_length=20
 [certificate-checker]
 interval=86400 # once a day
 
-[keyboard_layout]
-command=xkblayout-state print "%s" ; echo
-interval=1
-color=#ed11ab
-
-[volume-pulseaudio]
-interval=2
-signal=1
-LONG_FORMAT="${SYMB}${VOL}%"
-AUDIO_HIGH_SYMBOL=🔊 
-AUDIO_MED_SYMBOL=🔉 
-AUDIO_LOW_SYMBOL=🔈 
-AUDIO_MUTED_SYMBOL=🔇 
-DEFAULT_COLOR="#fcc726"
-
 [nm-vpn]
 label=🔒 
+init_color=#fabc2e
+on_color=#ebdbb2
 interval=5
 
-[cpu_usage]
-interval=10
-LABEL=💻 
-color=#11ede9
+# [cpu_usage]
+# interval=10
+# LABEL=💻 
+# color=#11ede9
 
-[memory]
-label=💿 
-interval=30
-color=#11b2ed
+# [memory]
+# label=💿 
+# interval=30
+# color=#11b2ed
 
-[disk]
-LABEL=:/ 
-DIR=/
-interval=30
-color=#fcc726
+# [disk]
+# LABEL=:/ 
+# DIR=/
+# interval=30
+# color=#fcc726
 
-[batterybar]
+# [batterybar]
+# interval=5
+# markup=pango
+# min_width=■■■■■
+# # Discharging colors low to high
+# C1=#FF0027
+# C2=#FF3B05
+# C3=#FFB923
+# C4=#FFD000
+# C5=#E4FF00
+# C6=#ADFF00
+# C7=#6DFF00
+# C8=#10BA00
+# CHARGING_COLOR=#00AFE3
+# FULL_COLOR=#4287f5
+# AC_COLOR=#535353
+
+[battery]
 interval=5
 markup=pango
-min_width=■■■■■
-# Discharging colors low to high
-C1=#FF0027
-C2=#FF3B05
-C3=#FFB923
-C4=#FFD000
-C5=#E4FF00
-C6=#ADFF00
-C7=#6DFF00
-C8=#10BA00
-CHARGING_COLOR=#00AFE3
-FULL_COLOR=#4287f5
-AC_COLOR=#535353
+color_full=#ebdbb2
+color_high=#ebdbb2
+color_mid=#ebdbb2
+color_low=#ebdbb2
 
 [pacman-updates]
 color=#f7a728
 label=📦 
 interval=300
 
+[keyboard_layout]
+command=LANG=$(xkblayout-state print "%s" ; echo) ; [[ $LANG != "us" ]] && echo [$LANG]
+interval=1
+color=#fb4833
+
+[volume-pulseaudio]
+interval=2
+signal=1
+LONG_FORMAT="[${SYMB}${VOL}%]"
+AUDIO_HIGH_SYMBOL=🔊 
+AUDIO_MED_SYMBOL=🔉 
+AUDIO_LOW_SYMBOL=🔈 
+AUDIO_MUTED_SYMBOL=🔇 
+DEFAULT_COLOR="#ebdbb2"
+
 [time]
 interval=5
+color=#ebdbb2
