@@ -80,10 +80,10 @@ interval=5
 [battery]
 interval=5
 markup=pango
-color_full=#ebdbb2
-color_high=#ebdbb2
-color_mid=#ebdbb2
-color_low=#ebdbb2
+color=#ebdbb2
+color_charging=#b8ba25
+color_discharging=#fb4833
+wrap_in_brackets=true
 
 [pacman-updates]
 color=#f7a728
