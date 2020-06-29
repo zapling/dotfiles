@@ -66,7 +66,6 @@ set smartindent
 set incsearch
 set ignorecase
 set smartcase
-set gdefault
 
 """ wrap lines
 set wrap
