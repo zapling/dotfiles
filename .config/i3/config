@@ -99,6 +99,7 @@ for_window [class="Thunar"] floating enable
 for_window [class="Gedit"] floating enable
 for_window [class="Eog"] floating enable
 for_window [class="Gnome-calculator"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
 
 # Dropdown terminal
 for_window [instance="dropdown1"] border pixel 3
