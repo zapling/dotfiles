@@ -145,7 +145,6 @@ def getWeatherEmoji(number):
 if __name__ == "__main__":
     config = getLoadedConfig()
     data = getForecastByWifiName(config)
-    print(data)
     if data is not None:
         emoji = getWeatherEmoji(data['symbol']['var'])
         print("{0}°C {1}".format(data['temperature']['value'], emoji))
