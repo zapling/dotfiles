@@ -38,6 +38,10 @@ max_length=20
 [certificate-checker]
 interval=86400 # once a day
 
+[weather-yr.no]
+interval=60
+color=#ebdbb2
+
 [nm-vpn]
 label=🔒 
 init_color=#fabc2e
