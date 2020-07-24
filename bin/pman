@@ -1,6 +1,6 @@
 #!/bin/zsh
 ProgName=$(basename $0)
-  
+
 sub_help(){
     echo "Usage: $ProgName <subcommand> [options]\n"
     echo "pman is a simple wrapper script for the pacman package manager\n"
@@ -11,6 +11,7 @@ sub_help(){
     echo "    search   Search for a package"
     echo "    install  Install a package"
     echo "    remove   Remove a package"
+    echo "    upgrade  Install updates for all packages available"
     echo ""
 }
 
@@ -42,6 +43,11 @@ sub_install(){
 # Remove package
 sub_remove(){
     sudo pacman -Rs $1
+}
+
+# Upgrade system
+sub_upgrade(){
+    sudo pacman -Syu
 }
 
 subcommand=$1
