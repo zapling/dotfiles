@@ -16,7 +16,7 @@ Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'preservim/nerdtree'                             " File tree
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'scrooloose/syntastic'                           " Linting
-"Plug 'lifepillar/vim-mucomplete'                      " Simple auto complete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
@@ -26,6 +26,7 @@ Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
 "Plug 'StanAngeloff/php.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
 
 Plug 'morhetz/gruvbox'
 
@@ -90,6 +91,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 let g:asyncrun_open = 6
 
