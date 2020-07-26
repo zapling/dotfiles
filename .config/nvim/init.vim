@@ -21,7 +21,6 @@ Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
-Plug 'ap/vim-css-color'                               " Display CSS hex colors
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
@@ -99,15 +98,16 @@ let g:asyncrun_open = 6
 " Keybinds
 " =============================================================================================== "
 
+nnoremap <CR> :noh<CR>
+
 nnoremap <Backspace> <Nop>
 map <Backspace> <leader>
 
-nnoremap <CR> :noh<CR>
+map <leader>p :GFiles<CR>
+map <leader>P :Files<CR>
 
-map <leader>p :Files<CR>
 map <leader>b :NERDTreeToggle<CR>
 map <leader>B :NERDTreeFind<CR>
-map <leader>c gcc
 
 " =============================================================================================== "
 " Languages
