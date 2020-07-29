@@ -75,6 +75,7 @@ set showbreak=>\ \ \
 " set laststatus=2
 " set completeopt+=menuone
 " set shortmess+=c
+set noshowmode
 syntax enable
 colorscheme gruvbox
 
