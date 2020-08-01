@@ -1,8 +1,7 @@
 #!/bin/zsh
-ProgName=$(basename $0)
 
-sub_help(){
-    echo "Usage: $ProgName <subcommand> [options]\n"
+pman__help() {
+    echo "Usage: pman <subcommand> [options]\n"
     echo "pman is a simple wrapper script for the pacman package manager\n"
     echo "Subcommands:"
     echo "    list     List available updates"
@@ -16,52 +15,45 @@ sub_help(){
 }
 
 # Info about installed package
-sub_info(){
+pman__info(){
     pacman -Qi $1
 }
 
 # List available updates
-sub_list(){
+pman__list(){
     pacman -Qu
 }
 
 # Update database
-sub_fetch(){
+pman__fetch(){
     sudo pacman -Sy
 }
 
 # Search for package
-sub_search(){
+pman__search(){
     pacman -Ss $1
 }
 
 # Install package
-sub_install(){
+pman__install(){
     sudo pacman -S $1
 }
 
 # Remove package
-sub_remove(){
+pman__remove(){
     sudo pacman -Rs $1
 }
 
 # Upgrade system
-sub_upgrade(){
+pman__upgrade(){
     sudo pacman -Syu
 }
 
-subcommand=$1
-case $subcommand in
-    "" | "-h" | "--help")
-        sub_help
-        ;;
-    *)
-        shift
-        sub_${subcommand} $@
-        if [ $? = 127 ]; then
-            echo "Error: '$subcommand' is not a known subcommand." >&2
-            echo "       Run '$ProgName --help' for a list of known subcommands." >&2
-            exit 1
-        fi
-        ;;
-esac
+cmdname=$1; shift > /dev/null 2>&1
+if type "pman__$cmdname" > /dev/null 2>&1; then
+    "pman__$cmdname" "$@"
+else
+    "pman__help"
+    exit 1
+fi
+
