@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+FOLDER=$1
+RES=$(xdpyinfo | awk '/dimensions/{print $2}')
+IMAGE=$(find $FOLDER/$RES -type f | shuf -n 1)
+xwallpaper --center $IMAGE
