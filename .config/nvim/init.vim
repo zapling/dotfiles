@@ -14,6 +14,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'preservim/nerdtree'                             " File tree
+Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'scrooloose/syntastic'                           " Linting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
@@ -80,8 +81,8 @@ set ignorecase
 set smartcase
 
 """ wrap lines
-set wrap
-set showbreak=>\ \ \
+set nowrap
+"set showbreak=>\ \ \
 
 """ ui
 " set laststatus=2
@@ -97,6 +98,14 @@ colorscheme gruvbox
 
 let g:lightline = {
   \     'colorscheme': 'gruvbox',
+  \     'active': {
+  \       'left': [ [ 'mode', 'paste' ],
+  \                 [ 'readonly', 'filename', 'gitbranch', 'modified' ]
+  \       ]
+  \     },
+  \     'component_function': {
+  \       'gitbranch': 'FugitiveHead'
+  \     }
   \ }
 
 let g:syntastic_always_populate_loc_list = 1
@@ -116,11 +125,22 @@ nnoremap <CR> :noh<CR>
 nnoremap <Backspace> <Nop>
 map <Backspace> <leader>
 
+" Project search
 map <leader>p :GFiles<CR>
 map <leader>P :Files<CR>
 
+" File browser
 map <leader>b :NERDTreeToggle<CR>
 map <leader>B :NERDTreeFind<CR>
+
+" Renaming
+map <leader>rr <Plug>(coc-rename)
+map <leader>rw :CocSearch <C-R>=expand("<cword>")<CR><CR>
+
+" Git
+map <leader>gs :G<CR>
+map <leader>gf :diffget //2<CR>
+map <leader>gj :diffget //3<CR>
 
 " =============================================================================================== "
 " Languages
