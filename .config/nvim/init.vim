@@ -36,20 +36,12 @@ call plug#end()
 " Functions
 " =============================================================================================== "
 
-" Git blame current line
-function! GitBlame()
-    let l:line = line('.')
-    let l:cmd = '!git blame -L' . l:line . ',' . l:line . ' %'
-    execute l:cmd
-endfunction
-
 " =============================================================================================== "
 " Commands
 " =============================================================================================== "
 
 command! Reload :so ~/.config/nvim/init.vim
 command! Tags :AsyncRun php ~/build/phpctags -R=true --kinds=+cfi-vj
-command! Blame :call GitBlame()
 
 " =============================================================================================== "
 " Settings
