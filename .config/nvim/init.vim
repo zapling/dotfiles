@@ -36,6 +36,37 @@ call plug#end()
 " Functions
 " =============================================================================================== "
 
+" Jump to def
+" Tries to jump with Coc, then ctags, then vims searchdecl
+function! GoToDef()
+    try
+        call !CocAction('jumpDefinitation')
+    catch /.*/
+        let ret = execute("silent! normal \<C-]>")
+        if ret =~ "Error"
+            call searchdecl(expand('<cword>'))
+        endif
+    endtry
+endfunction
+
+" Show documentation, if available
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Only show git branch when space if free
+function! GitLightline()
+    let l:width = winwidth(0)
+    if l:width > 90
+        return FugitiveHead()
+    endif
+    return ''
+endfunction
+
 " =============================================================================================== "
 " Commands
 " =============================================================================================== "
@@ -96,7 +127,7 @@ let g:lightline = {
   \       ]
   \     },
   \     'component_function': {
-  \       'gitbranch': 'FugitiveHead'
+  \       'gitbranch': 'GitLightline'
   \     }
   \ }
 
@@ -133,6 +164,12 @@ map <leader>rw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 map <leader>gs :G<CR>
 map <leader>gf :diffget //2<CR>
 map <leader>gj :diffget //3<CR>
+
+" Goto
+map <leader>gd :call GoToDef()<CR>
+
+" Documentation
+map <leader>k :call <SID>show_documentation()<CR>
 
 " =============================================================================================== "
 " Languages
