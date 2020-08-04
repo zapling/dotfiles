@@ -67,10 +67,33 @@ function! GitLightline()
     return ''
 endfunction
 
+" Custom intro screen
+function! Start()
+    " if argc() || line2byte('$')
+    "     return
+    " endif
+
+    enew
+    setlocal
+        \ bufhidden=wipe
+        \ buftype=nofile
+        \ nobuflisted
+        \ nocursorcolumn
+        \ nocursorline
+        \ nolist
+        \ nonumber
+        \ noswapfile
+        \ norelativenumber
+
+    read ~/.config/nvim/intro.txt
+    setlocal nomodifiable nomodified
+endfunction
+
 " =============================================================================================== "
 " Commands
 " =============================================================================================== "
 
+command! Config :vsplit ~/.config/nvim/init.vim
 command! Reload :so ~/.config/nvim/init.vim
 command! Tags :AsyncRun php ~/build/phpctags -R=true --kinds=+cfi-vj
 
@@ -113,7 +136,13 @@ set nowrap
 " set shortmess+=c
 set noshowmode
 syntax enable
+
+" gruvbox tweaks, need to be set before colorscheme
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0'
+
 colorscheme gruvbox
+set background=dark
 
 " =============================================================================================== "
 " Plugin settings
@@ -178,3 +207,4 @@ map <leader>k :call <SID>show_documentation()<CR>
 " au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes
 "     \ --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
 
+"autocmd VimEnter * call Start()
