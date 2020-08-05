@@ -1,6 +1,22 @@
 # dotfiles
 
-My configuration and scripts
+![Image of Desktop](i3wm.png)
+
+## Major players
+
+- [i3-gaps](https://github.com/Airblader/i3)
+- [i3blocks](https://github.com/vivien/i3blocks)
+- [zsh](http://www.zsh.org/) and [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
+- [kitty](https://github.com/kovidgoyal/kitty)
+- [nvim](https://neovim.io/)
+
+## Setup
+
+```
+cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
+```
+
+## Custom scripts
 
 Custom scripts are located under `bin/`.
 
@@ -12,28 +28,17 @@ Custom scripts are located under `bin/`.
   - `pman search` Search for a package
   - `pman install` Install a package
   - `pman remove` Remove a package
+  - `pman upgrade` Install updates for all packages available
 - `certcheck` Check the expire date of given certificate
-- `personal/5min-break` Display a window reminding you to take breaks every hour, if you are connected to specific VPN.
+- `colortest` Print terminal color palette
+- `abc` Print alphabet with highliting
+
+## i3blocks scripts
 
 Custom `i3blocks` scripts are located under `.config/i3blocks/scripts/`
 
 - `time` Show current Swedish time, when clicked show current time in India
 - `current-spotify-song` Show the song currently playing
+- `weather-yr.no` Show the current weather and temperature
 - `certificate-checker` Show warning if VPN certificate is expired
-
-## Main players
-
-- [i3-gaps](https://github.com/Airblader/i3)
-- [i3blocks](https://github.com/vivien/i3blocks)
-- [zsh](http://www.zsh.org/) and [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
-- [kitty](https://github.com/kovidgoyal/kitty)
-
-![Image of Desktop](i3wm.png)
-
-## Setup
-
-Clone repository to your home directroy and run the setup script.
-
-```
-cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
-```
+- `battery` Show battery percentage with indicator when discharning and charging. Support for multiple batteries.
