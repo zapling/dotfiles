@@ -31,7 +31,7 @@ Custom scripts are located under `bin/`.
   - `pman upgrade` Install updates for all packages available
 - `certcheck` Check the expire date of given certificate
 - `colortest` Print terminal color palette
-- `abc` Print alphabet with highliting
+- `abc` Print alphabet with highlighting
 
 ## i3blocks scripts
 
