@@ -27,6 +27,8 @@ pman__list(){
 # Update database
 pman__fetch(){
     sudo pacman -Sy
+    updates=$(pacman -Qu | wc -l)
+    echo $updates updates available.
 }
 
 # Search for package
