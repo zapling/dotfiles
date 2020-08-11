@@ -2,7 +2,7 @@
 
 echo -e "\033[1;34mVIM SETUP\033[0m"
 
-packages='neovim'
+packages='neovim xclip'
 
 sudo pacman -Sy --needed $packages
 
