@@ -27,7 +27,7 @@ def getLoadedConfig():
 
 def getForecastByWifiName(config):
     for name in config:
-        cmd = "nmcli connection --show | grep " + name
+        cmd = "nmcli connection show --active | grep " + name
         try:
             subprocess.check_output(cmd, shell=True)
             return getForecast(config[name])
