@@ -1,0 +1,8 @@
+Github repo: https://github.com/lpicanco/i3-autodisplay
+
+Auto apply xrandr configs when monitor is detected.
+
+Each computer has their own configuration file. The filename is the computer name -
+received from /proc/sys/kernel/hostname
+
+E.g: andreas-t560.yml
