@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(internal.Emojies["fair"])
+	fmt.Println(internal.GetConfigurationPath())
 }
