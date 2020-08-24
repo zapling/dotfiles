@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	internal.GetConfig()
+	internal.GetCurrentSsid()
 }
