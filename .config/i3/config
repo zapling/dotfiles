@@ -17,8 +17,8 @@ font pango:monospace 10
 
 # Monitor config
 exec --no-startup-id \
-    hostname=$(cat /proc/sys/kernel/hostname) & \
-    /usr/bin/i3-autodisplay -config $hostname.yml &
+    hostname=$(cat /proc/sys/kernel/hostname) ; \
+    /usr/bin/i3-autodisplay -config ~/.config/i3-autodisplay/$hostname.yml &
 
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
@@ -26,8 +26,10 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id /usr/bin/kitty --name dropdown1
 exec --no-startup-id /usr/bin/kitty --name dropdown2
 
-exec --no-startup-id /usr/bin/xwallpaper --stretch \
-    ~/dotfiles/.wallpapers/centralstationen.jpg
+# Select random wallpaper
+exec_always --no-startup-id \
+    wallpaper=$(find ~/Pictures/wallpapers/MacOSX -type f | shuf -n 1) ; \
+    /usr/bin/xwallpaper --maximize $wallpaper
 
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
 
