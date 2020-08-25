@@ -4,6 +4,7 @@ import (
 	"os/exec"
 )
 
+// nmcli -t -f name,device connection show --active | cut -d\: -f1
 func GetCurrentSsid(ids []string) string {
 	nmcli := exec.Command("nmcli", "connection", "show", "--active")
 	pipe, _ := nmcli.StdoutPipe()
