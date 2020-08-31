@@ -31,7 +31,7 @@ check_args () {
   fi
 }
 
-# Check is we have a file diff 
+# Check is we have a file diff
 check_diff () {
   FILE_COUNT=$(/usr/bin/git diff --name-only | /usr/bin/wc -l)
   if [[ ${FILE_COUNT} == 0 ]] ; then
