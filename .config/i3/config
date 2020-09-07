@@ -27,7 +27,7 @@ exec --no-startup-id /usr/bin/kitty --name dropdown1
 exec --no-startup-id /usr/bin/kitty --name dropdown2
 
 # Select random wallpaper
-exec_always --no-startup-id \
+exec --no-startup-id \
     wallpaper=$(find ~/Pictures/wallpapers/MacOSX -type f | shuf -n 1) ; \
     /usr/bin/xwallpaper --maximize $wallpaper
 
