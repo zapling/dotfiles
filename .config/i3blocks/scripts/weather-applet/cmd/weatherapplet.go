@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"weather-applet/internal"
 )
 
 func main() {
-	config := internal.GetConfig()
-	var ids []string
-	for _, v := range config {
-		ids = append(ids, v.Ssid)
+	ssid := internal.GetCurrentSsid()
+	if ssid == "" {
+		os.Exit(1)
 	}
-	ssid := internal.GetCurrentSsid(ids)
-	fmt.Print(ssid)
+
+	config := internal.GetConfig()
 	for i := range config {
 		if config[i].Ssid == ssid {
 			fmt.Print(config[i])
