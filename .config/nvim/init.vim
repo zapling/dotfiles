@@ -67,28 +67,6 @@ function! GitLightline()
     return ''
 endfunction
 
-" Custom intro screen
-function! Start()
-    " if argc() || line2byte('$')
-    "     return
-    " endif
-
-    enew
-    setlocal
-        \ bufhidden=wipe
-        \ buftype=nofile
-        \ nobuflisted
-        \ nocursorcolumn
-        \ nocursorline
-        \ nolist
-        \ nonumber
-        \ noswapfile
-        \ norelativenumber
-
-    read ~/.config/nvim/intro.txt
-    setlocal nomodifiable nomodified
-endfunction
-
 " =============================================================================================== "
 " Commands
 " =============================================================================================== "
@@ -128,12 +106,8 @@ set smartcase
 
 """ wrap lines
 set nowrap
-"set showbreak=>\ \ \
 
 """ ui
-" set laststatus=2
-" set completeopt+=menuone
-" set shortmess+=c
 set noshowmode
 syntax enable
 
@@ -208,11 +182,3 @@ map <leader>gd :call GoToDef()<CR>
 " Documentation
 map <leader>k :call <SID>show_documentation()<CR>
 
-" =============================================================================================== "
-" Languages
-" =============================================================================================== "
-
-" au BufWritePost *.php silent! !eval 'ctags -R --languages=PHP --tag-relative=yes
-"     \ --langmap=php:.engine.inc.module.theme.install.php --PHP-kinds=+cfi-vj'
-
-"autocmd VimEnter * call Start()
