@@ -15,7 +15,7 @@ func main() {
 	config := internal.GetConfig()
 	for i := range config {
 		if config[i].Ssid == ssid {
-			fmt.Print(config[i])
+			fmt.Println(internal.GetForecast(config[i]))
 		}
 	}
 }

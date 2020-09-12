@@ -2,8 +2,30 @@ package internal
 
 import (
 	"bytes"
+	"fmt"
+	"github.com/zapling/yr.no-golang-client/pkg/yr"
 	"os/exec"
+	"strings"
 )
+
+func GetForecast(config Configuration) string {
+	forecast, err := yr.GetLocationForecast(60.1, 9.58, "WeatherApplet 1.0")
+	if err != nil {
+		return ""
+	}
+
+	temperature := fmt.Sprintf(
+		"%.0f",
+		forecast.Properties.Timeseries[0].Data.Instant.Details.AirTemperature,
+	)
+	symbols := strings.Split(
+		forecast.Properties.Timeseries[0].Data.Next1Hours.Summary.SymbolCode,
+		"_",
+	)
+	emojie := Emojies[symbols[0]]
+
+	return temperature + "°C " + emojie
+}
 
 func GetCurrentSsid() string {
 	cmd := "iw dev | grep ssid | awk '{print $2'}"
