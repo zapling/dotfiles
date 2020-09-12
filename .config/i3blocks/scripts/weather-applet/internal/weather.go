@@ -9,7 +9,12 @@ import (
 )
 
 func GetForecast(config Configuration) string {
-	forecast, err := yr.GetLocationForecast(60.1, 9.58, "WeatherApplet 1.0")
+	forecast, err := yr.GetLocationForecast(
+		config.Latitude,
+		config.Longitude,
+		"WeatherApplet 1.0",
+	)
+
 	if err != nil {
 		return ""
 	}
