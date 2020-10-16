@@ -19,9 +19,17 @@ pman__info(){
     pacman -Qi $1
 }
 
+pman__i(){
+    "pman__info" "$@"
+}
+
 # List available updates
 pman__list(){
     pacman -Qu
+}
+
+pman__ls(){
+    "pman__list" "$@"
 }
 
 # Update database
@@ -31,9 +39,17 @@ pman__fetch(){
     echo $updates updates available.
 }
 
+pman__f(){
+    "pman__fetch" "$@"
+}
+
 # Search for package
 pman__search(){
     pacman -Ss $1
+}
+
+pman__s(){
+    "pman__search" "$@"
 }
 
 # Install package
@@ -41,14 +57,26 @@ pman__install(){
     sudo pacman -S $1
 }
 
+pman__i(){
+    "pman__install" "$@"
+}
+
 # Remove package
 pman__remove(){
     sudo pacman -Rs $1
 }
 
+pman__rm(){
+    "pman__remove" "$@"
+}
+
 # Upgrade system
 pman__upgrade(){
     sudo pacman -Syu
+}
+
+pman__u(){
+    "pman__upgrade" "$@"
 }
 
 cmdname=$1; shift > /dev/null 2>&1
