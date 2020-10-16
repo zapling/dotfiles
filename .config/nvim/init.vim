@@ -28,6 +28,9 @@ Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 "Plug 'StanAngeloff/php.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
 
+Plug 'yuezk/vim-js'                                   " JS
+Plug 'maxmellon/vim-jsx-pretty'                       " JSX
+
 Plug 'morhetz/gruvbox'
 
 call plug#end()
@@ -175,6 +178,7 @@ map <leader>rw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 map <leader>gs :G<CR>
 map <leader>gf :diffget //2<CR>
 map <leader>gj :diffget //3<CR>
+map <leader>gb :Gblame<CR>
 
 " Goto
 map <leader>gd :call GoToDef()<CR>
@@ -182,3 +186,5 @@ map <leader>gd :call GoToDef()<CR>
 " Documentation
 map <leader>k :call <SID>show_documentation()<CR>
 
+" Work
+map <leader>ws :!ss<CR>
