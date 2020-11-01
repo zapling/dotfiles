@@ -26,7 +26,7 @@ Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
 "Plug 'StanAngeloff/php.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
 
 Plug 'yuezk/vim-js'                                   " JS
 Plug 'maxmellon/vim-jsx-pretty'                       " JSX
@@ -188,3 +188,6 @@ map <leader>k :call <SID>show_documentation()<CR>
 
 " Work
 map <leader>ws :!ss<CR>
+
+" Go
+map <leader>wl :GoVet<cr>
