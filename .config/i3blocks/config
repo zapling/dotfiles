@@ -38,7 +38,8 @@ max_length=20
 [certificate-checker]
 interval=86400 # once a day
 
-[weather-yr.no]
+[weather-applet]
+command=~/go/bin/./weatherapplet
 interval=60
 color=#ebdbb2
 
