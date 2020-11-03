@@ -2,15 +2,15 @@
 
 pman__help() {
     echo "Usage: pman <subcommand> [options]\n"
-    echo "pman is a simple wrapper script for the pacman package manager\n"
+    echo "pman is syntactic sugar for the pacman package manager\n"
     echo "Subcommands:"
-    echo "    list     List available updates"
-    echo "    info     Information about installed package"
-    echo "    fetch    Update package database"
-    echo "    search   Search for a package"
-    echo "    install  Install a package"
-    echo "    remove   Remove a package"
-    echo "    upgrade  Install updates for all packages available"
+    echo "    list,    ls   List available updates"
+    echo "    info,    i    Information about installed package"
+    echo "    fetch,   f    Update package database"
+    echo "    search,  s    Search for a package"
+    echo "    install, i    Install a package"
+    echo "    remove,  rm   Remove a package"
+    echo "    upgrade, u    Install updates for all packages available"
     echo ""
 }
 
