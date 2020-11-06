@@ -63,9 +63,14 @@ endfunction
 
 " Only show git branch when space if free
 function! GitLightline()
+    let l:branch = FugitiveHead()
     let l:width = winwidth(0)
     if l:width > 90
-        return FugitiveHead()
+        if strlen(l:branch) > 30
+            return FugitiveHead()[0:30] . "~."
+        endif
+
+        return l:branch
     endif
     return ''
 endfunction
