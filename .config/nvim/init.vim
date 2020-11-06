@@ -67,7 +67,7 @@ function! GitLightline()
     let l:width = winwidth(0)
     if l:width > 90
         if strlen(l:branch) > 30
-            return FugitiveHead()[0:30] . "~."
+            return l:branch[0:29] . "~."
         endif
 
         return l:branch
