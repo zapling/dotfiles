@@ -126,7 +126,7 @@ let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 set background=dark
 
-autocmd BufWritePost *.go :GoVet
+autocmd BufWritePost *.go :silent! GoVet
 
 " =============================================================================================== "
 " Plugin settings
