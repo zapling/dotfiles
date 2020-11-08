@@ -26,7 +26,7 @@ Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
 "Plug 'StanAngeloff/php.vim'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
 
 Plug 'yuezk/vim-js'                                   " JS
 Plug 'maxmellon/vim-jsx-pretty'                       " JSX
@@ -126,6 +126,8 @@ let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 set background=dark
 
+autocmd BufWritePost *.go :GoVet
+
 " =============================================================================================== "
 " Plugin settings
 " =============================================================================================== "
@@ -144,7 +146,6 @@ let g:lightline = {
 
 let g:coc_global_extensions = [
   \     'coc-phpls',
-  \     'coc-go',
   \     'coc-json',
   \]
 
