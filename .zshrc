@@ -20,19 +20,9 @@ protectDropdownTerminal
 
 export EDITOR=/usr/bin/nvim
 
-export PATH=~/.local/bin/personal:$PATH
-export PATH=~/go/bin:$PATH
-export PATH=~/.npm_global/bin:$PATH
-
-export LC_TIME=en_US.utf8
-
-###########
-# Aliases #
-###########
-
 # Programs
 alias vim="nvim"
-alias ssh="kitty +kitten ssh $1"
+alias ssh_kitty="kitty +kitten ssh $1"
 
 # Other
 alias stage="ssh andreasstage.textalk.se"
