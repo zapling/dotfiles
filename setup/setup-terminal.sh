@@ -19,6 +19,11 @@ cd ~ && \
     rm .zshrc && \
     ln -s ~/dotfiles/.zshrc
 
+cd ~ && \
+    [ ! -L ".zshenv" ] && \
+    rm .zshenv && \
+    ln -s ~/dotfiles/.zshenv
+
 cd ~/.oh-my-zsh/custom/themes/ && \
     [ ! -L "sunaku-zapling.zsh-theme" ] && \
     ln -s ~/dotfiles/.oh-my-zsh/custom/sunaku-zapling.zsh-theme
