@@ -16,7 +16,6 @@ Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'preservim/nerdtree'                             " File tree
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
-Plug 'scrooloose/syntastic'                           " Linting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
@@ -25,8 +24,8 @@ Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
-"Plug 'StanAngeloff/php.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
+" @todo Get vim-go to work with coc lang server?
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
 
 Plug 'yuezk/vim-js'                                   " JS
 Plug 'maxmellon/vim-jsx-pretty'                       " JSX
@@ -82,15 +81,16 @@ endfunction
 command! Config :vsplit ~/.config/nvim/init.vim
 command! Reload :so ~/.config/nvim/init.vim
 command! Tags :AsyncRun php ~/build/phpctags -R=true --kinds=+cfi-vj
+command! Sync :AsyncRun -silent ~/.local/bin/personal/./sync-stage
 
 " =============================================================================================== "
 " Settings
 " =============================================================================================== "
 
 set nocompatible
+set shell=/bin/zsh
 set updatetime=100
 set number relativenumber
-set shellcmdflag=-ic
 
 """ dirs
 set backupdir=~/.vim/backup
@@ -98,7 +98,6 @@ set directory=~/.vim/backupf
 
 """ text / tabs
 set textwidth   =100
-set colorcolumn =100
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
@@ -116,6 +115,7 @@ set smartcase
 set nowrap
 
 """ ui
+set colorcolumn =100
 set noshowmode
 syntax enable
 
@@ -126,7 +126,7 @@ let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 set background=dark
 
-autocmd BufWritePost *.go :silent! GoVet
+" autocmd BufWritePost *.go :silent! GoVet
 
 " =============================================================================================== "
 " Plugin settings
@@ -148,12 +148,6 @@ let g:coc_global_extensions = [
   \     'coc-phpls',
   \     'coc-json',
   \]
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 let g:asyncrun_open = 6
 
@@ -187,13 +181,13 @@ map <leader>gj :diffget //3<CR>
 map <leader>gb :Gblame<CR>
 
 " Goto
-map <leader>gd :call GoToDef()<CR>
+" map <leader>gd :call GoToDef()<CR>
+map <leader>gd <Plug>(coc-definition)<CR>
 
 " Documentation
 map <leader>k :call <SID>show_documentation()<CR>
 
-" Work
-map <leader>ws :!ss<CR>
-
-" Go
-map <leader>wl :GoVet<cr>
+" Workspace
+map <leader>ws :Sync<CR>
+map <leader>wl :GoVet<CR>
+map <leader>wt :GoCoverageToggle<CR>
