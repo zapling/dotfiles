@@ -13,16 +13,16 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }   " Search
 Plug 'junegunn/fzf.vim'
 
 Plug 'itchyny/lightline.vim'                          " Statusbar
-Plug 'preservim/nerdtree'                             " File tree
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
+Plug 'tpope/vim-surround'                             " Edit 'surroundings'
+
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
-Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 
 " @todo Get vim-go to work with coc lang server?
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
@@ -30,7 +30,7 @@ Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 Plug 'yuezk/vim-js'                                   " JS
 Plug 'maxmellon/vim-jsx-pretty'                       " JSX
 
-Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'                                " Theme
 
 call plug#end()
 
@@ -62,16 +62,23 @@ endfunction
 
 " Only show git branch when space if free
 function! GitLightline()
-    let l:branch = FugitiveHead()
     let l:width = winwidth(0)
-    if l:width > 90
-        if strlen(l:branch) > 30
-            return l:branch[0:29] . "~."
-        endif
+    let l:branch = FugitiveHead()
+    let l:max_length = 29
 
-        return l:branch
+    if l:width <= 53
+        return ''
+    elseif l:width < 90
+        let l:max_length = 5
     endif
-    return ''
+
+    if strlen(l:branch) > l:max_length + 1
+        return l:branch[0:l:max_length] . "~."
+    endif
+
+    return l:branch
+
+    endif
 endfunction
 
 " =============================================================================================== "
@@ -166,10 +173,6 @@ map <Backspace> <leader>
 map <leader>p :GFiles<CR>
 map <leader>P :Files<CR>
 
-" File browser
-map <leader>b :NERDTreeToggle<CR>
-map <leader>B :NERDTreeFind<CR>
-
 " Renaming
 map <leader>rr <Plug>(coc-rename)
 map <leader>rw :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -189,5 +192,5 @@ map <leader>k :call <SID>show_documentation()<CR>
 
 " Workspace
 map <leader>ws :Sync<CR>
-map <leader>wl :GoVet<CR>
-map <leader>wt :GoCoverageToggle<CR>
+" map <leader>wl :GoVet<CR>
+" map <leader>wt :GoCoverageToggle<CR>
