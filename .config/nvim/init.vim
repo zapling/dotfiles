@@ -51,6 +51,11 @@ function! GoToDef()
     endtry
 endfunction
 
+function! GoFormatOnSave()
+    execute("silent! !gofmt -w %")
+    execute(":e")
+endfunction
+
 " Show documentation, if available
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -133,7 +138,11 @@ let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 set background=dark
 
-" autocmd BufWritePost *.go :silent! GoVet
+" =============================================================================================== "
+" Autocommands
+" =============================================================================================== "
+
+autocmd BufWritePost *.go call GoFormatOnSave()
 
 " =============================================================================================== "
 " Plugin settings
