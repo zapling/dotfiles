@@ -2,9 +2,9 @@
 CERT=false
 
 # Textalk certificate
-TEXTALK=$(~/.local/bin/certcheck ~/Documents/vpn/textalk/cert.pem)
+TEXTALK=$(~/.local/bin/certcheck ~/Documents/vpn/abicart/cert.pem)
 if [ $? -eq 1 ]; then
-    CERT="Textalk VPN certificate expired!"
+    CERT="Abicart VPN certificate expired!"
 fi
 
 if [ "$CERT" != "false" ]; then
