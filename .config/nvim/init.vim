@@ -181,6 +181,7 @@ map <Backspace> <leader>
 " Project search
 map <leader>p :GFiles<CR>
 map <leader>P :Files<CR>
+map <leader>] :Rg<CR>
 
 " Renaming
 map <leader>rr <Plug>(coc-rename)
