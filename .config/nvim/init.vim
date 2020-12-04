@@ -38,19 +38,6 @@ call plug#end()
 " Functions
 " =============================================================================================== "
 
-" Jump to def
-" Tries to jump with Coc, then ctags, then vims searchdecl
-function! GoToDef()
-    try
-        call !CocAction('jumpDefinitation')
-    catch /.*/
-        let ret = execute("silent! normal \<C-]>")
-        if ret =~ "Error"
-            call searchdecl(expand('<cword>'))
-        endif
-    endtry
-endfunction
-
 function! GoFormatOnSave()
     execute("silent! !gofmt -w %")
     execute(":e")
@@ -194,7 +181,6 @@ map <leader>gj :diffget //3<CR>
 map <leader>gb :Gblame<CR>
 
 " Goto
-" map <leader>gd :call GoToDef()<CR>
 map <leader>gd <Plug>(coc-definition)<CR>
 
 " Documentation
