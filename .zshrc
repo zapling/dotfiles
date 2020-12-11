@@ -20,6 +20,12 @@ protectDropdownTerminal
 
 export EDITOR=/usr/bin/nvim
 
+# function myshopDump() {
+# 	stamp=$(date +%s)
+# 	mysql -h hostname -Ddatabase -pPassword -uUser -e $1 | sed 's/\t/","/g;s/^/"/;s/$/"/;' > sql_dump_$stamp.csv
+# 	echo "Dumped sql to: sql_dump_$stamp.csv"
+# }
+
 # Programs
 alias vim="nvim"
 alias ssh_kitty="kitty +kitten ssh $1"
