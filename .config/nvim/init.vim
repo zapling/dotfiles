@@ -15,6 +15,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
+"Plug 'dstein64/nvim-scrollview', { 'branch': 'main' } " Scroll view, requires nvim >=0.5
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
