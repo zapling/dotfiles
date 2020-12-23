@@ -30,5 +30,6 @@ cd ~/.config/
 [ ! -L "i3blocks" ] && ln -s ~/dotfiles/.config/i3blocks
 [ ! -L "i3-autodisplay" ] && ln -s ~/dotfiles/.config/i3-autodisplay
 [ ! -L "dunst" ] && ln -s ~/dotfiles/.config/dunst
+[ ! -L "fontconfig"] && ln -s ~/dotfiles/.config/fontconfig
 
 exit 0
