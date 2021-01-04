@@ -25,8 +25,7 @@ Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
 
-" @todo Get vim-go to work with coc lang server?
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }    " Golang
+Plug 'zapling/vim-go-utils', {'branch': 'release'}     " Golang utils
 
 Plug 'yuezk/vim-js'                                   " JS
 Plug 'maxmellon/vim-jsx-pretty'                       " JSX
