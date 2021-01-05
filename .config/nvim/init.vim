@@ -38,13 +38,12 @@ call plug#end()
 " Functions
 " =============================================================================================== "
 
-function! GoFormatOnSave()
+function! s:GoFormatOnSave()
     execute("silent! !gofmt -w %")
     execute(":e")
 endfunction
 
-" Show documentation, if available
-function! s:show_documentation()
+function! s:ShowDocumentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
@@ -52,7 +51,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Only show git branch when space if free
 function! GitLightline()
     let l:width = winwidth(0)
     let l:branch = FugitiveHead()
@@ -184,7 +182,7 @@ map <leader>gb :Gblame<CR>
 map <leader>gd <Plug>(coc-definition)<CR>
 
 " Documentation
-map <leader>k :call <SID>show_documentation()<CR>
+map <leader>k :call <SID>ShowDocumentation()<CR>
 
 " Workspace
 map <leader>ws :Sync<CR>
