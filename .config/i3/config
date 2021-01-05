@@ -190,7 +190,7 @@ bindsym $mod+Return exec /usr/bin/kitty
 bindsym $mod+Shift+q [con_id="__focused__" instance="^((?!dropdown).)*$"] kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#989719' -sf '#ebdbb2' -fn 'monospace-10' -p 'dmenu > '"
+bindsym $mod+d exec "dmenu_run -nf '$white' -nb '$bar_bg' -sb '$darkgreen' -sf '$white' -fn 'monospace-10' -p 'dmenu > '"
 
 # change focus
 #bindsym $mod+j focus left
