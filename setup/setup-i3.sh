@@ -24,12 +24,15 @@ if ! type "i3-autodisplay" > /dev/null; then
         sudo mv i3-autodisplay /usr/bin/.
 fi
 
+# Setup Xresources
+cd ~ && [ ! -L ".Xresources" ] && ln -s ~/dotfiles/.Xresources
+
 # Setup symlinks to configs
 cd ~/.config/
 [ ! -L "i3" ] && ln -s ~/dotfiles/.config/i3
 [ ! -L "i3blocks" ] && ln -s ~/dotfiles/.config/i3blocks
 [ ! -L "i3-autodisplay" ] && ln -s ~/dotfiles/.config/i3-autodisplay
 [ ! -L "dunst" ] && ln -s ~/dotfiles/.config/dunst
-[ ! -L "fontconfig"] && ln -s ~/dotfiles/.config/fontconfig
+[ ! -L "fontconfig" ] && ln -s ~/dotfiles/.config/fontconfig
 
 exit 0
