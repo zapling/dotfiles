@@ -170,7 +170,7 @@ for_window [class="Galculator"] floating enable
 
 # class                 border     bground text       indicator child_border
 client.focused          $darkgreen $bar_bg $darkgreen #000000 $darkgreen
-# client.focused_inactive #F84F13 #000000 #FFFFFF #F84F13   #989719
+client.focused_inactive $darkgreen $bar_bg $darkgreen #000000 $darkgreen
 # client.unfocused        #F84F13 #000000 #FFFFFF #F84F13   #989719
 # client.urgent           #F84F13 #000000 #FFFFFF #F84F13   #989719
 # client.placeholder      #F84F13 #000000 #FFFFFF #F84F13   #989719
