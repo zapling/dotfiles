@@ -185,6 +185,7 @@ map <leader>gd <Plug>(coc-definition)<CR>
 map <leader>k :call <SID>ShowDocumentation()<CR>
 
 " Workspace
-map <leader>ws :Sync<CR>
+map <leader>ws :echohl WarningMsg <bar> echo "Undefined action for the current filetype" <bar> echohl None<CR>
+autocmd FileType php map <leader>ws :Sync<CR>
 " map <leader>wl :GoVet<CR>
 " map <leader>wt :GoCoverageToggle<CR>
