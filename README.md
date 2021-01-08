@@ -13,7 +13,7 @@
 ## Setup
 
 ```
-cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles/setup && ./setup.sh
+cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles && ./setup.sh
 ```
 
 ## Custom scripts
