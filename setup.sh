@@ -46,14 +46,19 @@ diff_file() {
 }
 
 setup_symlinks() {
+    # symlink all folders under .config/
     for path in $CURDIR/.config/*; do
         dirname="$(basename "${path}")"
         diff_file ".config/$dirname"
     done
 
+    # symlink other specific files, .zshrc etc
     for file in $SYMLINK_FILES; do
         diff_file $file
     done
+
+    # symlink scripts
+    diff_file ".local/bin"
 }
 
 install() {
