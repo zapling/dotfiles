@@ -9,6 +9,7 @@ INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh \
 
 SYMLINK_FILES=".Xresources .zshrc .zshenv"
 
+# todo: rename function to something better
 diff_file() {
     TARGET=$1
     FULLPATH=$HOME/$TARGET
