@@ -3,7 +3,7 @@
 HOME=~
 CURDIR=$(pwd)
 
-INSTALL_PACKAGES="i3-gaps i3lock-color dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh \
+INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh \
     neovim xclip npm"
 
 SYMLINK_FILES=".Xresources .zshrc .zshenv"
@@ -64,8 +64,14 @@ post_install() {
     echo "=== START POST INSTALL ==="
 
     echo "=== SYSTEM ==="
-    # xkblayout-state-git needed for keyboard layout indicator
-    # found in aur
+
+    # i3lock-color was ditched from stabel community for some reason, get it from AUR instead.
+    if ! type "i3lock" > /dev/null; then
+        echo "Installing i3lock-color from AUR"
+        pamac build --no-confirm i3lock-color
+    fi
+
+    # xkblayout-state-git needed for keyboard layout indicator, found in AUR
     if ! type "xkblayout-state" > /dev/null; then
         echo "Installing xkblayout-state-git from aur"
         pamac build --no-confirm xkblayout-state-git
@@ -83,10 +89,11 @@ post_install() {
     # Install oh-my-zsh
     [ ! -d "$HOME/.oh-my-zsh" ] && \
         echo "Installing oh-my-zsh" && \
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+        ln -s "$CURDIR/.oh-my-zsh/custom/themes" "$HOME/.oh-my-zsh/custom/."
 
     # Set zsh as default shell
-    [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh)
+    [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
 
     echo "=== VIM ==="
 
@@ -100,7 +107,5 @@ post_install() {
     echo "=== END POST INSTALL==="
 }
 
-install
-post_install
-setup_symlinks
+install && post_install && setup_symlinks && echo "Setup completed!"
 
