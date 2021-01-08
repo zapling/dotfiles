@@ -35,8 +35,8 @@ color=#1DB954
 #artists=all
 max_length=20
 
-[certificate-checker]
-interval=86400 # once a day
+# [certificate-checker]
+# interval=86400 # once a day
 
 [weather-applet]
 command=~/go/bin/./weatherapplet
