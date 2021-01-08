@@ -91,7 +91,7 @@ post_install() {
     [ ! -d "$HOME/.oh-my-zsh" ] && \
         echo "Installing oh-my-zsh" && \
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
-        ln -s "$CURDIR/.oh-my-zsh/custom/themes" "$HOME/.oh-my-zsh/custom/."
+        ln -s "$CURDIR/.oh-my-zsh/custom/themes/sunaku-zapling.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/."
 
     # Set zsh as default shell
     [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
