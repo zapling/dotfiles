@@ -1,4 +1,5 @@
 #!/bin/bash
+# Setup script for easily configuring a new computer.
 
 HOME=~
 CURDIR=$(pwd)
