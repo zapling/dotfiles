@@ -114,5 +114,5 @@ post_install() {
     echo "=== END POST INSTALL==="
 }
 
-install && post_install && setup_symlinks && echo "Setup completed!"
+install && setup_symlinks && post_install echo "Setup completed!"
 
