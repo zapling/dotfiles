@@ -141,7 +141,7 @@ for_window [instance="dropdown1"] border pixel 3
 for_window [instance="dropdown1"] sticky enable
 for_window [instance="dropdown1"] floating enable
 for_window [instance="dropdown1"] scratchpad show
-for_window [instance="dropdown1"] move window position center
+for_window [instance="dropdown1"] move position center
 for_window [instance="dropdown1"] move scratchpad
 for_window [instance="dropdown1"] resize set 740 480
 
@@ -150,7 +150,7 @@ for_window [instance="dropdown2"] border pixel 3
 for_window [instance="dropdown2"] sticky enable
 for_window [instance="dropdown2"] floating enable
 for_window [instance="dropdown2"] scratchpad show
-for_window [instance="dropdown2"] move window position center
+for_window [instance="dropdown2"] move position center
 for_window [instance="dropdown2"] move scratchpad
 for_window [instance="dropdown2"] resize set 740 480
 
