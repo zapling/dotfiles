@@ -71,18 +71,28 @@ install() {
 post_install() {
     echo "=== START POST INSTALL ==="
 
-    echo "=== SYSTEM ==="
+    # [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
+
+    if [[ ! "$SHELL" =~ "zsh" ]]; then
+        chsh -s $(which zsh) && echo "ZSH set as default shell."
+    else
+        echo "ZSH is already the default shell."
+    fi
 
     # i3lock-color was ditched from stabel community for some reason, get it from AUR instead.
     if ! type "i3lock" > /dev/null; then
         echo "Installing i3lock-color from AUR"
         pamac build --no-confirm i3lock-color
+    else
+        echo "i3lock-color already installed."
     fi
 
     # xkblayout-state-git needed for keyboard layout indicator, found in AUR
     if ! type "xkblayout-state" > /dev/null; then
-        echo "Installing xkblayout-state-git from aur"
+        echo "Installing xkblayout-state-git from AUR"
         pamac build --no-confirm xkblayout-state-git
+    else
+        echo "xkblayout-state already installed."
     fi
 
     # Display settings, auto configure monitors
@@ -92,28 +102,36 @@ post_install() {
             cd i3-autodisplay && \
             go build cmd/i3-autodisplay/i3-autodisplay.go && \
             sudo mv i3-autodisplay /usr/bin/.
+    else
+        echo "i3-autodisplay already installed."
     fi
 
     # Install oh-my-zsh
-    [ ! -d "$HOME/.oh-my-zsh" ] && \
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
         echo "Installing oh-my-zsh" && \
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
         ln -s "$CURDIR/.oh-my-zsh/custom/themes/sunaku-zapling.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/."
+    else
+        echo "oh-my-zsh already installed."
+    fi
+
+    # [ ! -d "$HOME/.oh-my-zsh" ] && \
+    #     echo "Installing oh-my-zsh" && \
+    #     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+    #     ln -s "$CURDIR/.oh-my-zsh/custom/themes/sunaku-zapling.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/."
 
     # Set zsh as default shell
-    [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
-
-    echo "=== VIM ==="
+    # [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
 
     vim_dirs="$HOME/.vim $HOME/.vim/backup $HOME/.vim/backupf"
     for dir in $vim_dirs; do
         [ ! -d $dir ] && mkdir $dir && echo "created $dir"
     done
 
-    nvim +PlugInstall +qall
+    nvim +PlugInstall +qall && echo "neovim setup done."
 
     echo "=== END POST INSTALL==="
 }
 
-install && setup_symlinks && post_install echo "Setup completed!"
+install && setup_symlinks && post_install && echo "Setup completed!"
 
