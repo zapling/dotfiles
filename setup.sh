@@ -115,17 +115,10 @@ post_install() {
         echo "oh-my-zsh already installed."
     fi
 
-    # [ ! -d "$HOME/.oh-my-zsh" ] && \
-    #     echo "Installing oh-my-zsh" && \
-    #     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
-    #     ln -s "$CURDIR/.oh-my-zsh/custom/themes/sunaku-zapling.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/."
-
-    # Set zsh as default shell
-    # [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
-
+    # Neovim
     vim_dirs="$HOME/.vim $HOME/.vim/backup $HOME/.vim/backupf"
     for dir in $vim_dirs; do
-        [ ! -d $dir ] && mkdir $dir && echo "created $dir"
+        [ ! -d $dir ] && mkdir $dir && echo "created neovim directory $dir"
     done
 
     nvim +PlugInstall +qall && echo "neovim setup done."
