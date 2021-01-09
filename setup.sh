@@ -4,7 +4,7 @@
 HOME=~
 CURDIR=$(pwd)
 
-INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh \
+INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh redshift \
     neovim xclip npm"
 
 SYMLINK_FILES=".Xresources .zshrc .zshenv"
@@ -14,7 +14,7 @@ diff_file() {
     TARGET=$1
     FULLPATH=$HOME/$TARGET
 
-    test -L "$FULLPATH" && return 0
+    test -L "$FULLPATH" && echo "$TARGET already linked." && return 0
 
     echo "=== $FULLPATH ==="
 
@@ -47,6 +47,7 @@ diff_file() {
 }
 
 setup_symlinks() {
+    echo "=== SETUP SYMLINKS ==="
     # symlink all folders under .config/
     for path in $CURDIR/.config/*; do
         dirname="$(basename "${path}")"
