@@ -146,6 +146,7 @@ let g:lightline = {
   \ }
 
 let g:coc_global_extensions = [
+  \     'coc-tsserver',
   \     'coc-phpls',
   \     'coc-json',
   \]
