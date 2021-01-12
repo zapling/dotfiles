@@ -21,6 +21,7 @@ Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
+Plug 'tpope/vim-repeat'                               " '.' repetition for surround
 
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
