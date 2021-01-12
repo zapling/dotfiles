@@ -5,7 +5,9 @@ HOME=~
 CURDIR=$(pwd)
 
 INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh redshift \
-    neovim xclip npm"
+    neovim xclip npm \
+    ttf-liberation
+    "
 
 SYMLINK_FILES=".Xresources .zshrc .zshenv"
 
