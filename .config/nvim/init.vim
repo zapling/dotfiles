@@ -128,7 +128,11 @@ set background=dark
 " Autocommands
 " =============================================================================================== "
 
-autocmd BufWritePost *.go call GoFormatOnSave()
+augroup ZAPLING
+    " remove all previous autocmd, useful when resourcing vim cfg
+    autocmd!
+    autocmd BufWritePost *.go call GoFormatOnSave()
+augroup END
 
 " =============================================================================================== "
 " Plugin settings
