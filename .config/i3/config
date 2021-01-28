@@ -168,6 +168,10 @@ for_window [class="Pavucontrol"] resize set 740 480
 # Galculator
 for_window [class="Galculator"] floating enable
 
+# Zoom
+for_window [class="zoom" title="Settings"] floating enable
+for_window [class="zoom" title="Settings"] border pixel 2
+
 # class                 border     bground text       indicator child_border
 client.focused          $darkgreen $bar_bg $darkgreen #000000 $darkgreen
 client.focused_inactive $darkgreen $bar_bg $darkgreen #000000 $darkgreen
