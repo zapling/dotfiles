@@ -28,8 +28,11 @@ Plug 'editorconfig/editorconfig-vim'                  " Editor config
 
 Plug 'zapling/vim-go-utils', {'branch': 'release'}    " Golang utils
 
-Plug 'yuezk/vim-js'                                   " JS
-Plug 'maxmellon/vim-jsx-pretty'                       " JSX
+" Plug 'yuezk/vim-js'                                   " JS
+" Plug 'maxmellon/vim-jsx-pretty'                       " JSX
+
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'morhetz/gruvbox'                                " Theme
 
@@ -132,6 +135,8 @@ augroup ZAPLING
     " remove all previous autocmd, useful when resourcing vim cfg
     autocmd!
     autocmd BufWritePost *.go call GoFormatOnSave()
+    " Move this to vim-go-utils ?
+    autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 augroup END
 
 " =============================================================================================== "
@@ -165,6 +170,9 @@ set diffopt+=vertical
 " =============================================================================================== "
 
 nnoremap <CR> :noh<CR>
+
+" Escape terminal mode with ESC
+" tnoremap <Esc> <C-\><C-n>
 
 nnoremap <Backspace> <Nop>
 map <Backspace> <leader>
