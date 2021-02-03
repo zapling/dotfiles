@@ -4,7 +4,7 @@
 HOME=~
 CURDIR=$(pwd)
 
-INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh redshift \
+INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go kitty zsh redshift xorg-xbacklight \
     neovim xclip npm \
     ttf-liberation \
     ripgrep
