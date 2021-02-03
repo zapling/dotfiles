@@ -182,23 +182,25 @@ map <leader>p :GFiles<CR>
 map <leader>P :Files<CR>
 map <leader>] :Rg<CR>
 
-" Renaming
+" Renaming (r - refactor)
 map <leader>rr <Plug>(coc-rename)
 map <leader>rw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
-" Git
-map <leader>gs :G<CR>
-map <leader>gf :diffget //2<CR>
-map <leader>gj :diffget //3<CR>
-map <leader>gb :Gblame<CR>
+" Git (v - version)
+map <leader>vs :G<CR>
+map <leader>vf :diffget //2<CR>
+map <leader>vj :diffget //3<CR>
+map <leader>vb :Gblame<CR>
 
-" Goto
+" Jump (g - goto)
 map <leader>gd <Plug>(coc-definition)<CR>
+map <leader>gj <Plug>(coc-diagnostic-next)<CR>
+map <leader>gk <Plug>(coc-diagnostic-prev)<CR>
 
 " Documentation
 map <leader>k :call <SID>ShowDocumentation()<CR>
 
-" Workspace
+" Workspace (w - workspace)
 map <leader>ws :echohl WarningMsg <bar> echo "Undefined action for the current filetype" <bar> echohl None<CR>
 autocmd FileType php map <leader>ws :Sync<CR>
 " map <leader>wl :GoVet<CR>
