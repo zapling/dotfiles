@@ -49,6 +49,7 @@ exec --no-startup-id \
     /usr/bin/i3-autodisplay -config ~/.config/i3-autodisplay/$hostname.yml &
 
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id redshift-gtk
 
 exec --no-startup-id /usr/bin/kitty --name dropdown1
@@ -124,6 +125,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 100
 bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 100
 
+# Monitor
+# bindsym XF86Display exec xbacklight -dec 20
+
 #--------/ Styling /--------#
 
 # Disable titlebar on all windows, need for gaps.
@@ -131,10 +135,9 @@ for_window [class="^.*"] border pixel 0
 
 # Always floating applications
 for_window [class="Thunar"] floating enable
-for_window [class="Gedit"] floating enable
 for_window [class="Eog"] floating enable
-for_window [class="Gnome-calculator"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
+for_window [class="blueman-manager"] floating enable
 
 # Dropdown terminal
 for_window [instance="dropdown1"] border pixel 3
