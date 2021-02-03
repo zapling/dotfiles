@@ -1,0 +1,34 @@
+#!/usr/bin/zsh
+cache_file="/tmp/current-monitor"
+current_mode=0
+
+if [ ! -e "$cache_file" ]; then
+    echo "$current_mode" > "$cache_file"
+else
+    current_mode=$(< "$cache_file")
+fi
+
+case $current_mode in
+    0)
+        xrandr --output eDP1 --auto --output DP1-3 --off
+    ;;
+    1)
+        xrandr --output eDP1 --off --output DP1-3 --auto
+    ;;
+    2)
+        xrandr --output eDP1 --auto --output DP1-3 --same-as eDP1
+    ;;
+    *)
+        echo "We should not be here!"
+        exit 1
+    ;;
+esac
+
+current_mode=$((current_mode + 1))
+
+if [ $current_mode -gt 2 ]; then
+    current_mode=0
+fi
+
+echo "$current_mode" > "$cache_file"
+
