@@ -8,6 +8,19 @@ else
     current_mode=$(< "$cache_file")
 fi
 
+# function getConnectedDisplays() {
+#     displays=($(xrandr | grep " connected " | awk '{ print$1 }'))
+#     echo $displays
+# }
+
+# function laptop() {}
+# function external() {}
+# function mirror() {}
+
+# getConnectedDisplays
+
+# exit
+
 case $current_mode in
     0)
         xrandr --output eDP1 --auto --output DP1-3 --off
