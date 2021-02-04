@@ -1,0 +1,16 @@
+#!/usr/bin/zsh
+
+data=$(amixer get Master)
+
+function isMuted() {
+    mute=$(grep Left: <<< "$data" | awk '{print $6}' | tr -d '[]')
+    if [[ "$mute" == "on" ]]; then return 0; fi
+
+    return 1
+}
+
+function getVolume() {
+    echo $(amixer get Master | grep Left: | awk '{print $5}' | tr -d '[]%')
+}
+
+getVolume
