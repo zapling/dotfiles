@@ -111,6 +111,8 @@ set smartindent
 set incsearch
 set ignorecase
 set smartcase
+" see substitute as you type
+set inccommand=nosplit
 
 """ wrap lines
 set nowrap
