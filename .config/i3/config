@@ -43,6 +43,9 @@ font pango:monospace 10
 
 #--------/ Autostart /------#
 
+# Disable hardware beep boop
+exec --no-startup-id xset -b
+
 # Monitor config
 exec --no-startup-id \
     hostname=$(cat /proc/sys/kernel/hostname) ; \
