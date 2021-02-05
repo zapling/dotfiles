@@ -1,16 +1,23 @@
 #!/usr/bin/zsh
 
+case "$BLOCK_BUTTON" in
+    # 1) notify-send "mouse click 1" ;;
+    2) amixer -q sset Master toggle ;;
+    # 3) notify-send "mouse click 3" ;;
+    4) amixer -q sset Master 5%+ ;;
+    5) amixer -q sset Master 5%- ;;
+esac
+
 data=$(amixer get Master)
+volume=$(grep Left: <<< "$data" | awk '{print $5}' | tr -d '[]%')
+speakerMode=$(grep Left: <<< "$data" | awk '{print $6}' | tr -d '[]')
 
-function isMuted() {
-    mute=$(grep Left: <<< "$data" | awk '{print $6}' | tr -d '[]')
-    if [[ "$mute" == "on" ]]; then return 0; fi
+if [[ $speakerMode == "on" ]]; then
+    symb="🔊"
+    [[ $volume -le 50 ]] && symb="🔉"
+    [[ $volume -le 0 ]] && symb="🔈"
+else
+    symb="🔇"
+fi
 
-    return 1
-}
-
-function getVolume() {
-    echo $(amixer get Master | grep Left: | awk '{print $5}' | tr -d '[]%')
-}
-
-getVolume
+echo "[$symb $volume%]"
