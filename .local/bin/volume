@@ -1,12 +1,32 @@
 #!/usr/bin/zsh
 
 case "$BLOCK_BUTTON" in
-    # 1) notify-send "mouse click 1" ;;
+    1) change_sink=1 ;;
     2) amixer -q sset Master toggle ;;
     # 3) notify-send "mouse click 3" ;;
     4) amixer -q sset Master 5%+ ;;
     5) amixer -q sset Master 5%- ;;
 esac
+
+sinkData=$(pacmd list-sinks | grep -A1 "index:")
+allSinks=($(grep "index:" <<< "$sinkData" | tr -d "*" | awk '{print $2}'))
+defaultSink=$(grep "*" <<< "$sinkData" | awk '{print $3}')
+blueAvailable=$(grep -B1 "blue" <<< "$sinkData")
+
+if [[ $blueAvailable == "" ]]; then
+    blueAvailable="no"
+else
+    blueAvailable=$(grep "index:" <<< "$blueAvailable" | tr -d "*" | awk '{print $2}')
+fi
+
+# hardcoded for now, hard to cycle sinks in a good way
+speakers=3
+if [[ $change_sink -eq 1 ]]; then
+    [[ $blueAvailable != "" ]] && [[ $defaultSink != $blueAvailable ]] && pacmd set-default-sink $blueAvailable
+    [[ $blueAvailable != "" ]] && [[ $defaultSink == $blueAvailable ]] && pacmd set-default-sink $speakers
+
+    [[ $blueAvailable == "" ]] && pacmd set-default-sink $speakers
+fi
 
 data=$(amixer get Master)
 volume=$(grep Left: <<< "$data" | awk '{print $5}' | tr -d '[]%')
