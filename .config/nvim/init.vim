@@ -43,8 +43,10 @@ call plug#end()
 " =============================================================================================== "
 
 function! GoFormatOnSave()
-    execute("silent! !gofmt -w %")
-    execute(":e")
+    if !empty(glob("%"))
+        execute("silent! !gofmt -w %")
+        execute(":e")
+    endif
 endfunction
 
 function! s:ShowDocumentation()
@@ -137,6 +139,7 @@ augroup ZAPLING
     " remove all previous autocmd, useful when resourcing vim cfg
     autocmd!
     autocmd BufWritePost *.go call GoFormatOnSave()
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
     " Move this to vim-go-utils ?
     autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 augroup END
