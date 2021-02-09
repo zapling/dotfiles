@@ -117,9 +117,9 @@ bindsym $mod+Shift+Delete exec "$i3lock ; systemctl suspend"
 bindsym $mod+Shift+s exec pavucontrol
 
 # Audio
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id export BLOCK_BUTTON=4 && ~/.local/bin/volume
+bindsym XF86AudioLowerVolume exec --no-startup-id export BLOCK_BUTTON=5 && ~/.local/bin/volume
+bindsym XF86AudioMute exec --no-startup-id export BLOCK_BUTTON=2 && ~/.local/bin/volume
 
 # Brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20

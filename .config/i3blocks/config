@@ -67,6 +67,9 @@ command=LANG=$(xkblayout-state print "%s" ; echo) ; [[ $LANG != "us" ]] && echo 
 interval=1
 color=#fb4833
 
+[volume]
+interval=2
+
 [volume-pulseaudio]
 interval=2
 signal=1
