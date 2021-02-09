@@ -33,3 +33,5 @@ alias ssh_kitty="kitty +kitten ssh $1"
 # Other
 alias stage="ssh andreasstage.textalk.se"
 alias ss="sync-stage"
+alias timestamp="date '+%F%T' | tr -d ':-'"
+alias utimestamp="date '+%s'"
