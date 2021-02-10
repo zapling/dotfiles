@@ -44,8 +44,10 @@ call plug#end()
 
 function! GoFormatOnSave()
     if !empty(glob("%"))
+        let saved_pos = getpos(".")
         execute("silent! !gofmt -w %")
         execute(":e")
+        call setpos(".", saved_pos)
     endif
 endfunction
 
