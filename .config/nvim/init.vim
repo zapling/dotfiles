@@ -22,6 +22,7 @@ Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 Plug 'tpope/vim-repeat'                               " '.' repetition for surround
+Plug 'FooSoft/vim-argwrap'                            " Toggle argument wraps
 
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
@@ -144,6 +145,8 @@ augroup ZAPLING
     autocmd BufWritePost *.go call GoFormatOnSave()
     " Move this to vim-go-utils ?
     autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+    " Add trailing , to args when wrapping in golang files
+    autocmd BufNewFile,BufRead *.go let g:argwrap_tail_comma = 1
 augroup END
 
 " =============================================================================================== "
@@ -203,6 +206,7 @@ map <leader>vb :Gblame<CR>
 map <leader>gd <Plug>(coc-definition)<CR>
 map <leader>gj <Plug>(coc-diagnostic-next)<CR>
 map <leader>gk <Plug>(coc-diagnostic-prev)<CR>
+map <leader>gw :ArgWrap<CR>
 
 " Documentation
 map <leader>k :call <SID>ShowDocumentation()<CR>
