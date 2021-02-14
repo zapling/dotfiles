@@ -53,7 +53,7 @@ exec --no-startup-id \
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id redshift-gtk
+exec --no-startup-id redshift-gtk -l 57.70:11.97
 
 exec --no-startup-id /usr/bin/termite --title dropdown1
 exec --no-startup-id /usr/bin/termite --title dropdown2
