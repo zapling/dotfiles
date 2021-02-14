@@ -69,16 +69,17 @@ color=#fb4833
 
 [volume]
 interval=2
+color=#ebdbb2
 
-[volume-pulseaudio]
-interval=2
-signal=1
-LONG_FORMAT="[${SYMB}${VOL}%]"
-AUDIO_HIGH_SYMBOL=🔊 
-AUDIO_MED_SYMBOL=🔉 
-AUDIO_LOW_SYMBOL=🔈 
-AUDIO_MUTED_SYMBOL=🔇 
-DEFAULT_COLOR="#ebdbb2"
+# [volume-pulseaudio]
+# interval=2
+# signal=1
+# LONG_FORMAT="[${SYMB}${VOL}%]"
+# AUDIO_HIGH_SYMBOL=🔊 
+# AUDIO_MED_SYMBOL=🔉 
+# AUDIO_LOW_SYMBOL=🔈 
+# AUDIO_MUTED_SYMBOL=🔇 
+# DEFAULT_COLOR="#ebdbb2"
 
 [time]
 interval=5
