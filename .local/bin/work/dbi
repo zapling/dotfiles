@@ -24,6 +24,16 @@ RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
 ENV_KEY_MAP_FILE=~/.cache/dbi/$SERVICE.$ENVIRONMENT
 
 if [[ ! -e $ENV_KEY_MAP_FILE ]]; then
+    # See if service has configured an database url
+    DB_URL=$(echo $RAW_DATA | grep -o "DB_URL.*\|DATABASE_URL.*" | sed 's/^[^=]*=//' | tr -d '"')
+
+    if [[ ! -z $DB_URL ]]; then
+        echo "Service has database url configured, no mapping needed"
+        echo "Trying to connect..."
+        psql $DB_URL
+        exit
+    fi
+
     echo "First time connecting to $SERVICE.$ENVIRONMENT, trying to create variable mapping"
     DB_VARS=($(echo $RAW_DATA | grep -o "DB_.*\|DATABASE_.*"))
     DB_VAR_KEYS=()
