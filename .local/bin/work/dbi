@@ -1,0 +1,91 @@
+#!/usr/bin/zsh
+SERVICE=$1
+ENVIRONMENT=$2
+
+[[ "$SERVICE" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT]" && exit 1
+[[ "$ENVIRONMENT" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT]" && exit 1
+
+case $ENVIRONMENT in
+    "staging")
+        ;;
+    "sandbox")
+        ;;
+    "production")
+        ;;
+    *)
+        echo "Invalid [ENVIRONMENT], most be either 'staging', 'sandbox' or 'production'"
+        exit 1
+esac
+
+RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
+
+[[ -z $RAW_DATA ]] && echo "Invalid [SERVICE]" && exit 1
+
+ENV_KEY_MAP_FILE=~/.cache/dbi/$SERVICE.$ENVIRONMENT
+
+if [[ ! -e $ENV_KEY_MAP_FILE ]]; then
+    echo "First time connecting to $SERVICE.$ENVIRONMENT, trying to create variable mapping"
+    DB_VARS=($(echo $RAW_DATA | grep -o "DB_.*\|DATABASE_.*"))
+    DB_VAR_KEYS=()
+    for db_var in "${DB_VARS[@]}"
+    do
+        key_value=($(echo "$db_var" | tr '=' '\n'))
+        DB_VAR_KEYS=(${DB_VAR_KEYS[@]} ${key_value[1]})
+    done
+
+    host=
+    port=
+    user=
+    pass=
+    db=
+
+    for var in "${DB_VAR_KEYS[@]}"
+    do
+        [[ $var =~ "HOST" ]] && host=$var
+        [[ $var =~ "PORT" ]] && port=$var
+        [[ $var =~ "USER" ]] && user=$var
+        [[ $var =~ "PASS" ]] && pass=$var
+        [[ $var =~ "NAME" ]] && db=$var
+    done
+
+    keys=($host $port $user $pass $db)
+
+    [[ ${#keys} -ne 5 ]] && \
+        echo "Failed to create variable mapping. Unsupported service" && \
+        exit 1
+
+    [[ ! -d ~/.cache/dbi ]] && mkdir ~/.cache/dbi
+
+    echo $keys > ~/.cache/dbi/$SERVICE.$ENVIRONMENT && \
+        echo "Local cache for $SERVICE.$ENVIRONMENT created."
+fi
+
+key_map=($(cat $ENV_KEY_MAP_FILE))
+index=1
+for key in "${key_map[@]}"
+do
+    value=$(echo $RAW_DATA | grep -o "$key=.*" | cut -d'=' -f 2 | tr -d '"')
+    case $index in
+        1)
+            host=$value
+            ;;
+        2)
+            port=$value
+            ;;
+        3)
+            user=$value
+            ;;
+        4)
+            pass=$value
+            ;;
+        5)
+            db=$value
+            ;;
+    esac
+
+    index=$((index+1))
+done
+
+echo "Make sure that you are connected to the correct VPN"
+echo "Trying to connect..."
+PGPASSWORD=$pass psql -h $host -p $port -U $user -d $db
