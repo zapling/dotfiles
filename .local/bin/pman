@@ -1,85 +1,42 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
-pman__help() {
-    echo "Usage: pman <subcommand> [options]\n"
-    echo "pman is syntactic sugar for the pacman package manager\n"
-    echo "Subcommands:"
-    echo "    list,    ls   List available updates"
-    echo "    info          Information about installed package"
-    echo "    fetch,   f    Update package database"
-    echo "    search,  s    Search for a package"
-    echo "    install, i    Install a package"
-    echo "    remove,  rm   Remove a package"
-    echo "    upgrade, u    Install updates for all packages available"
-    echo ""
-}
-
-# Info about installed package
-pman__info(){
-    pacman -Qi $1
-}
-
-# List available updates
-pman__list(){
-    pacman -Qu
-}
-
-pman__ls(){
-    "pman__list" "$@"
-}
-
-# Update database
-pman__fetch(){
-    sudo pacman -Sy
-    updates=$(pacman -Qu | wc -l)
-    echo $updates updates available.
-}
-
-pman__f(){
-    "pman__fetch" "$@"
-}
-
-# Search for package
-pman__search(){
-    pacman -Ss $1
-}
-
-pman__s(){
-    "pman__search" "$@"
-}
-
-# Install package
-pman__install(){
-    sudo pacman -S $1
-}
-
-pman__i(){
-    "pman__install" "$@"
-}
-
-# Remove package
-pman__remove(){
-    sudo pacman -Rs $1
-}
-
-pman__rm(){
-    "pman__remove" "$@"
-}
-
-# Upgrade system
-pman__upgrade(){
-    sudo pacman -Syu
-}
-
-pman__u(){
-    "pman__upgrade" "$@"
-}
-
-cmdname=$1; shift > /dev/null 2>&1
-if type "pman__$cmdname" > /dev/null 2>&1; then
-    "pman__$cmdname" "$@"
-else
-    "pman__help"
-    exit 1
-fi
-
+cmd=$1 ; shift >/dev/null 2>&1
+case "$cmd" in
+    "list"|"ls")
+        pacman -Qu
+        ;;
+    "info")
+        pacman -Qi $1
+        ;;
+    "fetch"|"f")
+        sudo pacman -Sy
+        updates=$(pacman -Qu | wc -l)
+        echo "$updates updates available"
+        ;;
+    "search"|"s")
+        pacman -Ss $1
+        ;;
+    "install"|"i")
+        sudo pacman -S $1
+        ;;
+    "remove"|"rm")
+        sudo pacman -Rs $1
+        ;;
+    "upgrade")
+        sudo pacman -Syu
+        ;;
+    *)
+        echo "Usage: pman <command> [options]\n"
+        echo "pman is syntactic sugar for the pacman package manager\n"
+        echo "Commands:"
+        echo "    list,    ls   List available updates"
+        echo "    info          Information about installed package"
+        echo "    fetch,   f    Update package database"
+        echo "    search,  s    Search for a package"
+        echo "    install, i    Install a package"
+        echo "    remove,  rm   Remove a package"
+        echo "    upgrade, u    Install updates for all packages available"
+        echo ""
+        exit 1
+        ;;
+esac
