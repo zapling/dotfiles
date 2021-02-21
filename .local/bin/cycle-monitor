@@ -8,28 +8,31 @@ else
     current_mode=$(< "$cache_file")
 fi
 
-# function getConnectedDisplays() {
-#     displays=($(xrandr | grep " connected " | awk '{ print$1 }'))
-#     echo $displays
-# }
-
-# function laptop() {}
-# function external() {}
-# function mirror() {}
-
-# getConnectedDisplays
-
-# exit
+allDisplays=($(xrandr | grep " connected " | awk '{ print $1 }'))
+laptopDisplay=${allDisplays[1]}
+externalDisplays=("${allDisplays[@]/$laptopDisplay}")
 
 case $current_mode in
     0)
-        xrandr --output eDP1 --auto --output DP1-3 --off
+        xrandr --output $laptopDisplay --auto
+        for display in ${externalDisplays[@]}
+        do
+            xrandr --output $display --off
+        done
     ;;
     1)
-        xrandr --output eDP1 --off --output DP1-3 --auto
+        xrandr --output $laptopDisplay --off
+        for display in ${externalDisplays[@]}
+        do
+            xrandr --output $display --auto
+        done
     ;;
     2)
-        xrandr --output eDP1 --auto --output DP1-3 --same-as eDP1
+        xrandr --output $laptopDisplay --auto
+        for display in ${externalDisplays[@]}
+        do
+            xrandr --output $display --auto --output $display --same-as $laptopDisplay
+        done
     ;;
     *)
         echo "We should not be here!"
