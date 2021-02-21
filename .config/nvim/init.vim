@@ -23,6 +23,7 @@ Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
 Plug 'tpope/vim-repeat'                               " '.' repetition for surround
 Plug 'FooSoft/vim-argwrap'                            " Toggle argument wraps
+Plug 'unblevable/quick-scope'                         " f and F hightlighting
 
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
@@ -149,6 +150,13 @@ augroup ZAPLING
     autocmd BufNewFile,BufRead *.go let g:argwrap_tail_comma = 1
 augroup END
 
+" Quickscope colors
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
+
 " =============================================================================================== "
 " Plugin settings
 " =============================================================================================== "
@@ -174,6 +182,9 @@ let g:coc_global_extensions = [
 let g:asyncrun_open = 6
 
 set diffopt+=vertical
+
+" Quickscope, only active when certain keys pressed
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " =============================================================================================== "
 " Keybinds
