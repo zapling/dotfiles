@@ -13,21 +13,21 @@ laptopDisplay=${allDisplays[1]}
 externalDisplays=("${allDisplays[@]/$laptopDisplay}")
 
 case $current_mode in
-    0)
+    0) # Laptop screen only
         xrandr --output $laptopDisplay --auto
         for display in ${externalDisplays[@]}
         do
             xrandr --output $display --off
         done
     ;;
-    1)
+    1) # Only external screen
         xrandr --output $laptopDisplay --off
         for display in ${externalDisplays[@]}
         do
             xrandr --output $display --auto
         done
     ;;
-    2)
+    2) # Mirror laptop to external
         xrandr --output $laptopDisplay --auto
         for display in ${externalDisplays[@]}
         do
