@@ -202,7 +202,7 @@ floating_modifier $mod
 bindsym $mod+Return exec /usr/bin/termite
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" instance="^((?!dropdown).)*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" title="^((?!dropdown).)*$"] kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec "dmenu_run -nf '$white' -nb '$bar_bg' -sb '$darkgreen' -sf '$white' -fn 'monospace-10' -p 'dmenu > '"
