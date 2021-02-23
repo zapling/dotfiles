@@ -59,9 +59,10 @@ exec --no-startup-id /usr/bin/termite --title dropdown1
 exec --no-startup-id /usr/bin/termite --title dropdown2
 
 # Select random wallpaper
-exec --no-startup-id \
-    wallpaper=$(find ~/Pictures/wallpapers/MacOSX -type f | shuf -n 1) ; \
-    /usr/bin/xwallpaper --maximize $wallpaper
+# exec --no-startup-id \
+#     wallpaper=$(find ~/Pictures/wallpapers/MacOSX -type f | shuf -n 1) ; \
+#     /usr/bin/xwallpaper --maximize $wallpaper
+exec --no-startup-id /usr/bin/xwallpaper --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
 
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
 
