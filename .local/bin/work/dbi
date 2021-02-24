@@ -2,9 +2,10 @@
 
 SERVICE=$1
 ENVIRONMENT=$2
+COMMAND=${3:-}
 
-[[ "$SERVICE" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT]" && exit 1
-[[ "$ENVIRONMENT" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT]" && exit 1
+[[ "$SERVICE" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]" && exit 1
+[[ "$ENVIRONMENT" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]" && exit 1
 
 case $ENVIRONMENT in
     "staging")
@@ -18,48 +19,62 @@ case $ENVIRONMENT in
         exit 1
 esac
 
-RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
-RAW_VPN_DATA=$(nmcli -t connection show --active | grep -o ".*$ENVIRONMENT.*\:vpn\:.*")
+function getDatabaseUrl() {
+    RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
+    if [[ -z $RAW_DATA ]]; then
+        echo ""
+    else
+        # Try and connect via database url, as this is the easiest method
+        DB_URL=$(echo $RAW_DATA | grep -o "DB_URL.*\|DATABASE_URL.*" | sed 's/^[^=]*=//' | tr -d '"')
+        [[ ! -z $DB_URL ]] && echo $DB_URL && return
 
-[[ -z $RAW_DATA ]] && echo "Invalid [SERVICE]" && exit 1
-[[ -z $RAW_VPN_DATA ]] && echo "Invalid VPN, not connected to the $ENVIRONMENT vpn" && exit 1
 
-# Try and connect via database url, as this is the easiest method
-DB_URL=$(echo $RAW_DATA | grep -o "DB_URL.*\|DATABASE_URL.*" | sed 's/^[^=]*=//' | tr -d '"')
-if [[ ! -z $DB_URL ]]; then
-    echo "Trying to connect..."
-    psql $DB_URL
-    exit
-fi
+        # Try and find each database variable, with defaults as fallback
+        DB_VARS=($(echo $RAW_DATA | grep -o "DB_.*\|DATABASE_.*\|POSTGRES_.*"))
 
-# Try and find each database variable, with defaults as fallback
-DB_VARS=($(echo $RAW_DATA | grep -o "DB_.*\|DATABASE_.*\|POSTGRES_.*"))
+        # Fallbacks
+        host=
+        port=5432
+        user=
+        pass=
+        db="$(echo "$SERVICE" | tr '-' '_')_$ENVIRONMENT"
 
-# Fallbacks
-host=
-port=5432
-user=
-pass=
-db="$(echo "$SERVICE" | tr '-' '_')_$ENVIRONMENT"
+        for var in "${DB_VARS[@]}"
+        do
+            key_value=($(echo "$var" | tr '=' '\n'))
+            key=${key_value[1]}
+            value=$(echo "${key_value[2]}" | tr -d '"')
 
-for var in "${DB_VARS[@]}"
-do
-    key_value=($(echo "$var" | tr '=' '\n'))
-    key=${key_value[1]}
-    value=$(echo "${key_value[2]}" | tr -d '"')
+            [[ $key =~ "HOST" ]] && host=$value
+            [[ $key =~ "PORT" ]] && port=$value
+            [[ $key =~ "USER" ]] && user=$value
+            [[ $key =~ "PASS" ]] && pass=$value
+            [[ $key =~ "NAME" ]] && db=$value
+        done
 
-    [[ $key =~ "HOST" ]] && host=$value
-    [[ $key =~ "PORT" ]] && port=$value
-    [[ $key =~ "USER" ]] && user=$value
-    [[ $key =~ "PASS" ]] && pass=$value
-    [[ $key =~ "NAME" ]] && db=$value
-done
+        values=($host $port $user $pass $db)
 
-values=($host $port $user $pass $db)
+        [[ ${#values} -ne 5 ]] && echo "" && return
 
-[[ ${#values} -ne 5 ]] && \
-    echo "Failed to fetch required values, service unsupported" && \
-    exit 1
+        echo "postgres://$user:$pass@$host:$port/$db?sslmode=disable"
+    fi
+}
 
-echo "Trying to connect..."
-PGPASSWORD=$pass psql -h $host -p $port -U $user -d $db
+URL=$(getDatabaseUrl)
+
+case $COMMAND in
+    "")
+        [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
+        RAW_VPN_DATA=$(nmcli -t connection show --active | grep -o ".*$ENVIRONMENT.*\:vpn\:.*")
+        [[ -z $RAW_VPN_DATA ]] && echo "Invalid VPN, not connected to the $ENVIRONMENT vpn" && exit 1
+        psql $URL
+        exit
+        ;;
+    "--url")
+        echo $URL
+        exit
+        ;;
+    *)
+        echo "Invalid [COMMAND], supported values are '--url' or empty."
+        exit
+esac
