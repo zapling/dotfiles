@@ -15,7 +15,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
-"Plug 'dstein64/nvim-scrollview', { 'branch': 'main' } " Scroll view, requires nvim >=0.5
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
 Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
@@ -41,6 +40,11 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'morhetz/gruvbox'                                " Theme
+
+" neovim 5.0 plugins
+" Plug 'dstein64/nvim-scrollview', { 'branch': 'main' } " Scroll view
+" https://github.com/lukas-reineke/indent-blankline.nvim/tree/lua
+" https://github.com/kevinhwang91/nvim-bqf
 
 call plug#end()
 
@@ -211,6 +215,7 @@ let g:coc_global_extensions = [
   \     'coc-tsserver',
   \     'coc-phpls',
   \     'coc-json',
+  \     'coc-db',
   \]
 
 let g:asyncrun_open = 6
