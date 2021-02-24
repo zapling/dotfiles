@@ -33,6 +33,10 @@ Plug 'zapling/vim-go-utils', {'branch': 'release'}    " Golang utils
 " Plug 'yuezk/vim-js'                                   " JS
 " Plug 'maxmellon/vim-jsx-pretty'                       " JSX
 
+" Database viewer
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
@@ -43,6 +47,36 @@ call plug#end()
 " =============================================================================================== "
 " Functions
 " =============================================================================================== "
+
+function! ToggleDBUI()
+    let repoOwner = system("git config --get remote.origin.url | grep -o '\:.*\/' | tr -d ':/\n'")
+
+    " Database cred fetching is unique to Zimpler
+    if repoOwner != "Zimpler"
+        execute(":DBUIToggle")
+        return
+    endif
+
+    " Only fetches database creds once
+    if len(g:dbs) == 0
+        echo "Fetching DB configurations..."
+        let service = system("basename `git rev-parse --show-toplevel` | tr -d '\n'")
+        for env in ["staging", "sandbox", "production"]
+            let key = service."-".env
+            if !has_key(g:dbs, key)
+                let cmd = "dbi " . service . " " . env . " --url | tr -d '\n'"
+                let url = system(cmd)
+
+                if strlen(url) > 0
+                    let g:dbs[key] = url
+                    echo "Loaded " . key . " configuration"
+                endif
+            endif
+        endfor
+    endif
+
+    execute(":DBUIToggle")
+endfunction
 
 function! GoFormatOnSave()
     if !empty(glob("%"))
@@ -186,6 +220,9 @@ set diffopt+=vertical
 " Quickscope, only active when certain keys pressed
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
+" DBUI reset global state when loading
+let g:dbs = {}
+
 " =============================================================================================== "
 " Keybinds
 " =============================================================================================== "
@@ -224,6 +261,7 @@ map <leader>k :call <SID>ShowDocumentation()<CR>
 
 " Workspace (w - workspace)
 map <leader>ws :echohl WarningMsg <bar> echo "Undefined action for the current filetype" <bar> echohl None<CR>
-autocmd FileType php map <leader>ws :Sync<CR>
+map <leader>wo :call ToggleDBUI()<CR>
+" autocmd FileType php map <leader>ws :Sync<CR>
 " map <leader>wl :GoVet<CR>
 " map <leader>wt :GoCoverageToggle<CR>
