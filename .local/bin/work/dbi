@@ -19,8 +19,10 @@ case $ENVIRONMENT in
 esac
 
 RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
+RAW_VPN_DATA=$(nmcli -t connection show --active | grep -o ".*$ENVIRONMENT.*\:vpn\:.*")
 
 [[ -z $RAW_DATA ]] && echo "Invalid [SERVICE]" && exit 1
+[[ -z $RAW_VPN_DATA ]] && echo "Invalid VPN, not connected to the $ENVIRONMENT vpn" && exit 1
 
 # Try and connect via database url, as this is the easiest method
 DB_URL=$(echo $RAW_DATA | grep -o "DB_URL.*\|DATABASE_URL.*" | sed 's/^[^=]*=//' | tr -d '"')
