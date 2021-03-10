@@ -55,8 +55,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id redshift-gtk -l 57.70:11.97
 
-exec --no-startup-id /usr/bin/termite --title dropdown1
-exec --no-startup-id /usr/bin/termite --title dropdown2
+exec --no-startup-id /usr/bin/alacritty --class dropdown1 &
+exec --no-startup-id /usr/bin/alacritty --class dropdown2 &
 
 # Select random wallpaper
 # exec --no-startup-id \
@@ -102,8 +102,8 @@ set $ws10 "10"
 set $i3lock i3lock --color=1b1b1b
 
 # Dropdown terminals
-bindsym $mod+u [title="dropdown1"] scratchpad show
-bindsym $mod+Shift+u [title="dropdown2"] scratchpad show
+bindsym $mod+u [instance="dropdown1"] scratchpad show
+bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
 
 # Browser
 bindsym $mod+Shift+t exec firefox
@@ -144,22 +144,22 @@ for_window [class="Nm-connection-editor"] floating enable
 for_window [class="blueman-manager"] floating enable
 
 # Dropdown terminal
-for_window [title="dropdown1"] border pixel 3
-for_window [title="dropdown1"] sticky enable
-for_window [title="dropdown1"] floating enable
-for_window [title="dropdown1"] scratchpad show
-for_window [title="dropdown1"] move position center
-for_window [title="dropdown1"] move scratchpad
-for_window [title="dropdown1"] resize set 740 480
+for_window [instance="dropdown1"] border pixel 3
+for_window [instance="dropdown1"] sticky enable
+for_window [instance="dropdown1"] floating enable
+for_window [instance="dropdown1"] scratchpad show
+for_window [instance="dropdown1"] move position center
+for_window [instance="dropdown1"] move scratchpad
+for_window [instance="dropdown1"] resize set 740 480
 
 # Dropdown terminal 2
-for_window [title="dropdown2"] border pixel 3
-for_window [title="dropdown2"] sticky enable
-for_window [title="dropdown2"] floating enable
-for_window [title="dropdown2"] scratchpad show
-for_window [title="dropdown2"] move position center
-for_window [title="dropdown2"] move scratchpad
-for_window [title="dropdown2"] resize set 740 480
+for_window [instance="dropdown2"] border pixel 3
+for_window [instance="dropdown2"] sticky enable
+for_window [instance="dropdown2"] floating enable
+for_window [instance="dropdown2"] scratchpad show
+for_window [instance="dropdown2"] move position center
+for_window [instance="dropdown2"] move scratchpad
+for_window [instance="dropdown2"] resize set 740 480
 
 # Break reminder
 for_window [title="Break-Reminder"] sticky enable
@@ -199,10 +199,10 @@ workspace $ws2 gaps inner $gaps_inner
 
 floating_modifier $mod
 
-bindsym $mod+Return exec /usr/bin/termite
+bindsym $mod+Return exec /usr/bin/alacritty
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" title="^((?!dropdown).)*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" instance="^((?!dropdown).)*$"] kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec "dmenu_run -nf '$white' -nb '$bar_bg' -sb '$darkgreen' -sf '$white' -fn 'monospace-10' -p 'dmenu > '"
