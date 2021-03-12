@@ -16,7 +16,7 @@ Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
-Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
+"Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
 Plug 'tpope/vim-surround'                             " Edit 'surroundings'
@@ -27,7 +27,7 @@ Plug 'unblevable/quick-scope'                         " f and F hightlighting
 Plug 'duff/vim-trailing-whitespace'                   " See trailing whitespace
 Plug 'editorconfig/editorconfig-vim'                  " Editor config
 
-Plug 'zapling/vim-go-utils', {'branch': 'release'}    " Golang utils
+Plug 'zapling/vim-go-utils'                           " Golang utils
 
 " Plug 'yuezk/vim-js'                                   " JS
 " Plug 'maxmellon/vim-jsx-pretty'                       " JSX
@@ -125,8 +125,6 @@ endfunction
 
 command! Config :vsplit ~/.config/nvim/init.vim
 command! Reload :so ~/.config/nvim/init.vim
-command! Tags :AsyncRun php ~/build/phpctags -R=true --kinds=+cfi-vj
-command! Sync :AsyncRun -silent ~/.local/bin/personal/./sync-stage
 
 " =============================================================================================== "
 " Settings
@@ -218,7 +216,7 @@ let g:coc_global_extensions = [
   \     'coc-db',
   \]
 
-let g:asyncrun_open = 6
+" let g:asyncrun_open = 6
 
 set diffopt+=vertical
 
