@@ -1,13 +1,7 @@
 #!/usr/bin/zsh
-
-case "$BLOCK_BUTTON" in
-    1) notify-send "Downloading latest Zimpler VPN" && \
-        arthur vpn-config update-networkmanager && \
-        notify-send "Done. Latest Zimpler VPN installed" ;;
-esac
+[[ "$HOST" != "x1-carbon" ]] && exit 1
 
 CERT=false
-
 CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-staging-cert.pem)
 if [ $? -eq 1 ]; then
     CERT="[ Zimpler CERT exp ]"
