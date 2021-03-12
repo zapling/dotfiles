@@ -10,7 +10,7 @@ INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go alacritty z
     ripgrep
     "
 
-SYMLINK_FILES=".Xresources .zshrc .zshenv"
+SYMLINK_FILES=".Xresources .zshrc .zshenv .gtkrc-2.0"
 
 # todo: rename function to something better
 diff_file() {
@@ -80,6 +80,15 @@ post_install() {
         chsh -s $(which zsh) && echo "ZSH set as default shell."
     else
         echo "ZSH is already the default shell."
+    fi
+
+    # gruvbox gtk theme and icons
+    if [[ ! -d "/usr/share/themes/gruvbox-dark-gtk" ]]; then
+        echo "Installing gruvbox-dark-gtk from AUR"
+        pamac build --no-confirm gruvbox-dark-gtk
+        pamac build --no-confirm gruvbox-dark-icons-gtk
+    else
+        echo "gruvbox-dark-gtk already installed."
     fi
 
     # i3lock-color was ditched from stabel community for some reason, get it from AUR instead.
