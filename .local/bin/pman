@@ -22,7 +22,7 @@ case "$cmd" in
     "remove"|"rm")
         sudo pacman -Rs $1
         ;;
-    "upgrade")
+    "upgrade"|"u")
         sudo pacman -Syu
         ;;
     *)
