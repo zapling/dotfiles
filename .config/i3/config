@@ -137,11 +137,18 @@ bindsym XF86Display exec ~/.local/bin/cycle-monitor
 # Disable titlebar on all windows, need for gaps.
 for_window [class="^.*"] border pixel 0
 
-# Always floating applications
+# File manager
 for_window [class="Thunar"] floating enable
-for_window [class="Eog"] floating enable
+for_window [class="Thunar"] border pixel 1
+
+# Network Manager configuration editor
 for_window [class="Nm-connection-editor"] floating enable
-for_window [class="blueman-manager"] floating enable
+for_window [class="Nm-connection-editor"] border pixel 1
+
+# Bluetooth manager
+for_window [title="Bluetooth Devices"] floating enable
+for_window [title="Bluetooth Devices"] resize set 480 780
+for_window [title="Bluetooth Devices"] border pixel 1
 
 # Dropdown terminal
 for_window [instance="dropdown1"] border pixel 3
@@ -160,10 +167,6 @@ for_window [instance="dropdown2"] scratchpad show
 for_window [instance="dropdown2"] move position center
 for_window [instance="dropdown2"] move scratchpad
 for_window [instance="dropdown2"] resize set 740 480
-
-# Break reminder
-for_window [title="Break-Reminder"] sticky enable
-for_window [title="Break-Reminder"] floating enable
 
 # Firefox dropout video
 for_window [window_role="PictureInPicture"] sticky enable
