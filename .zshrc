@@ -28,6 +28,7 @@ export EDITOR=/usr/bin/nvim
 
 # Programs
 alias vim="nvim"
+alias vi="echo -e \"vi, did you mean vim? (y/n)\" && read -sk x && [[ \"\$x\" == \"y\" ]] && nvim || vi"
 alias ssh_kitty="kitty +kitten ssh $1"
 
 # Other
