@@ -140,7 +140,7 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/backupf
 
 """ text / tabs
-set textwidth   =100
+set textwidth   =0 " never break the line for me, let me decide
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
