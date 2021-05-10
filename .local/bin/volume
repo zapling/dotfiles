@@ -1,12 +1,25 @@
 #!/usr/bin/zsh
 
 case "$BLOCK_BUTTON" in
-    1) change_sink=1 ;;
+    # 1) change_sink=1 ;;
     2) amixer -q sset Master toggle ;;
-    # 3) notify-send "mouse click 3" ;;
+    # 3) notify-send "Audio: HDMI-1" ;;
     4) amixer -q sset Master 5%+ ;;
     5) amixer -q sset Master 5%- ;;
 esac
+
+# rawData=$(pacmd list-sinks)
+
+# allSinks=($(grep "index:" <<< "$rawData" | tr -d "*" | awk '{print $2}'))
+# defaultSink=$(grep "index:" <<< "$rawData" | grep "*" | awk '{print $3}')
+# bluetoothAvailable=$(grep -B1 "blue" <<< "$rawData")
+
+# IFS=$'\n'
+# sinkNames=($(grep "device.description" <<< "$rawData" | sed 's/^[^=]*=//' | sed 's/^[^ ]* //' | tr -d '"'))
+
+# echo $defaultSink
+
+# exit
 
 sinkData=$(pacmd list-sinks | grep -A1 "index:")
 allSinks=($(grep "index:" <<< "$sinkData" | tr -d "*" | awk '{print $2}'))
