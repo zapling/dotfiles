@@ -32,7 +32,7 @@ markup=none
 [current-spotify-song]
 interval=5
 color=#1DB954
-#artists=all
+artists=4
 max_length=20
 
 [certificate-checker]
