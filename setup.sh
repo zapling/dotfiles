@@ -138,5 +138,5 @@ post_install() {
     echo "=== END POST INSTALL==="
 }
 
-install && setup_symlinks && post_install && echo "Setup completed!"
+sudo pacman -Sy && install && setup_symlinks && post_install && echo "Setup completed!"
 
