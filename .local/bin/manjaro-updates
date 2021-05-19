@@ -1,0 +1,48 @@
+#!/usr/bin/python3
+import os
+import json
+import urllib.request
+import subprocess
+from datetime import datetime
+
+cache_file = "manjaro-forum-update-notification"
+
+def main():
+    cacheFullPath = os.environ.get('HOME') + "/.cache/" + cache_file
+    with open(cacheFullPath, "a+") as f:
+        pass
+
+    req = urllib.request.Request(
+        url="https://forum.manjaro.org/c/announcements/stable-updates/12.json"
+    )
+
+    res = urllib.request.urlopen(req)
+    if res.status != 200:
+        return
+
+    data = json.loads(res.read())
+    posts = data['topic_list']['topics']
+
+    for post in posts:
+        if "[Stable Update]" not in post['title']:
+            continue
+
+        already_viewed = subprocess.run(["grep", str(post['id']), cacheFullPath], stdout=subprocess.DEVNULL)
+        if already_viewed.returncode != 1:
+            continue
+
+        posted = datetime.fromisoformat(post['created_at'].replace("Z", "+00:00"))
+        between = datetime.now(posted.tzinfo) - posted
+
+        if between.days > 7:
+            continue
+
+        post_link = "https://forum.manjaro.org/t/" + post['slug']
+
+        notify_send = subprocess.run(["notify-send", "-t", "0", post['title'], post_link])
+
+        with open(cacheFullPath, 'a+') as myfile:
+            myfile.write(str(post['id']) + "\n")
+
+if __name__ == '__main__':
+    main()
