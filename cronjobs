@@ -1,0 +1,4 @@
+# minute hour day_of_month month day_of_week command
+
+# 14:00 every friday, check for stable updates on the forum
+0 14 * * 5 ~/.local/bin/./manjaro-updates

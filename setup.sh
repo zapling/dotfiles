@@ -74,6 +74,9 @@ install() {
 post_install() {
     echo "=== START POST INSTALL ==="
 
+    echo "TODO: test install cronjobs from here!"
+    #crontab cronjobs
+
     # [[ ! "$SHELL" =~ "zsh" ]] && chsh -s $(which zsh) && echo "ZSH set as default shell"
 
     if [[ ! "$SHELL" =~ "zsh" ]]; then
