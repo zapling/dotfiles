@@ -82,6 +82,7 @@ post_install() {
         echo "Crontab is already installed."
     fi
 
+    # set zsh as default shell
     if [[ ! "$SHELL" =~ "zsh" ]]; then
         chsh -s $(which zsh) && echo "ZSH set as default shell."
     else
