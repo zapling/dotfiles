@@ -138,6 +138,9 @@ post_install() {
 
     nvim +PlugInstall +qall && echo "neovim setup done."
 
+    # Go language server
+    go install golang.org/x/tools/gopls@latest
+
     echo "=== END POST INSTALL==="
 }
 
