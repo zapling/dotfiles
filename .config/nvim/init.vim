@@ -16,7 +16,6 @@ Plug 'itchyny/lightline.vim'                          " Statusbar
 Plug 'tpope/vim-fugitive'                             " Git integration
 Plug 'https://github.com/airblade/vim-gitgutter'      " Git annotations
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Conquer of Completion
-"Plug 'neoclide/coc.nvim', {'tag': 'v0.0.80'}       " Conquer of Completion
 "Plug 'skywind3000/asyncrun.vim'                       " Run scripts async
 
 Plug 'joom/vim-commentary'                            " Toggle comment
