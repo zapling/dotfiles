@@ -25,6 +25,34 @@ case "$cmd" in
     "upgrade"|"u")
         sudo pacman -Syu
         ;;
+    "aur"|"a")
+        subcmd=$1
+        case "$subcmd" in
+            "list"|"ls")
+                packages=($(pacman -Qqm))
+                for package in "${packages[@]}"
+                do
+                    current=$(pacman -Qi "$package" | grep Version | awk '{print $3}')
+                    available=$(curl -s "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=$package" | jq '.results[0].Version' | tr -d '"')
+
+                    if [[ "$available" == "null" ]]; then
+                        continue
+                    fi
+
+                    if [[ "$current" != "$available" ]]; then
+                        echo "$package ($current != $available)"
+                    fi
+                done
+                ;;
+            *)
+                echo "Usage: pman aur [command]\n"
+                echo "pman arch user repository helper\n"
+                echo "Commands:"
+                echo "    list,    ls   List available AUR updates"
+                exit 1
+            ;;
+        esac
+        ;;
     *)
         echo "Usage: pman <command> [options]\n"
         echo "pman is syntactic sugar for the pacman package manager\n"
@@ -36,6 +64,7 @@ case "$cmd" in
         echo "    install, i    Install a package"
         echo "    remove,  rm   Remove a package"
         echo "    upgrade, u    Install updates for all packages available"
+        echo "    aur    , a    Arch user repository helper"
         echo ""
         exit 1
         ;;
