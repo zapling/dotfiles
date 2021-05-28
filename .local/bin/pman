@@ -29,6 +29,7 @@ case "$cmd" in
         subcmd=$1
         case "$subcmd" in
             "list"|"ls")
+                updates=0
                 packages=($(pacman -Qqm))
                 for package in "${packages[@]}"
                 do
@@ -41,8 +42,11 @@ case "$cmd" in
 
                     if [[ "$current" != "$available" ]]; then
                         echo "$package ($current != $available)"
+                        ((updates=updates+1))
                     fi
                 done
+
+                echo "$updates updates available"
                 ;;
             *)
                 echo "Usage: pman aur [command]\n"
