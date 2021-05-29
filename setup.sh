@@ -145,6 +145,18 @@ post_install() {
     # Go language server
     go install golang.org/x/tools/gopls@latest
 
+    # LiberationMono Nerd font (LiterationMono Nerd Font)
+    # https://www.nerdfonts.com/font-downloads
+    if [[ ! -d "$HOME/.fonts" ]]; then
+        echo "Installing LiberationMono Nerd Font (LiterationMono)"
+        curl "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/LiberationMono.zip" -L --output "/tmp/LiberationMono.zip" && \
+            mkdir "$HOME/.fonts" && \
+            unzip /tmp/LiberationMono.zip -d "$HOME/.fonts" && \
+            fc-cache -fv
+    else
+        echo "LiberationMono Nerd Font already installed"
+    fi
+
     echo "=== END POST INSTALL==="
 }
 
