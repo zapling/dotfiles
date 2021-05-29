@@ -1,5 +1,25 @@
 env:
   WINIT_X11_SCALE_FACTOR: '1.0'
+
+font:
+  normal:
+    family: LiterationMono Nerd Font
+    style: Regular
+
+  bold:
+    family: LiterationMono Nerd Font
+    style: Bold
+
+  italic:
+    family: LiterationMono Nerd Font
+    style: Italic
+
+  bold_italic:
+    family: LiterationMono Nerd Font
+    style: Bold Italic
+
+  size: 11
+
 # Base16 Gruvbox dark, soft 256 - alacritty color config
 # Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 colors:
