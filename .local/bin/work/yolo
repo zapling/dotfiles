@@ -1,0 +1,17 @@
+#!/usr/bin/zsh
+
+if ! type "arthur" > /dev/null; then
+    echo "Install arthur"
+    exit 1
+fi
+
+REPO_OWNER=$(git config --get remote.origin.url | grep -o '\:.*\/' | tr -d ':/\n')
+REPO_NAME=$(git config --get remote.origin.url | grep -o '\/.*\.' | tr -d '/.\n')
+
+if [[ "$REPO_OWNER" != "Zimpler" ]]; then
+    echo "Only allowed on repos owned by Zimpler org"
+    exit 1
+fi
+
+arthur yolo-deploy $REPO_NAME staging && notify-send "(yolo) $REPO_NAME deployed to staging"
+
