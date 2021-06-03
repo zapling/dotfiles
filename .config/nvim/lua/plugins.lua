@@ -24,6 +24,7 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'                -- . repetition for custom motions
   use 'FooSoft/vim-argwrap'             -- Wrap function arguments with keypress
   use 'unblevable/quick-scope'          -- f,F,t,F motion highlighting
+  use 'kyazdani42/nvim-web-devicons'    -- icons (requires patch fonts (Nerd fonts)
 
   -- gruvbox beauty
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
@@ -32,5 +33,7 @@ return require('packer').startup(function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- treesitter helper
   use 'neovim/nvim-lspconfig' -- lsp config helper
   use 'hrsh7th/nvim-compe' -- lsp auto completion
+  use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
+  -- use "folke/trouble.nvim" -- lsp better diagnostic viewer
 
 end)

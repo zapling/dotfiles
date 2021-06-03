@@ -6,16 +6,14 @@
 require('plugins')          -- install/load plugins
 require('settings')         -- vim settings
 require('plugin-settings')  -- plugin specific settings
-require('autocmd')          -- custom auto commands
 
 --[[ ===== Keymaps ==== -- ]]
 
 local map = vim.api.nvim_set_keymap
 
--- rebind leader key
+-- basic rebinds
 map('n', '<Backspace>', '<Nop>', {noremap = true})
 map('n', '<Backspace>', '<Leader>', {})
-
 map('n', '<CR>', ':noh<CR>', {noremap = true})
 
 -- git
@@ -25,6 +23,7 @@ map('', '<Leader>vj', ':diffget //3<CR>', {})
 map('', '<Leader>vb', ':Gblame<CR>', {})
 
 -- argwrap
+-- TODO: can this be solved by Treesitter?
 map('', '<Leader>gw', ':ArgWrap<CR>', {})
 
 -- lsp
@@ -32,8 +31,14 @@ map('', '<Leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
 map('', '<Leader>gj', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
 map('', '<Leader>gk', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
 map('', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', {silent = true})
-map('', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {silent = true})
+map('', '<Leader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', {silent = true})
+map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 
 -- lsp auto complete
 map('i', '<CR>', 'compe#confirm("<CR>")', {silent = true, expr = true})
 map('i', '<C-space>', 'compe#complete()', {silent = true, expr = true})
+
+-- telescope
+map('', '<Leader>p', '<Cmd>Telescope find_files<CR>', {})
+map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
+map('', '<Leader>}', '<Cmd>Telescope file_browser<CR>', {})

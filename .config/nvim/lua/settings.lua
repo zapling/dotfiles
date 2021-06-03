@@ -22,7 +22,7 @@ autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underlin
 augroup END
 ]])
 
-vim.g['gruvbox_contrast_dark'] = 'hard'
+-- vim.g['gruvbox_contrast_dark'] = 'hard'
 vim.g['gruvbox_invert_selection'] = 0
 
 vim.o.termguicolors = true -- enable truecolors (requires compatible terminal)
@@ -40,8 +40,10 @@ vim.wo.colorcolumn = '100' -- 100 chars line indicator
 -- buffer
 vim.bo.textwidth = 0 -- never auto break lines when typing
 
+
 vim.bo.tabstop     = 4
 vim.bo.softtabstop = 4
-vim.bo.shiftwidth  = 4
+-- vim.bo.shiftwidth  = 4 does not work?
+vim.api.nvim_command('set shiftwidth=4')
 vim.bo.expandtab = true
 vim.bo.smartindent = true

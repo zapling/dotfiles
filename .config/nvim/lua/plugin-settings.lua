@@ -17,6 +17,21 @@ require'nvim-treesitter.configs'.setup {
 
 -- LSP
 require'lspconfig'.gopls.setup{}
+require'lspconfig'.tsserver.setup{}
+
+-- A LOT of issues with floating windows, makes using the builtin LSP unsuable for work.
+-- Coc seems much more stable in that regard.
+--
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--     vim.lsp.diagnostic.on_publish_diagnostics, {
+--         virtual_text = false,
+--         underline = true,
+--         signs = true,
+--     }
+-- )
+
+-- leader + k will not show anything at all when these are active, their floating window overrides it
+-- vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
 
 -- LSP auto completion
 require'compe'.setup {
