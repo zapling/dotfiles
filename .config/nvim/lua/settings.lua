@@ -11,7 +11,7 @@ vim.o.smartcase  = true
 vim.o.inccommand = 'nosplit' -- see substitute result as you type
 vim.o.completeopt = "menuone,noselect" -- needed for nvim-compe
 
---vim.o.showmode = false -- hide current mode
+-- vim.o.showmode = false -- hide current mode
 
 -- theme stuff
 
@@ -22,7 +22,7 @@ autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underlin
 augroup END
 ]])
 
--- vim.g['gruvbox_contrast_dark'] = 'hard'
+vim.g['gruvbox_contrast_dark'] = 'hard'
 vim.g['gruvbox_invert_selection'] = 0
 
 vim.o.termguicolors = true -- enable truecolors (requires compatible terminal)
