@@ -9,15 +9,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute 'packadd packer.nvim'
 end
 
-local packer = require('packer')
-local util = require('packer.util')
-
 -- [ ===== Plugins ===== ]
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use 'tpope/vim-fugitive'              -- Git integration
-  use 'airblade/vim-gitgutter'          -- Git annotations
+  use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}} -- Git annotations
   use 'ntpeters/vim-better-whitespace'  -- See annoying whitespace
   use 'joom/vim-commentary'             -- Toggle code comments
   use 'tpope/vim-surround'              -- Edit 'surroundings'
@@ -34,6 +31,6 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig' -- lsp config helper
   use 'hrsh7th/nvim-compe' -- lsp auto completion
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
-  -- use "folke/trouble.nvim" -- lsp better diagnostic viewer
+  use 'folke/trouble.nvim' -- lsp better diagnostic viewer
 
 end)
