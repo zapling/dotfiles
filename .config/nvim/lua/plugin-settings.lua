@@ -19,8 +19,7 @@ require'nvim-treesitter.configs'.setup {
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
 
--- A LOT of issues with floating windows, makes using the builtin LSP unsuable for work.
--- Coc seems much more stable in that regard.
+-- disable inline diagnostic text via virtual_text
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         virtual_text = false,
@@ -34,8 +33,11 @@ vim.api.nvim_command('sign define LspDiagnosticsSignWarning text= texthl=LspD
 vim.api.nvim_command('sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=')
 vim.api.nvim_command('sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=')
 
--- leader + k will not show anything at all when these are active, their floating window overrides it
---vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
+-- floating windows can be renderd on top of eachother it seems like
+-- autocmd CursorHold conflicts with hover().
+-- https://github.com/neovim/neovim/issues/11508
+-- vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
+-- vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
 -- LSP auto completion
 require'compe'.setup {
