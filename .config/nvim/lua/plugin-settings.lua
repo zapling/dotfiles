@@ -4,11 +4,31 @@ vim.g['better_whitespace_guicolor'] = 'Red'
 -- Quickscope, only active if key pressed
 vim.g['qs_highlight_on_keys'] = {'f', 'F', 't', 'T'}
 
+-- Git signs
+require('gitsigns').setup{
+  signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+}
+
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
-    'bash', 'css', 'go', 'gomod', 'html', 'javascript', 'json',
-    'lua', 'python', 'typescript', 'yaml'
+      'bash',
+      'css',
+      'go',
+      'gomod',
+      'html',
+      'javascript',
+      'json',
+      'lua',
+      'python',
+      'typescript',
+      'yaml'
   },
   highlight = {
     enable = true
