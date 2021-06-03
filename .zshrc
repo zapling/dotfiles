@@ -35,3 +35,6 @@ alias ssh_kitty="kitty +kitten ssh $1"
 # Other
 alias timestamp="date '+%F%T' | tr -d ':-'"
 alias utimestamp="date '+%s'"
+
+# neovim nightly
+alias nightly-build="cd ~/build/neovim && git checkout master && git pull && make distclean && make CMAKE_BUILD_TYPE=Release && sudo make install"
