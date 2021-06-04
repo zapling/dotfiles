@@ -140,10 +140,12 @@ post_install() {
         [ ! -d $dir ] && mkdir $dir && echo "created neovim directory $dir"
     done
 
-    nvim +PlugInstall +qall && echo "neovim setup done."
+    #nvim +PlugInstall +qall && echo "neovim setup done."
+    echo "Skipping nvim post install."
 
-    # Go language server
-    go install golang.org/x/tools/gopls@latest
+    # Setup LSP servers
+    go install golang.org/x/tools/gopls@latest            # Go LSP
+    npm install -g typescript typescript-language-server  # TypeScript LSP
 
     # LiberationMono Nerd font (LiterationMono Nerd Font)
     # https://www.nerdfonts.com/font-downloads
