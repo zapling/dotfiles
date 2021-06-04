@@ -20,7 +20,7 @@ map('n', '<CR>', ':noh<CR>', {noremap = true})
 map('', '<Leader>vs', ':G<CR>', {})
 map('', '<Leader>vf', ':diffget //2<CR>', {})
 map('', '<Leader>vj', ':diffget //3<CR>', {})
-map('', '<Leader>vb', ':Gblame<CR>', {})
+map('', '<Leader>vb', ':Git blame<CR>', {})
 
 -- argwrap
 -- TODO: can this be solved by Treesitter?
@@ -41,5 +41,6 @@ map('i', '<C-space>', 'compe#complete()', {silent = true, expr = true})
 
 -- telescope
 map('', '<Leader>p', '<Cmd>Telescope find_files<CR>', {})
+map('', '<Leader>P', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
 map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
 map('', '<Leader>}', '<Cmd>Telescope file_browser<CR>', {})

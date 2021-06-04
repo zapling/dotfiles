@@ -14,7 +14,10 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use 'tpope/vim-fugitive'              -- Git integration
-  use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}} -- Git annotations
+  use {
+      'lewis6991/gitsigns.nvim',
+      requires = {'nvim-lua/plenary.nvim'}
+  } 					-- Git annotations
   use 'ntpeters/vim-better-whitespace'  -- See annoying whitespace
   use 'joom/vim-commentary'             -- Toggle code comments
   use 'tpope/vim-surround'              -- Edit 'surroundings'
