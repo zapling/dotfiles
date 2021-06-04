@@ -65,8 +65,6 @@ URL=$(getDatabaseUrl)
 case $COMMAND in
     "")
         [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
-        RAW_VPN_DATA=$(nmcli -t connection show --active | grep -o ".*$ENVIRONMENT.*\:vpn\:.*")
-        [[ -z $RAW_VPN_DATA ]] && echo "Invalid VPN, not connected to the $ENVIRONMENT vpn" && exit 1
         psql $URL
         exit
         ;;
