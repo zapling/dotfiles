@@ -15,10 +15,7 @@ protectDropdownTerminal () {
 	fi
 }
 
-# Disable "exit" command for dropdown terminals
-protectDropdownTerminal
-
-export EDITOR=/usr/bin/nvim
+protectDropdownTerminal # Disable "exit" command if this is a dropdown terminal
 
 # function myshopDump() {
 # 	stamp=$(date +%s)
@@ -28,7 +25,8 @@ export EDITOR=/usr/bin/nvim
 
 # Programs
 # alias vim="nvim0.5 -u ~/.config/nvim/init.lua"
-alias vim="nvim0.4 -u ~/.config/nvim/init0.4.vim"
+alias lvim="nvim0.4 -u ~/.config/nvim/init0.4.vim"
+alias vim="nvim0.5"
 alias vi="echo -e \"vi, did you mean vim? (y/n)\" && read -sk x && [[ \"\$x\" == \"y\" ]] && nvim || vi"
 alias ssh_kitty="kitty +kitten ssh $1"
 
