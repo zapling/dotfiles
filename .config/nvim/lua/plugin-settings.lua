@@ -13,7 +13,7 @@ require('gitsigns').setup{
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
-  -- wrap = false, does nothing, bug?
+  -- wrap = false, bug: https://github.com/lewis6991/gitsigns.nvim/pull/210
   keymaps = {
     ['n ]c'] = { '<cmd>lua require"gitsigns".next_hunk({wrap = false})<CR>'},
     ['n [c'] = { '<cmd>lua require"gitsigns".prev_hunk({wrap = false})<CR>'},
@@ -33,7 +33,8 @@ require'nvim-treesitter.configs'.setup {
       'lua',
       'python',
       'typescript',
-      'yaml'
+      'yaml',
+      'teal',
   },
   highlight = {
     enable = true
