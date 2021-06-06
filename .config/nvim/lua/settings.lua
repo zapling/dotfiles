@@ -37,9 +37,10 @@ vim.wo.wrap           = false -- never render lines as wrapped
 
 vim.wo.colorcolumn = '100' -- 100 chars line indicator
 
+vim.wo.signcolumn = 'yes' -- always show sign column
+
 -- buffer
 vim.bo.textwidth = 0 -- never auto break lines when typing
-
 
 vim.bo.tabstop     = 4
 vim.bo.softtabstop = 4
