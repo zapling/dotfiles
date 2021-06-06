@@ -41,7 +41,8 @@ map('i', '<CR>', 'compe#confirm("<CR>")', {silent = true, expr = true})
 map('i', '<C-space>', 'compe#complete()', {silent = true, expr = true})
 
 -- telescope
-map('', '<Leader>p', '<Cmd>Telescope find_files<CR>', {})
-map('', '<Leader>P', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
+map('', '<Leader>p', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
+map('', '<Leader>P', '<Cmd>Telescope file_browser<CR>', {})
+map('', '<Leader>gp', '<Cmd>Telescope git_status<CR>', {})
+map('', '<Leader>gP', '<Cmd>Telescope git_commits<CR>', {})
 map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
-map('', '<Leader>}', '<Cmd>Telescope file_browser<CR>', {})
