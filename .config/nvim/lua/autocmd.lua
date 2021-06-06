@@ -1,5 +1,2 @@
-vim.api.nvim_command([[
-augroup ZAPLING
-autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-augroup END
-]])
+-- Dont highlight whitespace in the Trouble buffer
+vim.api.nvim_command('autocmd FileType Trouble DisableWhitespace')

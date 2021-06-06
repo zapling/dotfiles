@@ -6,6 +6,7 @@
 require('plugins')          -- install/load plugins
 require('settings')         -- vim settings
 require('plugin-settings')  -- plugin specific settings
+require('autocmd')          -- auto commands
 
 --[[ ===== Keymaps ==== -- ]]
 
