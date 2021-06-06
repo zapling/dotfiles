@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+
+SERVICE=$1
+ENVIRONMENT=$2
+
+[[ "$SERVICE" == "" ]] && echo "service-addr [SERVICE] [COMMAND]" && exit 1
+[[ "$ENVIRONMENT" == "" ]] && echo "service-addr [SERVICE] [COMMAND]" && exit 1
+
+echo "http://$SERVICE.$SERVICE.$ENVIRONMENT.internal/"
