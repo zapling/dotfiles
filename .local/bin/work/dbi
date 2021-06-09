@@ -89,17 +89,17 @@ case $COMMAND in
     "")
         ;&
     "--parse")
-	URL=$(getDatabaseUrl)
+        URL=$(getDatabaseUrl)
         [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
         psql $URL
         exit
         ;;
     "--arthur")
-	arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
+        arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
         exit
-	;;
+        ;;
     "--url")
-	URL=$(getDatabaseUrl)
+        URL=$(getDatabaseUrl)
         echo $URL
         exit
         ;;
