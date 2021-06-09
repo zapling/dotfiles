@@ -2,7 +2,7 @@
 [[ "$HOST" != "x1-carbon" ]] && exit 1
 
 CERT=false
-CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-staging-cert.pem)
+CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-cert.pem)
 if [ $? -eq 1 ]; then
     CERT="[ Zimpler CERT exp ]"
 fi
