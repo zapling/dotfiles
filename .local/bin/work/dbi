@@ -4,8 +4,31 @@ SERVICE=$1
 ENVIRONMENT=$2
 COMMAND=${3:-}
 
-[[ "$SERVICE" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]" && exit 1
-[[ "$ENVIRONMENT" == "" ]] && echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]" && exit 1
+if ! type "arthur" > /dev/null; then
+    echo "Command 'arthur' not found"
+    exit 1
+fi
+
+if ! type "psql" > /dev/null; then
+    echo "Command 'psql' not found"
+    exit 1
+fi
+
+function help() {
+    echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]"
+    echo ""
+    echo "Commands:"
+    echo "  --parse (default)"
+    echo "      Connect to database by parsing enviroment variables from arthur."
+    echo "      Fastest method but success depends on the enviroment variable setup, some services might not work."
+    echo "  --arthur"
+    echo "      Connect to database via arthur psql. This method is generally slower but supports all services."
+    echo "  --url"
+    echo "      Print database connection url 'postgres://user:pass@host:port/db?sslmode=disable'"
+}
+
+[[ "$SERVICE" == "" ]] && help && exit 1
+[[ "$ENVIRONMENT" == "" ]] && help && exit 1
 
 case $ENVIRONMENT in
     "staging")
@@ -61,19 +84,26 @@ function getDatabaseUrl() {
     fi
 }
 
-URL=$(getDatabaseUrl)
 
 case $COMMAND in
     "")
+        ;&
+    "--parse")
+	URL=$(getDatabaseUrl)
         [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
         psql $URL
         exit
         ;;
+    "--arthur")
+	arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
+        exit
+	;;
     "--url")
+	URL=$(getDatabaseUrl)
         echo $URL
         exit
         ;;
     *)
-        echo "Invalid [COMMAND], supported values are '--url' or empty."
+        echo "Invalid [COMMAND], supported values are '--url', '--arthur' or empty."
         exit
 esac
