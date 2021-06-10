@@ -1,17 +1,15 @@
--- globals
+vim.opt.updatetime = 100
+vim.opt.backupdir = os.getenv('HOME') .. '/.vim/backup'
+vim.opt.directory = os.getenv('HOME') .. '/.vim/backupf'
 
-vim.o.updatetime = 100
-vim.o.backupdir = os.getenv('HOME') .. '/.vim/backup'
-vim.o.directory = os.getenv('HOME') .. '/.vim/backupf'
+vim.opt.incsearch  = true
+vim.opt.ignorecase = true
+vim.opt.smartcase  = true
 
-vim.o.incsearch  = true
-vim.o.ignorecase = true
-vim.o.smartcase  = true
+vim.opt.inccommand = 'nosplit' -- see substitute result as you type
+vim.opt.completeopt = "menuone,noselect" -- needed for nvim-compe
 
-vim.o.inccommand = 'nosplit' -- see substitute result as you type
-vim.o.completeopt = "menuone,noselect" -- needed for nvim-compe
-
--- vim.o.showmode = false -- hide current mode
+vim.opt.showmode = false -- hide current mode
 
 -- theme stuff
 
@@ -25,26 +23,22 @@ augroup END
 vim.g['gruvbox_contrast_dark'] = 'hard'
 vim.g['gruvbox_invert_selection'] = 0
 
-vim.o.termguicolors = true -- enable truecolors (requires compatible terminal)
-vim.o.background = 'dark'
+vim.opt.termguicolors = true -- enable truecolors (requires compatible terminal)
+vim.opt.background = 'dark'
 vim.cmd([[colorscheme gruvbox]])
 
--- window-local
+vim.opt.relativenumber = true -- use releative numbers
+vim.opt.number         = true -- but show current line number
+vim.opt.wrap           = false -- never render lines as wrapped
 
-vim.wo.relativenumber = true -- use releative numbers
-vim.wo.number         = true -- but show current line number
-vim.wo.wrap           = false -- never render lines as wrapped
+vim.opt.colorcolumn = '100' -- 100 chars line indicator
 
-vim.wo.colorcolumn = '100' -- 100 chars line indicator
+vim.opt.signcolumn = 'yes' -- always show sign column
 
-vim.wo.signcolumn = 'yes' -- always show sign column
+vim.opt.textwidth = 0 -- never auto break lines when typing
 
--- buffer
-vim.bo.textwidth = 0 -- never auto break lines when typing
-
-vim.bo.tabstop     = 4
-vim.bo.softtabstop = 4
--- vim.bo.shiftwidth  = 4 does not work?
-vim.api.nvim_command('set shiftwidth=4')
-vim.bo.expandtab = true
-vim.bo.smartindent = true
+vim.opt.tabstop     = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth  = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
