@@ -15,16 +15,21 @@ if ! type "psql" > /dev/null; then
 fi
 
 function help() {
-    echo "dbi [SERVICE] [ENVIRONMENT] [COMMAND]"
+    echo "dbi SERVICE ENVIRONMENT [COMMAND]"
     echo ""
-    echo "Commands:"
-    echo "  --parse (default)"
+    echo "Example:"
+    echo "  dbi george staging"
+    echo ""
+    echo "Command:"
+    echo "  --arthur (default)"
+    echo "      Connect to database via arthur PSQL. Uses your AWS credentials to login."
+    echo "  --parse"
     echo "      Connect to database by parsing enviroment variables from arthur."
-    echo "      Fastest method but success depends on the enviroment variable setup, some services might not work."
-    echo "  --arthur"
-    echo "      Connect to database via arthur psql. This method is generally slower but supports all services."
+    echo "      Might not work on all services."
     echo "  --url"
-    echo "      Print database connection url 'postgres://user:pass@host:port/db?sslmode=disable'"
+    echo "      Print postgres connection url."
+    echo "      URL is valid for 15 min, but once connected your session is valid until you disconnect."
+    echo "      Example output 'postgres://user:pass@host:port/db'"
 }
 
 [[ "$SERVICE" == "" ]] && help && exit 1
@@ -88,22 +93,22 @@ function getDatabaseUrl() {
 case $COMMAND in
     "")
         ;&
+    "--arthur")
+        arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
+        exit
+        ;;
     "--parse")
         URL=$(getDatabaseUrl)
         [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
         psql $URL
         exit
         ;;
-    "--arthur")
-        arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
-        exit
-        ;;
     "--url")
-        URL=$(getDatabaseUrl)
+        URL=$(arthur db-connection-url $SERVICE-$ENVIRONMENT)
         echo $URL
         exit
         ;;
     *)
-        echo "Invalid [COMMAND], supported values are '--url', '--arthur' or empty."
-        exit
+        help
+        exit 1
 esac
