@@ -1,8 +1,5 @@
 #!/usr/bin/zsh
 
-SERVICE=$1
-ENVIRONMENT=$2
-COMMAND=${3:-}
 
 if ! type "arthur" > /dev/null; then
     echo "Command 'arthur' not found"
@@ -31,6 +28,16 @@ function help() {
     echo "      URL is valid for 15 min, but once connected your session is valid until you disconnect."
     echo "      Example output 'postgres://user:pass@host:port/db'"
 }
+
+if [[ "$1" == "local" ]]; then
+    echo "Connecting to localhost server"
+    psql postgres://postgres:postgres@localhost:59543
+    exit
+fi
+
+SERVICE=$1
+ENVIRONMENT=$2
+COMMAND=${3:-}
 
 [[ "$SERVICE" == "" ]] && help && exit 1
 [[ "$ENVIRONMENT" == "" ]] && help && exit 1
