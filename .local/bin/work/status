@@ -1,0 +1,73 @@
+#!/usr/bin/zsh
+BOLD='\e[1m'
+DIM='\e[2m'
+MARK='\e[1;30;43m' # Bold black text red bg
+NC='\033[0m' # No Color
+
+TOKEN=$GITHUB_ORG_READ_TOKEN
+
+[[ "$TOKEN" == "" ]] && echo "Missing GITHUB_ORG_READ_TOKEN env param" && exit 1
+
+GITHUB_RES=$(curl -s --header "Authorization: token $TOKEN" "https://api.github.com/orgs/Zimpler/teams/go-team/repos?per_page=100")
+REPOS=($(echo $GITHUB_RES | jq '.[].name' | tr -d '"'))
+
+function getBuildId() {
+    SERVICE=$1
+    ENV=$2
+
+    STATUS=$(curl -s "http://$SERVICE.$SERVICE.$ENV.internal/status")
+    echo $STATUS | jq '.["build-id"]' | tr -d '"'
+}
+
+function printServiceData() {
+    REPO=$1
+
+    STAGING_ID=$(getBuildId $REPO staging)
+
+    # Don't continue if service is not running on staging
+    [[ "$STAGING_ID" == "" ]] || [[ "$STAGING_ID" == "null" ]] && continue
+
+    LINE="$REPO $STAGING_ID"
+
+    SANDBOX_ID=$(getBuildId $REPO sandbox)
+    PRODUCTION_ID=$(getBuildId $REPO production)
+
+    ISSUE=0
+
+    if [[ "$SANDBOX_ID" == "" ]]; then
+        LINE="$LINE -"
+    elif [[ $SANDBOX_ID -ne $STAGING_ID ]]; then
+        LINE="$LINE ${MARK}$SANDBOX_ID${NC}"
+        ISSUE=1
+    else
+        LINE="$LINE $SANDBOX_ID"
+    fi
+
+    if [[ $PRODUCTION_ID -ne $STAGING_ID ]]; then
+        LINE="$LINE ${MARK}$PRODUCTION_ID${NC}"
+        ISSUE=1
+    else
+        LINE="$LINE $PRODUCTION_ID"
+    fi
+
+    # print data with repo as prefix, so we can sort on that
+    if [[ $ISSUE -eq 0 ]]; then
+        echo "$REPO ${DIM}$LINE${NC}"
+    else
+        echo "$REPO $LINE"
+    fi
+}
+
+function printTable() {
+    echo "${BOLD}SERVICE STAGING SANDBOX PRODUCTION${NC}"
+    for REPO in "${REPOS[@]}"; do
+        echo $(printServiceData $REPO) & # fetch and parse data async
+    done
+
+    wait
+}
+
+printTable | \
+    (sed -u 1q; sort ) | \
+    ( sed -u 1q; cut -d ' ' -f 1 --complement) | \
+    column -t
