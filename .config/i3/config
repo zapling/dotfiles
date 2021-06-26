@@ -47,9 +47,9 @@ font pango:monospace 10
 exec --no-startup-id xset -b
 
 # Monitor config
-exec --no-startup-id \
-    hostname=$(cat /proc/sys/kernel/hostname) ; \
-    /usr/bin/i3-autodisplay -config ~/.config/i3-autodisplay/$hostname.yml &
+# exec --no-startup-id \
+#     hostname=$(cat /proc/sys/kernel/hostname) ; \
+#     /usr/bin/i3-autodisplay -config ~/.config/i3-autodisplay/$hostname.yml &
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
@@ -58,10 +58,6 @@ exec --no-startup-id redshift-gtk -l 57.70:11.97
 exec --no-startup-id /usr/bin/alacritty --class dropdown1 &
 exec --no-startup-id /usr/bin/alacritty --class dropdown2 &
 
-# Select random wallpaper
-# exec --no-startup-id \
-#     wallpaper=$(find ~/Pictures/wallpapers/MacOSX -type f | shuf -n 1) ; \
-#     /usr/bin/xwallpaper --maximize $wallpaper
 exec --no-startup-id /usr/bin/xwallpaper --daemon --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
 
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
@@ -99,8 +95,6 @@ set $ws10 "10"
 
 #-------/ Keybinds /--------#
 
-set $i3lock i3lock --color=1b1b1b
-
 # Dropdown terminals
 bindsym $mod+u [instance="dropdown1"] scratchpad show
 bindsym $mod+Shift+u [instance="dropdown2"] scratchpad show
@@ -113,8 +107,8 @@ bindsym $mod+Shift+n exec firefox -private-window
 bindsym $mod+Shift+f exec thunar
 
 # System
-bindsym $mod+l exec $i3lock
-bindsym $mod+Shift+Delete exec "$i3lock ; systemctl suspend"
+bindsym $mod+l exec "dm-tool switch-to-greeter"
+bindsym $mod+Shift+Delete exec "dm-tool switch-to-greeter; systemctl suspend"
 bindsym $mod+Shift+s exec pavucontrol
 
 # Audio
