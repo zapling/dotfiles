@@ -144,8 +144,10 @@ post_install() {
     echo "Skipping nvim post install."
 
     # Setup LSP servers
+    echo "Setup gopls"
     go install golang.org/x/tools/gopls@latest            # Go LSP
-    npm install -g typescript typescript-language-server  # TypeScript LSP
+    echo "Setup typescript ls"
+    sudo npm install -g typescript typescript-language-server  # TypeScript LSP
 
     # LiberationMono Nerd font (LiterationMono Nerd Font)
     # https://www.nerdfonts.com/font-downloads
@@ -162,5 +164,18 @@ post_install() {
     echo "=== END POST INSTALL==="
 }
 
-sudo pacman -Sy && install && setup_symlinks && post_install && echo "Setup completed!"
+function setup_grub() {
+    find=$(grep -o "#GRUB_BACKGROUND=" /etc/default/grub)
+    if [[ "$find" != "" ]]; then
+        echo "Setup custom grub image..."
+        sudo cp ~/dotfiles/wall/grub/gta-stallman.png /usr/share/grub/.
+        sudo sed -i "s/#GRUB_BACKGROUND=.*/GRUB_BACKGROUND=\"\/usr\/share\/grub\/gta-stallman.png\"/" /etc/default/grub
+        sudo sed -i "s/GRUB_THEME/#GRUB_THEME/" /etc/default/grub
+        sudo grub-mkconfig -o /boot/grub/grub.cfg
+    else
+        echo "Custom grub image already setup"
+    fi
+}
+
+sudo pacman -Sy && install && setup_symlinks && post_install && setup_grub && echo "Setup completed!"
 
