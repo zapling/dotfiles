@@ -12,6 +12,9 @@ export PATH=~/.npm_global/bin:$PATH
 # Needed for private repos at work
 export GOPRIVATE="github.com/Zimpler/*"
 
+# fucks with script output
+# export ARTHUR_AUTO_UPDATE=true
+
 # GNU/ls like colors
 # Hack for alacritty as coreutils guys are lame
 # https://github.com/alacritty/alacritty/issues/2210

@@ -17,6 +17,9 @@ protectDropdownTerminal () {
 
 protectDropdownTerminal # Disable "exit" command if this is a dropdown terminal
 
+# Source private stuff
+[ -e ~/.private ] && source ~/.private
+
 # function myshopDump() {
 # 	stamp=$(date +%s)
 # 	mysql -h hostname -Ddatabase -pPassword -uUser -e $1 | sed 's/\t/","/g;s/^/"/;s/$/"/;' > sql_dump_$stamp.csv
