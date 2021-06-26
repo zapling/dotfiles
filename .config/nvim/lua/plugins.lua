@@ -24,16 +24,23 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'                -- . repetition for custom motions
   use 'FooSoft/vim-argwrap'             -- Wrap function arguments with keypress
   use 'unblevable/quick-scope'          -- f,F,t,F motion highlighting
-  use 'kyazdani42/nvim-web-devicons'    -- icons (requires patch fonts (Nerd fonts)
 
-  -- gruvbox beauty
-  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+  -- database viewer
+  use 'tpope/vim-dadbod'
+  use 'kristijanhusak/vim-dadbod-ui'
 
-  -- neovim 0.5 goodies, boi have we waited
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- treesitter helper
-  use 'neovim/nvim-lspconfig' -- lsp config helper
-  use 'hrsh7th/nvim-compe' -- lsp auto completion
+  -- theme / syntax
+  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}  -- theme
+  use {'hoob3rt/lualine.nvim'}                                 -- statusline
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- syntax
+  use 'kyazdani42/nvim-web-devicons'                           -- icons (requires patch fonts (Nerd fonts)
+
+  -- lsp
+  use 'neovim/nvim-lspconfig' -- config helper
+  use 'hrsh7th/nvim-compe'    -- auto completion
+  use 'folke/trouble.nvim'    -- better diagnostic viewer
+
+  -- search / navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
-  use 'folke/trouble.nvim' -- lsp better diagnostic viewer
 
 end)
