@@ -16,6 +16,7 @@ local map = vim.api.nvim_set_keymap
 map('n', '<Backspace>', '<Nop>', {noremap = true})
 map('n', '<Backspace>', '<Leader>', {})
 map('n', '<CR>', ':noh<CR>', {noremap = true})
+map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 
 -- git
 map('', '<Leader>vs', ':G<CR>', {})
