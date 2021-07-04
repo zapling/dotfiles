@@ -35,6 +35,8 @@ return require('packer').startup(function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- syntax
   use 'kyazdani42/nvim-web-devicons'                           -- icons (requires patch fonts (Nerd fonts)
 
+  use 'teal-language/vim-teal'
+
   -- lsp
   use 'neovim/nvim-lspconfig' -- config helper
   use 'hrsh7th/nvim-compe'    -- auto completion
