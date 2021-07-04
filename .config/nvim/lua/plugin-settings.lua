@@ -105,7 +105,7 @@ local function GitBranchCutOff()
     end
 
     if string.len(branch) > max_length + 1 then
-	return string.sub(branch, 0, 3)..'~.'
+	return string.sub(branch, 0, max_length)..'~.'
     end
 
     return branch
