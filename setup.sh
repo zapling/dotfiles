@@ -161,6 +161,14 @@ post_install() {
         echo "LiberationMono Nerd Font already installed"
     fi
 
+    # deadd-notification-center
+    if ! type "deadd-notification-center" > /dev/null; then
+        echo "Installing deadd-notification-center-bin from AUR"
+        pamac build --no-confirm deadd-notification-center-bin
+    else
+        echo "deadd-notification-center already installed."
+    fi
+
     echo "=== END POST INSTALL==="
 }
 
