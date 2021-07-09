@@ -169,6 +169,14 @@ post_install() {
         echo "deadd-notification-center already installed."
     fi
 
+    # notify-send.sh - Improved notify-send
+    if ! type "notify-send.sh" > /dev/null; then
+        echo "Installing notify-send.sh from AUR"
+        pamac build --no-confirm notify-send.sh
+    else
+        echo "notify-send.sh already installed"
+    fi
+
     echo "=== END POST INSTALL==="
 }
 
