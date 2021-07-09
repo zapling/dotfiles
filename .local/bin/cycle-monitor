@@ -14,6 +14,7 @@ externalDisplays=("${allDisplays[@]/$laptopDisplay}")
 
 case $current_mode in
     0) # Laptop screen only
+        current_mode_name="laptop"
         xrandr --output $laptopDisplay --auto
         for display in ${externalDisplays[@]}
         do
@@ -21,6 +22,7 @@ case $current_mode in
         done
     ;;
     1) # Only external screen
+        current_mode_name="external"
         xrandr --output $laptopDisplay --off
         for display in ${externalDisplays[@]}
         do
@@ -28,6 +30,7 @@ case $current_mode in
         done
     ;;
     2) # Mirror laptop to external
+        current_mode_name="mirror"
         xrandr --output $laptopDisplay --auto
         for display in ${externalDisplays[@]}
         do
@@ -39,6 +42,10 @@ case $current_mode in
         exit 1
     ;;
 esac
+
+if type "notify-send.sh" > /dev/null; then
+    notify-send.sh --replace-file=/tmp/current-monitor-notification "Display output changed" "Mode: $current_mode_name"
+fi
 
 current_mode=$((current_mode + 1))
 
