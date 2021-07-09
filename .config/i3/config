@@ -110,6 +110,7 @@ bindsym $mod+Shift+f exec thunar
 bindsym $mod+l exec "dm-tool switch-to-greeter"
 bindsym $mod+Shift+Delete exec "dm-tool switch-to-greeter; systemctl suspend"
 bindsym $mod+Shift+s exec pavucontrol
+bindsym $mod+n exec --no-startup-id "kill -s USR1 $(pidof deadd-notification-center)"
 
 # Audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id export BLOCK_BUTTON=4 && ~/.local/bin/volume
