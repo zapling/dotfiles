@@ -34,7 +34,7 @@ interval=5
 color=#1DB954
 
 [certificate-checker]
-interval=86400 # once a day
+interval=3600 # once a per hour
 
 [weather-applet]
 command=~/go/bin/./weatherapplet

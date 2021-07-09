@@ -1,10 +1,9 @@
 #!/usr/bin/zsh
 [[ "$HOST" != "x1-carbon" ]] && exit 1
 
-CERT=false
 CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-cert.pem)
 if [ $? -eq 1 ]; then
-    CERT="[ Zimpler CERT exp ]"
+    CERT="[ ⚠️ Certificate expired ]"
 fi
 
 if [ "$CERT" != "false" ]; then
@@ -15,5 +14,4 @@ fi
 
 echo "" # short_text
 echo "#fc2003" # color
-echo "#000000" # background color
 
