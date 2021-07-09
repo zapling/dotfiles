@@ -13,5 +13,5 @@ if [[ "$REPO_OWNER" != "Zimpler" ]]; then
     exit 1
 fi
 
-arthur yolo-deploy $REPO_NAME staging && notify-send "(yolo) $REPO_NAME deployed to staging"
-
+arthur yolo-deploy $REPO_NAME staging && \
+    notify-send "YOLO deploy" "$REPO_NAME pushed to staging"
