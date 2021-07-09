@@ -144,10 +144,20 @@ post_install() {
     echo "Skipping nvim post install."
 
     # Setup LSP servers
-    echo "Setup gopls"
-    go install golang.org/x/tools/gopls@latest            # Go LSP
-    echo "Setup typescript ls"
-    sudo npm install -g typescript typescript-language-server  # TypeScript LSP
+
+    if ! type "gopls" > /dev/null; then
+        echo "Installing gopls"
+        go install golang.org/x/tools/gopls@latest
+    else
+        echo "gopls already installed."
+    fi
+
+    if ! type "tsserver" > /dev/null; then
+        echo "Installing typescript-language-server"
+        sudo npm install -g typescript typescript-language-server  # TypeScript LSP
+    else
+        echo "typescript-language-server already installed."
+    fi
 
     # LiberationMono Nerd font (LiterationMono Nerd Font)
     # https://www.nerdfonts.com/font-downloads
