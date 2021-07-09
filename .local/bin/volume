@@ -53,4 +53,6 @@ else
     symb="🔇"
 fi
 
-echo "[$symb $volume%]"
+[[ "$blueAvailable" != "no" ]] && blueIcon=""
+
+echo "[$symb $volume% $blueIcon]"
