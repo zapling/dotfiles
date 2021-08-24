@@ -4,7 +4,7 @@
 HOME=~
 CURDIR=$(pwd)
 
-INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper dunst go alacritty zsh redshift xorg-xbacklight \
+INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper go alacritty zsh redshift xorg-xbacklight \
     neovim xclip npm \
     ttf-liberation \
     ripgrep
@@ -96,14 +96,6 @@ post_install() {
         pamac build --no-confirm gruvbox-dark-icons-gtk
     else
         echo "gruvbox-dark-gtk already installed."
-    fi
-
-    # i3lock-color was ditched from stabel community for some reason, get it from AUR instead.
-    if ! type "i3lock" > /dev/null; then
-        echo "Installing i3lock-color from AUR"
-        pamac build --no-confirm i3lock-color
-    else
-        echo "i3lock-color already installed."
     fi
 
     # xkblayout-state-git needed for keyboard layout indicator, found in AUR
