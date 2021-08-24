@@ -30,12 +30,16 @@ return require('packer').startup(function()
   use 'kristijanhusak/vim-dadbod-ui'
 
   -- theme / syntax
-  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}  -- theme
-  use {'hoob3rt/lualine.nvim'}                                 -- statusline
+  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+  use {'shadmansaleh/lualine.nvim'} -- updated fork, author seems to be inactive on the main one
+  -- use {'hoob3rt/lualine.nvim', branch = 'shadmansaleh:master' }
+
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- syntax
   use 'kyazdani42/nvim-web-devicons'                           -- icons (requires patch fonts (Nerd fonts)
 
+  -- language stuff
   use 'teal-language/vim-teal'
+  use 'hashivim/vim-terraform'
 
   -- lsp
   use 'neovim/nvim-lspconfig' -- config helper
