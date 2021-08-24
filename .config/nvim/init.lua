@@ -29,7 +29,8 @@ map('', '<Leader>vb', ':Git blame<CR>', {})
 map('', '<Leader>gw', ':ArgWrap<CR>', {})
 
 -- lsp
-map('', '<Leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
+-- map('', '<Leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
+map('', '<Leader>gd', '<Cmd>lua require\'telescope.builtin\'.lsp_definitions()<CR>', {silent = true})
 map('', '<Leader>gj', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
 map('', '<Leader>gk', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
 map('', '<Leader>d', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})<CR>', {silent = true})
@@ -41,7 +42,7 @@ map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 map('i', '<CR>', 'compe#confirm("<CR>")', {silent = true, expr = true})
 map('i', '<C-space>', 'compe#complete()', {silent = true, expr = true})
 
--- telescope
+-- file navigation and search
 map('', '<Leader>p', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
 map('', '<Leader>P', '<Cmd>Telescope file_browser<CR>', {})
 map('', '<Leader>gp', '<Cmd>Telescope git_status<CR>', {})
