@@ -31,6 +31,9 @@ vim.opt.relativenumber = true -- use releative numbers
 vim.opt.number         = true -- but show current line number
 vim.opt.wrap           = false -- never render lines as wrapped
 
+vim.opt.cursorline = true          -- use cursorline...
+vim.opt.cursorlineopt = {'number'} -- but only highlight the linenumber
+
 vim.opt.colorcolumn = '100' -- 100 chars line indicator
 
 vim.opt.signcolumn = 'yes' -- always show sign column
