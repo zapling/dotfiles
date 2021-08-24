@@ -4,6 +4,7 @@ export EDITOR=/usr/bin/nvim0.5
 
 export GOPATH=~/go
 
+export PATH=/usr/local/bin:$PATH
 export PATH=~/.local/bin/personal:$PATH
 export PATH=~/.local/bin/work:$PATH
 export PATH=~/go/bin:$PATH
