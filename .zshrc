@@ -20,21 +20,18 @@ protectDropdownTerminal # Disable "exit" command if this is a dropdown terminal
 # Source private stuff
 [ -e ~/.private ] && source ~/.private
 
-# function myshopDump() {
-# 	stamp=$(date +%s)
-# 	mysql -h hostname -Ddatabase -pPassword -uUser -e $1 | sed 's/\t/","/g;s/^/"/;s/$/"/;' > sql_dump_$stamp.csv
-# 	echo "Dumped sql to: sql_dump_$stamp.csv"
-# }
+# Dialog if user meant to open vim or really vi
+function vi() {
+    echo -e "vi, did you mean vim? (y/n)"
+    read -sk x
+    [[ "$x" == "y" ]] && nvim $@ || command vi $@
+}
 
-# Programs
-# alias vim="nvim0.5 -u ~/.config/nvim/init.lua"
-alias lvim="nvim0.4 -u ~/.config/nvim/init0.4.vim"
-alias vim="nvim0.5"
-alias vi="echo -e \"vi, did you mean vim? (y/n)\" && read -sk x && [[ \"\$x\" == \"y\" ]] && nvim || vi"
-alias ssh_kitty="kitty +kitten ssh $1"
+alias vim="nvim"
 
-# Other
+# YYYYMMDDHHMMSS
 alias timestamp="date '+%F%T' | tr -d ':-'"
+# seconds since epoch (unix)
 alias utimestamp="date '+%s'"
 
 # neovim nightly
