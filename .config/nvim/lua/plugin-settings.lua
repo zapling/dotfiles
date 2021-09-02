@@ -36,6 +36,7 @@ require'nvim-treesitter.configs'.setup {
       'teal',
       'tsx',
       'dockerfile',
+      'hcl',
   },
   highlight = {
     enable = true
@@ -63,6 +64,14 @@ vim.api.nvim_command('sign define LspDiagnosticsSignHint text= texthl=LspDiag
 -- auto show diagnostics
 vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
 vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+
+-- use this function instead of vim.lsp.buf.hover()
+-- solves issue where line_diagnostics would hide hover info because of CursorHold autocmd
+function HoverFixed()
+    vim.api.nvim_command('set eventignore=CursorHold')
+    vim.lsp.buf.hover()
+    vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
+end
 
 -- LSP auto completion
 require'compe'.setup {

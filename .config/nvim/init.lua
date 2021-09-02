@@ -34,7 +34,8 @@ map('', '<Leader>gd', '<Cmd>lua require\'telescope.builtin\'.lsp_definitions()<C
 map('', '<Leader>gj', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
 map('', '<Leader>gk', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
 map('', '<Leader>d', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics({focusable = true})<CR>', {silent = true})
-map('', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', {silent = true})
+-- map('', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', {silent = true})
+map('', '<Leader>k', '<Cmd>lua HoverFixed()<CR>', {silent = true})
 map('', '<Leader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', {silent = true})
 map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 
