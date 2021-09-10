@@ -27,6 +27,23 @@ function vi() {
     [[ "$x" == "y" ]] && nvim $@ || command vi $@
 }
 
+# Dialog before doing stupid stuff
+function git() {
+    confirm=0
+
+    # confirm before doing hard resets
+    if [[ "$1" == "reset" ]] && [[ "$2" == "--hard" ]]; then
+        confirm=1
+    fi
+
+    if [[ $confirm -eq 1 ]]; then
+        echo "Are you being retarted? Press any key to continue..."
+        read -k1 -s
+    fi
+
+    command git $@
+}
+
 alias vim="nvim"
 
 # YYYYMMDDHHMMSS
