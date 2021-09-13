@@ -25,7 +25,7 @@ PROMPT='%(?..%{$fg_bold[red]%}exit %?
 
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 
-RPROMPT='%{$fg[yellow]%}${command_benchmark} %{$fg[green]%}⧖ %{$fg[white]%}%T%{$reset_color%}'
+RPROMPT='%{$fg[yellow]%}${command_benchmark} %{$fg[green]%}⧖ %{$fg[white]%}%D{%H:%M}%{$reset_color%}'
 
 # preexec runs before each command is executed.
 preexec() {
