@@ -1,4 +1,3 @@
-export LC_TIME=en_US.utf8
 export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/nvim0.5
 
