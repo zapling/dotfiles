@@ -115,6 +115,12 @@ case $COMMAND in
         echo $URL
         exit
         ;;
+    "--url-parse")
+        URL=$(getDatabaseUrl)
+        [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
+        echo $URL
+        exit
+        ;;
     *)
         help
         exit 1
