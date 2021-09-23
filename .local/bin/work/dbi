@@ -20,7 +20,7 @@ function help() {
     echo "Command:"
     echo "  --arthur (default)"
     echo "      Connect to database via arthur PSQL. Uses your AWS credentials to login."
-    echo "  --parse"
+    echo "  --parse (deprecated)"
     echo "      Connect to database by parsing enviroment variables from arthur."
     echo "      Might not work on all services."
     echo "  --url"
@@ -54,6 +54,8 @@ case $ENVIRONMENT in
         exit 1
 esac
 
+# DEPRECATED since 2021-09-21
+# Use PGPROXY or PSQL in arthur to connect to databases instead
 function getDatabaseUrl() {
     # TODO: If arthur version is outdated this command fails!
     RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
@@ -105,6 +107,7 @@ case $COMMAND in
         exit
         ;;
     "--parse")
+        echo -e "\033[1;33mWARNING: --parse is deprecated! Use --arthur instead!\033[0m\n"
         URL=$(getDatabaseUrl)
         [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
         psql $URL
