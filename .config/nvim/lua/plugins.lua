@@ -20,6 +20,7 @@ return require('packer').startup(function()
   use 'FooSoft/vim-argwrap'            -- Wrap function arguments with keypress
   use 'unblevable/quick-scope'         -- f,F,t,F motion highlighting
   use 'ntpeters/vim-better-whitespace' -- show that fucking whitespace
+  use 'sindrets/winshift.nvim'         -- move windows around easily
 
   -- Git
   use 'tpope/vim-fugitive'
