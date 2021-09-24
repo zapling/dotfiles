@@ -48,18 +48,16 @@ require'lspconfig'.gopls.setup{}
 require'lspconfig'.tsserver.setup{}
 
 -- disable inline diagnostic text via virtual_text
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
-    }
-)
+vim.diagnostic.config({
+    virtual_text = false,
+    underline = true,
+    signs = true
+}, nil)
 
-vim.api.nvim_command('sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=')
-vim.api.nvim_command('sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=')
-vim.api.nvim_command('sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=')
-vim.api.nvim_command('sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignWarning text= texthl=DiagnosticSignWarning linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignInformation text= texthl=DiagnosticSignInformation linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=')
 
 -- auto show diagnostics
 vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
