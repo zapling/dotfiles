@@ -1,9 +1,6 @@
 # WARNING! If you edit via `crontab -e`, don't forget to update `dotfiles/cronjobs`
 # Unreflected changes here will be overriden on the next run of `setup.sh`
 #
-# You can manually apply changes with `crontab -l ~/dotfiles/cronjobs`
+# You can manually apply changes with `crontab ~/dotfiles/cronjobs`
 
 # minute hour day_of_month month day_of_week command
-
-# 14:00 every friday, check for stable updates on the forum
-0 14 * * 5 ~/.local/bin/./manjaro-updates
