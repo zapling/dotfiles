@@ -50,3 +50,6 @@ map('', '<Leader>gp', '<Cmd>Telescope git_status<CR>', {})
 map('', '<Leader>gP', '<Cmd>Telescope git_commits<CR>', {})
 map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
 map('', '<Leader>}', '<Cmd>Telescope grep_string<CR>', {})
+
+-- winshift
+map('n', '<C-W><C-M>', '<Cmd>WinShift<CR>', {noremap = true})
