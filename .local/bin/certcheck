@@ -1,4 +1,9 @@
 #!/usr/bin/zsh
+if [[ "$1" == "" ]]; then
+    echo "You need to specify a certfile as a param"
+    exit 1
+fi
+
 END_DATE=$(openssl x509 -enddate -noout -in $1 | awk '{print substr($0,10)}')
 if openssl x509 -checkend 86400 -noout -in $1 > /dev/null
 then
