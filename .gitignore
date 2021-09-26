@@ -1,3 +1,4 @@
 .config/weather-yr.no/
 .config/nvim/.netrwhist
+.config/nvim/plugin/packer_compiled.lua
 .config/fontconfig/conf.d/
