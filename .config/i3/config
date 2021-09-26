@@ -61,6 +61,7 @@ exec --no-startup-id /usr/bin/alacritty --class dropdown2 &
 exec --no-startup-id /usr/bin/xwallpaper --daemon --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
 
 exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
+exec_always --no-startup-id setxkbmap -option compose:menu
 
 #--------/ Status bar /-----#
 
