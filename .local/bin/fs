@@ -1,4 +1,5 @@
 #!/usr/bin/zsh
+# See file size for files in specified folder
 
 if du -b /dev/null > /dev/null 2>&1; then
     local arg=-sbh
