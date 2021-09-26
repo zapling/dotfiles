@@ -35,6 +35,7 @@ color=#1DB954
 
 [certificate-checker]
 interval=3600 # once a per hour
+certificate=${HOME}/.cert/nm-openvpn/zimpler-cert.pem
 
 [weather-applet]
 command=~/go/bin/./weatherapplet

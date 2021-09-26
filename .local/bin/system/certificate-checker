@@ -1,7 +1,14 @@
 #!/usr/bin/zsh
 [[ "$HOST" != "x1-carbon" ]] && exit 1
 
-CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-cert.pem)
+if [[ "$certificate" == "" ]]; then
+    echo "Env variable 'certificate' is empty"
+    exit 1
+fi
+
+eval certificate=$certificate
+
+CMD=$(~/.local/bin/certcheck "$certificate")
 if [ $? -eq 1 ]; then
     CERT="[ ⚠️ Certificate expired ]"
 fi
