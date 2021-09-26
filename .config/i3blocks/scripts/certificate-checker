@@ -1,17 +1,1 @@
-#!/usr/bin/zsh
-[[ "$HOST" != "x1-carbon" ]] && exit 1
-
-CMD=$(~/.local/bin/certcheck ~/.cert/nm-openvpn/zimpler-cert.pem)
-if [ $? -eq 1 ]; then
-    CERT="[ ⚠️ Certificate expired ]"
-fi
-
-if [ "$CERT" != "false" ]; then
-    echo $CERT
-else
-    exit 0
-fi
-
-echo "" # short_text
-echo "#fc2003" # color
-
+/home/andreas/.local/bin/system/certificate-checker

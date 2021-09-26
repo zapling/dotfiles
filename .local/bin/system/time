@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+LC_TIME=en_US.utf8
+echo `date +"%a %Y-%m-%d %H:%M"`
