@@ -55,8 +55,8 @@ vim.diagnostic.config({
 }, nil)
 
 vim.api.nvim_command('sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=')
-vim.api.nvim_command('sign define DiagnosticSignWarning text= texthl=DiagnosticSignWarning linehl= numhl=')
-vim.api.nvim_command('sign define DiagnosticSignInformation text= texthl=DiagnosticSignInformation linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=')
+vim.api.nvim_command('sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=')
 vim.api.nvim_command('sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=')
 
 -- auto show diagnostics
