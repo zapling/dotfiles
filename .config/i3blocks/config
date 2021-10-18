@@ -29,6 +29,10 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[set-compose-key]
+interval=5
+command=setxkbmap -option compose:menu
+
 [spotify]
 interval=5
 color=#1DB954
