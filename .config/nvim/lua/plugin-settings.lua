@@ -124,7 +124,7 @@ require('lualine').setup{
       section_separators = {left = '', right = ''},
   },
   sections = {
-      lualine_b = {GitBranchCutOff}
+      lualine_b = {GitBranchCutOff},
   }
 }
 
