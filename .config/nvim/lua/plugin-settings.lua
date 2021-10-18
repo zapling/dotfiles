@@ -65,7 +65,7 @@ vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_refere
 
 -- use this function instead of vim.lsp.buf.hover()
 -- solves issue where line_diagnostics would hide hover info because of CursorHold autocmd
-function HoverFixed()
+function LspHover()
     vim.api.nvim_command('set eventignore=CursorHold')
     vim.lsp.buf.hover()
     vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
