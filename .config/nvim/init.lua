@@ -18,6 +18,10 @@ map('n', '<Backspace>', '<Leader>', {})
 map('n', '<CR>', ':noh<CR>', {noremap = true})
 map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 
+-- I never use this, only accidentialy press it.
+-- Use the other default bind "g Q" if you ever need it.
+map('n', 'Q', '<Nop>', { noremap = true })
+
 -- git
 map('', '<Leader>vs', ':G<CR>', {})
 map('', '<Leader>vf', ':diffget //2<CR>', {})
@@ -29,8 +33,8 @@ map('', '<Leader>vb', ':Git blame<CR>', {})
 map('', '<Leader>gw', ':ArgWrap<CR>', {})
 
 -- lsp
--- map('', '<Leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', {silent = true})
 map('', '<Leader>gd', '<Cmd>lua require\'telescope.builtin\'.lsp_definitions()<CR>', {silent = true})
+map('', '<Leader>gD', '<Cmd>lua require\'telescope.builtin\'.lsp_implementations()<CR>', {silent = true})
 map('', '<Leader>gj', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', {silent = true})
 map('', '<Leader>gk', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', {silent = true})
 map('', '<Leader>d', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics({focusable = true})<CR>', {silent = true})
