@@ -26,11 +26,6 @@ return require('packer').startup(function()
   use 'tpope/vim-fugitive'
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
-  -- Database viewer
-  -- TODO: remove or get into workflow of using it
-  use 'tpope/vim-dadbod'
-  use 'kristijanhusak/vim-dadbod-ui'
-
   -- Theme and styling
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
   use {'shadmansaleh/lualine.nvim'} -- updated fork (org-maintainer afk for months)
@@ -40,12 +35,9 @@ return require('packer').startup(function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- the good stuff
   use 'kyazdani42/nvim-web-devicons'   -- note: requires patched fonts
 
-  use 'hashivim/vim-terraform' -- HCL highlighting
-
   -- Language Server Protocol
   use 'neovim/nvim-lspconfig' -- config helper
   use 'hrsh7th/nvim-compe'    -- auto completion
-  use 'folke/trouble.nvim'    -- better diagnostic viewer
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
