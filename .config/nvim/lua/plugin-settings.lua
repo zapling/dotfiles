@@ -63,6 +63,30 @@ vim.api.nvim_command('sign define DiagnosticSignHint text= texthl=DiagnosticS
 vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
 vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
+-- WIP! This didn't work out as planned for all cases, jump manually for now
+-- convient helper for getting cursor bufnr, colnr, and linenr
+-- local function getCursorPos()
+--     return {
+--         buf = vim.api.nvim_eval("bufnr('%')"),
+--         col = vim.api.nvim_eval("col('.')"),
+--         line = vim.api.nvim_eval("line('.')"),
+--     }
+-- end
+-- Probably the most useful function for LSP, at least for Golang.
+-- Tries to jump to the lsp implementation first, but if ther cursor
+-- didn't move (no implementation found) then we jump to the lsp definition.
+-- function LspJump()
+--     local cb = getCursorPos()
+
+--     require'telescope.builtin'.lsp_implementations()
+
+--     local ca = getCursorPos()
+
+--     if cb.buf == ca.buf or cb.col == ca.col or cb.line == ca.line then
+--         require'telescope.builtin'.lsp_definitions()
+--     end
+-- end
+
 -- use this function instead of vim.lsp.buf.hover()
 -- solves issue where line_diagnostics would hide hover info because of CursorHold autocmd
 function LspHover()
