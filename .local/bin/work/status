@@ -1,14 +1,21 @@
 #!/usr/bin/zsh
+
+arthur seer $@
+exit 0
+
+# Legacy bash script that was replaced with the real tool 'seer'
+# Keep for history reasons, for now.
+
 BOLD='\e[1m'
 DIM='\e[2m'
 MARK='\e[1;30;43m' # Bold black text red bg
 NC='\033[0m' # No Color
 
-TOKEN=$GITHUB_ORG_READ_TOKEN
+TOKEN=$(< ~/.arthur/github_token_v2)
 
 [[ "$TOKEN" == "" ]] && echo "Missing GITHUB_ORG_READ_TOKEN env param" && exit 1
 
-GITHUB_RES=$(curl -s --header "Authorization: token $TOKEN" "https://api.github.com/orgs/Zimpler/teams/go-team/repos?per_page=100")
+GITHUB_RES=$(curl -s --header "Authorization: token $TOKEN" "https://api.github.com/orgs/Zimpler/teams/team-netscape/repos?per_page=100")
 REPOS=($(echo $GITHUB_RES | jq '.[].name' | tr -d '"'))
 
 function getBuildId() {
