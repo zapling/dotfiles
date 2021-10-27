@@ -1,0 +1,67 @@
+#!/usr/bin/zsh
+
+volume_data=$(amixer get Master) # volume data
+sinks_data=$(pacmd list-sinks | grep -A1 "index:")
+
+## Volume
+
+function getCurrentVolume() {
+    echo $(grep Left: <<< "$volume_data" | awk '{print $5}' | tr -d '[]%')
+}
+
+function isSoundMuted() {
+    speakerMode=$(grep Left: <<< "$volume_data" | awk '{print $6}' | tr -d '[]')
+    [[ "$speakerMode" == "on" ]] && return 0
+    return 1
+}
+
+## Sinks
+
+function getCurrentSinkNumber() {
+    echo $(grep "*" <<< "$sinks_data" | awk '{print $3}')
+}
+
+function isCurrentSinkBluetooth() {
+    sinkName=$(grep -A1 "*" <<< "$sinks_data" | grep "blue")
+    if [[ "$sinkName" == "" ]] && return 1
+    return 0
+}
+
+function getAvailableSinks() {
+    echo $(grep "index:" <<< "$sinks_data" | tr -d "*" | awk '{print $2}')
+}
+
+
+## Controls
+
+# hardcoded sinks for x1-carbon setup
+function toggleSpeaker() {
+    speaker=3
+    bluetooth=5
+
+    [[ $(getCurrentSinkNumber) -eq $speaker ]] && pacmd set-default-sink $bluetooth && return
+
+    pacmd set-default-sink $speaker
+}
+
+case "$1" in
+    "--i3blocks")
+        # Block button is the mouse button pressed.
+        case "$BLOCK_BUTTON" in
+            1) toggleSpeaker ;;
+            2) amixer -q sset Master toggle ;;
+            # Mouse scroll up
+            4) amixer -q sset Master 5%+ ;;
+            # Mouse scroll down
+            5) amixer -q sset Master 5%- ;;
+        esac
+
+        volume=$(getCurrentVolume)
+
+        output=""
+
+        ;;
+    *)
+        echo "Hello world"
+        ;;
+esac

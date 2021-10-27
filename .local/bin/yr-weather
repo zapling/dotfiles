@@ -1,0 +1,94 @@
+#!/usr/bin/zsh
+
+CACHE_FOLDER=${XDG_CACHE_HOME:-"$HOME/.cache"}
+CACHE_PATH="${CACHE_FOLDER}/yr-weather"
+
+USER_AGENT="YrShellScript/0.1 github.com/zapling/dotfiles"
+ENDPOINT="https://api.met.no/weatherapi/locationforecast/2.0/compact"
+
+if ! type "jq" > /dev/null; then
+    echo "Missing dependency jq"
+    exit 1
+fi
+
+if [[ ! -d "$CACHE_PATH" ]]; then
+    mkdir $CACHE_PATH
+fi
+
+LAT=$1
+LON=$2
+
+if [[ "$LAT" == "" ]] || [[ "$LON" == "" ]]; then
+    echo "Not enough arguments"
+    exit 1
+fi
+
+cache_file=$(find $CACHE_PATH/ 2&> /dev/null | grep "${LAT}${LON}")
+
+function isCacheValid() {
+    if [[ "$cache_file" == "" ]]; then
+        return 1
+    fi
+
+    timestamp_now=$(date "+%s")
+    timestamp_cache=$(echo $cache_file | grep -o "_.*" | sed 's/\.json//' | tr -d '_')
+
+    if [[ $timestamp_now -gt $timestamp_cache ]]; then
+        rm $cache_file
+        return 1
+    fi
+
+    return 0
+}
+
+function fetchLocationForecast() {
+    # Perform request
+    response=$(curl -si -w "\n%{size_header},%{size_download}" -H "User-Agent: $USER_AGENT" "$ENDPOINT?lat=$LAT&lon=$LON")
+
+    # Extract the response header size.
+    headerSize=$(sed -n '$ s/^\([0-9]*\),.*$/\1/ p' <<< "${response}")
+
+    # Extract the response body size.
+    bodySize=$(sed -n '$ s/^.*,\([0-9]*\)$/\1/ p' <<< "${response}")
+
+    # Extract the response headers.
+    headers="${response:0:${headerSize}}"
+
+    # Extract the response body.
+    body="${response:${headerSize}:${bodySize}}"
+
+    # Write cache
+    expires=$(echo $headers | grep "Expires" | sed 's/Expires: //')
+    expires_timestamp=$(date -d "$expires" "+%s")
+
+    filename="${LAT}${LON}_${expires_timestamp}.json"
+
+    echo $body > "${CACHE_PATH}/$filename"
+
+    echo $body
+}
+
+function getCurrentTimeseries() {
+    timeseries=($(echo $1 | jq -c '.properties.timeseries[]|[.time,.data.instant.details.air_temperature,.data.next_1_hours.summary.symbol_code]'))
+
+    now=$(date "+%F %H")
+
+    index=1
+    for row in "${timeseries[@]}"; do
+        time=$(echo $row | jq '.[0]' | tr -d '"' | xargs date "+%F %H" -d)
+
+        if [[ "$(echo $time | grep $now)" != "" ]]; then
+            break
+        fi
+
+        index=$((index+1))
+    done
+
+    echo ${timeseries[index]}
+}
+
+# Get current location forecast from cache, if valid
+isCacheValid && body=$(<${cache_file}) && echo $(getCurrentTimeseries $body) && exit 0
+
+# Get new location forecast and cache it
+body=$(fetchLocationForecast) && echo $(getCurrentTimeseries $body) && exit 0
