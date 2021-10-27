@@ -28,8 +28,7 @@ return require('packer').startup(function()
 
   -- Theme and styling
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
-  use {'shadmansaleh/lualine.nvim'} -- updated fork (org-maintainer afk for months)
-  -- use {'hoob3rt/lualine.nvim', branch = 'shadmansaleh:master' }
+  use {'nvim-lualine/lualine.nvim'}
 
   -- Syntax
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- the good stuff
