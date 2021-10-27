@@ -20,18 +20,23 @@ function help() {
     echo "Command:"
     echo "  --arthur (default)"
     echo "      Connect to database via arthur PSQL. Uses your AWS credentials to login."
-    echo "  --parse (deprecated)"
-    echo "      Connect to database by parsing enviroment variables from arthur."
-    echo "      Might not work on all services."
+    echo "      Read-only mode is active by default, if you need write access there is two options"
+    echo "        1. Use param '--readwrite' when connecting"
+    echo "        2. Set your role after connecting with 'set role readwrite'"
     echo "  --url"
     echo "      Print postgres connection url."
     echo "      URL is valid for 15 min, but once connected your session is valid until you disconnect."
     echo "      Example output 'postgres://user:pass@host:port/db'"
+    echo "  --readwrite | --rw"
+    echo "      Connect to the database with read and write access."
+    echo "  --root"
+    echo "      Connect to database as root user. Don't use this as default."
+
 }
 
 if [[ "$1" == "local" ]]; then
     echo "Connecting to localhost server"
-    psql postgres://postgres:postgres@localhost:59543
+    psql postgres://postgres:postgres@localhost:5432
     exit
 fi
 
@@ -54,51 +59,6 @@ case $ENVIRONMENT in
         exit 1
 esac
 
-# DEPRECATED since 2021-09-21
-# Use PGPROXY or PSQL in arthur to connect to databases instead
-function getDatabaseUrl() {
-    # TODO: If arthur version is outdated this command fails!
-    RAW_DATA=$(arthur param read $SERVICE $ENVIRONMENT)
-    if [[ -z $RAW_DATA ]]; then
-        echo ""
-    else
-        # Try and connect via database url, as this is the easiest method
-        DB_URL=$(echo $RAW_DATA | grep -o "DB_URL.*\|DATABASE_URL.*" | sed 's/^[^=]*=//' | tr -d '"')
-        [[ ! -z $DB_URL ]] && echo $DB_URL && return
-
-
-        # Try and find each database variable, with defaults as fallback
-        DB_VARS=($(echo $RAW_DATA | grep -o "DB_.*\|DATABASE_.*\|POSTGRES_.*"))
-
-        # Fallbacks
-        host=
-        port=5432
-        user=
-        pass=
-        db="$(echo "$SERVICE" | tr '-' '_')_$ENVIRONMENT"
-
-        for var in "${DB_VARS[@]}"
-        do
-            key_value=($(echo "$var" | tr '=' '\n'))
-            key=${key_value[1]}
-            value=$(echo "${key_value[2]}" | tr -d '"')
-
-            [[ $key =~ "HOST" ]] && host=$value
-            [[ $key =~ "PORT" ]] && port=$value
-            [[ $key =~ "USER" ]] && user=$value
-            [[ $key =~ "PASS" ]] && pass=$value
-            [[ $key =~ "NAME" ]] && db=$value
-        done
-
-        values=($host $port $user $pass $db)
-
-        [[ ${#values} -ne 5 ]] && echo "" && return
-
-        echo "postgres://$user:$pass@$host:$port/$db?sslmode=disable"
-    fi
-}
-
-
 case $COMMAND in
     "")
         ;&
@@ -106,22 +66,18 @@ case $COMMAND in
         arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
         exit
         ;;
-    "--parse")
-        echo -e "\033[1;33mWARNING: --parse is deprecated! Use --arthur instead!\033[0m\n"
-        URL=$(getDatabaseUrl)
-        [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
-        psql $URL
-        exit
-        ;;
     "--url")
         URL=$(arthur db-connection-url $SERVICE-$ENVIRONMENT)
         echo $URL
         exit
         ;;
-    "--url-parse")
-        URL=$(getDatabaseUrl)
-        [[ -z $URL ]] && echo "Invalid or unsupported [SERVICE]" && exit 1
-        echo $URL
+    "--rw")
+        ;&
+    "--readwrite")
+        arthur psql $SERVICE-$ENVIRONMENT --readwrite || echo "Invalid or unspported [SERVICE]" && exit 1
+        ;;
+    "--root")
+        arthur psql $SERVICE-$ENVIRONMENT --root || echo "Invalid or unspported [SERVICE]" && exit 1
         exit
         ;;
     *)
