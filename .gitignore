@@ -2,3 +2,4 @@
 .config/nvim/.netrwhist
 .config/nvim/plugin/packer_compiled.lua
 .config/fontconfig/conf.d/
+.config/gtk-3.0/bookmarks
