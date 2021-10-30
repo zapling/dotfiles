@@ -1,0 +1,20 @@
+#!/bin/bash
+
+INSTALL_PACKAGES=(
+    i3-gaps
+    i3blocks
+    dmenu-manjaro
+    xwallpaper
+    alacritty
+    zsh
+    redshift
+    xorg-xbacklight
+    xclip
+    ttf-liberation
+    ripgrep
+    go
+    npm
+)
+
+echo "Installing packages: ${INSTALL_PACKAGES[@]}"
+sudo pacman -Sy --needed ${INSTALL_PACKAGES[@]}
