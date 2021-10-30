@@ -164,3 +164,9 @@ require("winshift").setup({
     colorcolumn = "",
   }
 })
+
+require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true
+  }
+}

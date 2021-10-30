@@ -14,7 +14,8 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- Core (feels like native vim functionality)
-  use 'joom/vim-commentary'            -- Toggle code comments
+  use 'tpope/vim-commentary'           -- Toggle code comments
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- commentstring based on lang
   use 'tpope/vim-surround'             -- Edit 'surroundings'
   use 'tpope/vim-repeat'               -- . repetition for custom motions
   use 'FooSoft/vim-argwrap'            -- Wrap function arguments with keypress
