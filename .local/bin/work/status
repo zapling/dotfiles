@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-arthur seer $@
+arthur seer --filters=team_netscape
 exit 0
 
 # Legacy bash script that was replaced with the real tool 'seer'
