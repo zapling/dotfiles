@@ -1,19 +1,21 @@
 #!/bin/bash
 
 INSTALL_PACKAGES=(
+    alacritty
+    dmenu-manjaro
+    firefox
+    go
     i3-gaps
     i3blocks
-    dmenu-manjaro
-    xwallpaper
-    alacritty
-    zsh
-    redshift
-    xorg-xbacklight
-    xclip
-    ttf-liberation
-    ripgrep
-    go
     npm
+    redshift
+    ripgrep
+    ttf-liberation
+    xclip
+    xorg-xbacklight
+    xorg-xrandr
+    xwallpaper
+    zsh
 )
 
 echo "Installing packages: ${INSTALL_PACKAGES[@]}"
