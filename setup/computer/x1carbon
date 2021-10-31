@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+# x1-carbon gen 7
+# https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_7)
+
+# Seperate audio firmware is needed
+INSTALL_PACKAGES=(
+    alsa-firmware
+    sof-firmware
+)
+
+echo "Installing packages: ${INSTALL_PACKAGES[@]}"
+sudo pacman -Sy --needed ${INSTALL_PACKAGES[@]}
+
+# Setup touchpad tapping
+echo "Setup touchpad tapping"
+cd /etc/X11/xorg.conf.d/ && sudo ln -s ~/dotfiles/setup/files/etc/X11/xorg.conf.d/30-touchpad.conf
