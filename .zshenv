@@ -1,5 +1,5 @@
 export BROWSER=/usr/bin/firefox
-export EDITOR=/usr/bin/nvim0.5
+export EDITOR=/usr/bin/nvim
 
 export GOPATH=~/go
 
