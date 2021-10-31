@@ -37,7 +37,13 @@ return require('packer').startup(function()
 
   -- Language Server Protocol
   use 'neovim/nvim-lspconfig' -- config helper
-  use 'hrsh7th/nvim-compe'    -- auto completion
+
+  -- Completion
+  use 'hrsh7th/nvim-cmp'      -- auto completion
+  use 'hrsh7th/cmp-buffer'    -- source buffers
+  use 'hrsh7th/cmp-path'      -- source path
+  use 'hrsh7th/cmp-nvim-lua'  -- source nvim lua
+  use 'hrsh7th/cmp-nvim-lsp'  -- source nvim lsp
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}

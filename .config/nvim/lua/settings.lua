@@ -7,7 +7,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase  = true
 
 vim.opt.inccommand = 'nosplit' -- see substitute result as you type
-vim.opt.completeopt = "menuone,noselect" -- needed for nvim-compe
+vim.opt.completeopt = {"menu", "menuone", "noselect"} -- needed for nvim-compe
 
 vim.opt.showmode = false -- hide current mode
 

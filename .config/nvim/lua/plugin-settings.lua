@@ -96,30 +96,50 @@ function LspHover()
 end
 
 -- LSP auto completion
-require'compe'.setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = 'enable',
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = true,
+-- require'compe'.setup {
+--   enabled = true,
+--   autocomplete = true,
+--   debug = false,
+--   min_length = 1,
+--   preselect = 'enable',
+--   throttle_time = 80,
+--   source_timeout = 200,
+--   incomplete_delay = 400,
+--   max_abbr_width = 100,
+--   max_kind_width = 100,
+--   max_menu_width = 100,
+--   documentation = true,
 
-  source = {
-    path = true,
-    buffer = true,
-    calc = false,
-    nvim_lsp = true,
-    nvim_lua = true,
-    vsnip = false,
-    ultisnips = false,
-  }
-}
+--   source = {
+--     path = true,
+--     buffer = true,
+--     calc = false,
+--     nvim_lsp = true,
+--     nvim_lua = true,
+--     vsnip = false,
+--     ultisnips = false,
+--   }
+-- }
+local cmp = require'cmp'
+cmp.setup({
+    mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+
+    sources = {
+        { name = "nvim_lua" },
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer"},
+    },
+})
 
 -- Get current git branch
 -- Longer branch names gets cut off in smaller windows

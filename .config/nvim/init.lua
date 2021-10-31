@@ -42,10 +42,6 @@ map('', '<Leader>k', '<Cmd>lua LspHover()<CR>', {silent = true})
 map('', '<Leader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', {silent = true})
 map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 
--- lsp auto complete
-map('i', '<CR>', 'compe#confirm("<CR>")', {silent = true, expr = true})
-map('i', '<C-space>', 'compe#complete()', {silent = true, expr = true})
-
 -- file navigation and search
 map('', '<Leader>p', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
 map('', '<Leader>P', '<Cmd>Telescope file_browser<CR>', {})
