@@ -5,6 +5,7 @@ HOME=~
 CURDIR=$(pwd)
 
 INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper go alacritty zsh redshift xorg-xbacklight \
+    xorg-xrandr \
     neovim xclip npm \
     ttf-liberation \
     ripgrep
@@ -131,6 +132,7 @@ post_install() {
     for dir in $vim_dirs; do
         [ ! -d $dir ] && mkdir $dir && echo "created neovim directory $dir"
     done
+
 
     #nvim +PlugInstall +qall && echo "neovim setup done."
     echo "Skipping nvim post install."
