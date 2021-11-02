@@ -6,12 +6,16 @@ CURDIR=$(pwd)
 
 INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper go alacritty zsh redshift xorg-xbacklight \
     xorg-xrandr \
-    neovim xclip npm \
+    neovim xclip npm yarn \
     ttf-liberation \
-    ripgrep
+    ripgrep \
+    docker \
+    docker-compose \
+    jq \
+    postgresql
     "
 
-SYMLINK_FILES=".Xresources .zshrc .zshenv .gtkrc-2.0"
+SYMLINK_FILES=".Xresources .zshrc .zshenv .gtkrc-2.0 .gitconfig .gitignore-global"
 
 # todo: rename function to something better
 diff_file() {

@@ -1,0 +1,17 @@
+[include]
+    path = ~/.gitconfig_private
+
+[core]
+    excludesfile = ~/.gitignore-global
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+	autosquash = true
+
+[url "ssh://git@github.com/zimpler"]
+	insteadof = https://github.com/zimpler
+	insteadof = https://github.com/Zimpler
+
