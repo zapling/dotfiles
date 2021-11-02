@@ -9,9 +9,9 @@
 
 [rebase]
     autoStash = true
-	autosquash = true
+    autosquash = true
 
 [url "ssh://git@github.com/zimpler"]
-	insteadof = https://github.com/zimpler
-	insteadof = https://github.com/Zimpler
+    insteadof = https://github.com/zimpler
+    insteadof = https://github.com/Zimpler
 
