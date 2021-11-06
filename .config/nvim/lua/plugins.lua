@@ -54,4 +54,8 @@ return require('packer').startup(function()
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
+
+  -- Misc
+  use {"antoinemadec/FixCursorHold.nvim", run = function() vim.g.curshold_updatime = 1000 end}
+
 end)
