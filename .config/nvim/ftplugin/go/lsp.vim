@@ -1,5 +1,14 @@
 " https://github.com/neovim/nvim-lspconfig/issues/115
 lua <<EOF
+    function go_lsp_save_actions()
+        if not vim.lsp.buf.server_ready() then
+            return
+        end
+
+        lua vim.lsp.buf.formatting()
+        lua org_imports(3000)
+    end
+
     function org_imports(wait_ms)
       local params = vim.lsp.util.make_range_params()
       params.context = {only = {"source.organizeImports"}}
@@ -18,6 +27,5 @@ EOF
 
 augroup GO_LSP
 	autocmd!
-	autocmd BufWritePre *.go :silent! lua vim.lsp.buf.formatting()
-	autocmd BufWritePre *.go :silent! lua org_imports(3000)
+	autocmd BufWritePre *.go :silent! lua go_lsp_save_actions()
 augroup END
