@@ -38,12 +38,19 @@ return require('packer').startup(function()
   -- Language Server Protocol
   use 'neovim/nvim-lspconfig' -- config helper
 
+  -- use 'hrsh7th/nvim-compe'
+
+  -- Snippets
+  use 'L3MON4D3/LuaSnip'
+
   -- Completion
-  use 'hrsh7th/nvim-cmp'      -- auto completion
-  use 'hrsh7th/cmp-buffer'    -- source buffers
-  use 'hrsh7th/cmp-path'      -- source path
-  use 'hrsh7th/cmp-nvim-lua'  -- source nvim lua
-  use 'hrsh7th/cmp-nvim-lsp'  -- source nvim lsp
+  use 'hrsh7th/nvim-cmp'         -- auto completion
+  use 'hrsh7th/cmp-buffer'       -- source buffers
+  use 'hrsh7th/cmp-path'         -- source path
+  use 'hrsh7th/cmp-nvim-lua'     -- source nvim lua
+  use 'hrsh7th/cmp-nvim-lsp'     -- source nvim lsp
+  -- use "saadparwaiz1/cmp_luasnip" -- source luasnips
+  use 'onsails/lspkind-nvim'     -- fancy icons for completion
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}

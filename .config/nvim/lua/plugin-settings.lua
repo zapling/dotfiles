@@ -1,5 +1,5 @@
 -- Whitespace highlight
-vim.g['better_whitespace_guicolor'] = 'Red'
+-- vim.g['better_whitespace_guicolor'] = 'Red'
 
 -- Quickscope, only active if key pressed
 vim.g['qs_highlight_on_keys'] = {'f', 'F', 't', 'T'}
@@ -40,18 +40,33 @@ require'nvim-treesitter.configs'.setup {
   },
   highlight = {
     enable = true
-  }
+  },
+  context_commentstring = {
+    enable = true
+  },
 }
 
 -- LSP
-require'lspconfig'.gopls.setup{}
+require'lspconfig'.gopls.setup{
+    handlers = {
+        ['textDocument/publishDiagnostics'] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                update_in_insert = false,
+            }
+        ),
+    },
+}
 require'lspconfig'.tsserver.setup{}
 
 -- disable inline diagnostic text via virtual_text
 vim.diagnostic.config({
     virtual_text = false,
     underline = true,
-    signs = true
+    signs = true,
+    float = {
+        source = 'if_many',
+        focusable = false,
+    },
 }, nil)
 
 vim.api.nvim_command('sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=')
@@ -60,7 +75,7 @@ vim.api.nvim_command('sign define DiagnosticSignInfo text= texthl=DiagnosticS
 vim.api.nvim_command('sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=')
 
 -- auto show diagnostics
-vim.api.nvim_command('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})')
+vim.api.nvim_command('autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = \'line\', close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})')
 vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
 -- WIP! This didn't work out as planned for all cases, jump manually for now
@@ -95,31 +110,31 @@ function LspHover()
     vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
 end
 
--- LSP auto completion
--- require'compe'.setup {
---   enabled = true,
---   autocomplete = true,
---   debug = false,
---   min_length = 1,
---   preselect = 'enable',
---   throttle_time = 80,
---   source_timeout = 200,
---   incomplete_delay = 400,
---   max_abbr_width = 100,
---   max_kind_width = 100,
---   max_menu_width = 100,
---   documentation = true,
 
---   source = {
---     path = true,
---     buffer = true,
---     calc = false,
---     nvim_lsp = true,
---     nvim_lua = true,
---     vsnip = false,
---     ultisnips = false,
---   }
--- }
+-- function LspDiagnostics(focusable)
+--     function open(focus)
+--         vim.diagnostic.open_float(nil, {focusable = focus, scope = 'line', close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
+--     end
+
+--     if not focusable then
+--         open(false)
+--         return
+--     end
+
+--     if vim.F.npcall(vim.api.nvim_buf_get_var, 0, "lsp_floating_preview") then
+--         local floatingWinNr = vim.api.nvim_buf_get_var(0, "lsp_floating_preview")
+
+--         if vim.api.nvim_win_is_valid(floatingWinNr) then
+--             vim.api.nvim_set_current_win(floatingWinNr)
+--         else
+--             open(true)
+--             return
+--         end
+--     else
+--         open(true)
+--     end
+-- end
+
 local cmp = require'cmp'
 cmp.setup({
     mapping = {
@@ -134,10 +149,27 @@ cmp.setup({
     },
 
     sources = {
-        { name = "nvim_lua" },
         { name = "nvim_lsp" },
-        { name = "path" },
+        { name = "nvim_lua" },
         { name = "buffer"},
+        { name = "path" },
+        -- { name = "luasnip" },
+    },
+
+    snippet = {
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+        end,
+    },
+    formatting = {
+        format = require("lspkind").cmp_format(
+            {with_text = false, maxwidth = 50, menu = ({
+                buffer = "[BUF]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[SNIP]",
+                nvim_lua = "[LUA]",
+            })}
+        )
     },
 })
 
@@ -185,8 +217,66 @@ require("winshift").setup({
   }
 })
 
-require'nvim-treesitter.configs'.setup {
-  context_commentstring = {
-    enable = true
-  }
-}
+
+-- local ls = require "luasnip"
+
+
+-- local s = ls.snippet
+-- local sn = ls.snippet_node
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local d = ls.dynamic_node
+-- local l = require("luasnip.extras").lambda
+-- local r = require("luasnip.extras").rep
+-- local p = require("luasnip.extras").partial
+-- local m = require("luasnip.extras").match
+-- local n = require("luasnip.extras").nonempty
+-- local dl = require("luasnip.extras").dynamic_lambda
+-- local fmt = require("luasnip.extras.fmt").fmt
+-- local fmta = require("luasnip.extras.fmt").fmta
+-- local types = require("luasnip.util.types")
+-- local conds = require("luasnip.extras.expand_conditions")
+
+-- local function copy(args)
+-- 	return args[1]
+-- end
+
+-- local shortcut = function(val)
+--   if type(val) == "string" then
+--     return { t { val }, i(0) }
+--   end
+
+--   if type(val) == "table" then
+--     for k, v in ipairs(val) do
+--       if type(v) == "string" then
+--         val[k] = t { v }
+--       end
+--     end
+--   end
+
+--   return val
+-- end
+
+-- local make = function(tbl)
+--   local result = {}
+--   for k, v in pairs(tbl) do
+--     table.insert(result, (snippet({ trig = k, desc = v.desc }, shortcut(v))))
+--   end
+
+--   return result
+-- end
+
+-- ls.config.set_config {
+--   history = true,
+--   updateevents = "TextChanged,TextChangedI",
+-- }
+
+-- ls.snippets.go = make {
+--     main = {
+--         t { "func main() {", "\t" },
+--         i(0),
+--         t { "", "}" },
+--     },
+-- }
