@@ -2,4 +2,4 @@
 vim.api.nvim_command('autocmd VimResized * wincmd =')
 
 -- Dont highlight whitespace in the Trouble buffer
-vim.api.nvim_command('autocmd FileType Trouble DisableWhitespace')
+-- vim.api.nvim_command('autocmd FileType Trouble DisableWhitespace')
