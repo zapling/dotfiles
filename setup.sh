@@ -6,6 +6,7 @@ CURDIR=$(pwd)
 
 INSTALL_PACKAGES="i3-gaps dmenu-manjaro i3blocks xwallpaper go alacritty zsh redshift xorg-xbacklight \
     xorg-xrandr \
+    picom \
     neovim xclip npm yarn \
     ttf-liberation \
     ripgrep \
