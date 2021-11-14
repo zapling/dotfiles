@@ -46,10 +46,8 @@ font pango:monospace 10
 # Disable hardware beep boop
 exec --no-startup-id xset -b
 
-# Monitor config
-# exec --no-startup-id \
-#     hostname=$(cat /proc/sys/kernel/hostname) ; \
-#     /usr/bin/i3-autodisplay -config ~/.config/i3-autodisplay/$hostname.yml &
+# Compositor to fix tearing and flickering
+exec --no-startup-id picom &
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
@@ -59,9 +57,6 @@ exec --no-startup-id /usr/bin/alacritty --class dropdown1 &
 exec --no-startup-id /usr/bin/alacritty --class dropdown2 &
 
 exec --no-startup-id /usr/bin/xwallpaper --daemon --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
-
-exec_always --no-startup-id setxkbmap -layout se,us -option 'grp:alt_space_toggle'
-exec_always --no-startup-id setxkbmap -option compose:menu
 
 #--------/ Status bar /-----#
 
