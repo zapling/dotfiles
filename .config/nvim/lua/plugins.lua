@@ -28,7 +28,7 @@ return require('packer').startup(function()
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
   -- Theme and styling
-  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+  use {'npxbr/gruvbox.nvim', requires = {'rktjmp/lush.nvim'}}
   use {'nvim-lualine/lualine.nvim'}
 
   -- Syntax
@@ -49,13 +49,14 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-path'         -- source path
   use 'hrsh7th/cmp-nvim-lua'     -- source nvim lua
   use 'hrsh7th/cmp-nvim-lsp'     -- source nvim lsp
-  -- use "saadparwaiz1/cmp_luasnip" -- source luasnips
+  -- use 'saadparwaiz1/cmp_luasnip' -- source luasnips
   use 'onsails/lspkind-nvim'     -- fancy icons for completion
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
 
   -- Misc
-  use {"antoinemadec/FixCursorHold.nvim", run = function() vim.g.curshold_updatime = 1000 end}
-
+  -- use {'antoinemadec/FixCursorHold.nvim', run = function() vim.g.curshold_updatime = 1000 end}
+  use 'folke/zen-mode.nvim'
+  use 'zapling/vim-go-utils'
 end)

@@ -11,7 +11,7 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 map('n', 'Q', '<Nop>', { noremap = true })
 
 -- git
-map('', '<Leader>vs', ':G<CR>', {})
+map('', '<Leader>vs', ':tab G<CR>', {})
 map('', '<Leader>vf', ':diffget //2<CR>', {})
 map('', '<Leader>vj', ':diffget //3<CR>', {})
 map('', '<Leader>vb', ':Git blame<CR>', {})
@@ -27,6 +27,7 @@ map('', '<Leader>gj', '<Cmd>lua vim.diagnostic.goto_next(nil, {float = true})<CR
 map('', '<Leader>gk', '<Cmd>lua vim.diagnostic.goto_prev(nil, {float = true})<CR>', {silent = true})
 map('', '<Leader>d', '<Cmd>lua LspDiagnosticsFocus()<CR>', {silent = true})
 map('', '<Leader>k', '<Cmd>lua LspHover()<CR>', {silent = true})
+map('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', {silent = true})
 map('', '<Leader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', {silent = true})
 map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 
@@ -40,3 +41,9 @@ map('', '<Leader>}', '<Cmd>Telescope grep_string<CR>', {})
 
 -- winshift
 map('n', '<C-W><C-M>', '<Cmd>WinShift<CR>', {noremap = true})
+
+-- go coverage
+map('', '<Leader>lc', '<Cmd>GoCoverageToggle<CR>', {silent = true})
+
+-- zen
+map('', '<Leader>z', '<Cmd>ZenMode<CR>', {silent = true})
