@@ -59,4 +59,8 @@ return require('packer').startup(function()
   -- use {'antoinemadec/FixCursorHold.nvim', run = function() vim.g.curshold_updatime = 1000 end}
   use 'folke/zen-mode.nvim'
   use 'zapling/vim-go-utils'
+
+  -- Org
+  use 'kristijanhusak/orgmode.nvim'
+  use 'akinsho/org-bullets.nvim'
 end)
