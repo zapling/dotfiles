@@ -1,0 +1,47 @@
+#!/usr/bin/bash
+# Clone or update (if no unpushed diff)
+
+NC='\033[0m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+
+PWD=$(pwd)
+
+TOKEN=$(< ~/.arthur/github_token_v2)
+GITHUB_RES=$(curl -s --header "Authorization: token $TOKEN" "https://api.github.com/orgs/Zimpler/teams/team-netscape/repos?per_page=100")
+REPOS=($(echo $GITHUB_RES | jq '.[].name' | tr -d '"'))
+
+function fetchAndPullMain() {
+    cd $HOME/R/$1
+    branch=$(git rev-parse --abbrev-ref HEAD)
+
+    git fetch &>/dev/null
+    git checkout main &>/dev/null
+    git pull &>/dev/null
+
+    if [[ "${branch}" != "main" ]]; then
+        git checkout ${branch} &>/dev/null
+    fi
+
+    echo -e "${GREEN}$repo${NC}"
+}
+
+echo -e "${GREEN}UPDATED${NC} | ${RED}FAILED${NC}"
+
+for repo in ${REPOS[@]}; do
+    if [[ ! -d $HOME/R/$repo ]]; then
+        cd $HOME/R && git clone git@github.com:Zimpler/${repo}.git
+    else
+        cd $HOME/R/$repo
+        diffingFiles=$(git -P diff --name-only)
+        if [[ -z "$diffingFiles" ]]; then
+            echo $(fetchAndPullMain $repo) &
+        else
+            echo -e "${RED}${repo}${NC}"
+        fi
+    fi
+done
+
+wait
+
+cd $PWD
