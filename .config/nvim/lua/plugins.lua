@@ -13,10 +13,13 @@ end
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
+  use 'lewis6991/impatient.nvim' -- lua speedup
+
   -- Core (feels like native vim functionality)
   use 'tpope/vim-commentary'           -- Toggle code comments
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- commentstring based on lang
   use 'tpope/vim-surround'             -- Edit 'surroundings'
+  use 'tpope/vim-abolish'
   use 'tpope/vim-repeat'               -- . repetition for custom motions
   use 'FooSoft/vim-argwrap'            -- Wrap function arguments with keypress
   use 'unblevable/quick-scope'         -- f,F,t,F motion highlighting
@@ -28,7 +31,7 @@ return require('packer').startup(function()
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
   -- Theme and styling
-  use {'npxbr/gruvbox.nvim', requires = {'rktjmp/lush.nvim'}}
+  use {'ellisonleao/gruvbox.nvim', requires = {'rktjmp/lush.nvim'}}
   use {'nvim-lualine/lualine.nvim'}
 
   -- Syntax

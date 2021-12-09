@@ -12,6 +12,8 @@ vim.g['gruvbox_invert_selection'] = 0
 vim.opt.termguicolors = true -- enable truecolors (requires compatible terminal)
 vim.opt.background = 'dark'
 vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[hi! link Delimiter Special]]) -- revert of https://github.com/ellisonleao/gruvbox.nvim/pull/80
+vim.cmd([[hi! link Operator GruvboxFg1]]) -- revert of https://github.com/ellisonleao/gruvbox.nvim/pull/80
 
 -- ]]
 

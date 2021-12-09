@@ -40,7 +40,8 @@ map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
 map('', '<Leader>}', '<Cmd>Telescope grep_string<CR>', {})
 
 -- winshift
-map('n', '<C-W><C-M>', '<Cmd>WinShift<CR>', {noremap = true})
+-- map('n', '<C-W><C-M>', '<Cmd>WinShift<CR>', {noremap = true})
+map('n', '<C-W><CR>', '<Cmd>WinShift<CR>', {noremap = true})
 
 -- go coverage
 map('', '<Leader>lc', '<Cmd>GoCoverageToggle<CR>', {silent = true})
