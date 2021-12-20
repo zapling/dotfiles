@@ -59,6 +59,12 @@ case $ENVIRONMENT in
         exit 1
 esac
 
+CONNECTED_TO_VPN=$(nmcli -t connection show --active | grep zimpler)
+if [[ "$CONNECTED_TO_VPN" == "" ]]; then
+    echo "You need to be connected to Zimpler vpn!"
+    exit 1
+fi
+
 case $COMMAND in
     "")
         ;&
