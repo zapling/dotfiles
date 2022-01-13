@@ -13,21 +13,22 @@ vim.api.nvim_command('sign define DiagnosticSignWarn text= texthl=DiagnosticS
 vim.api.nvim_command('sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=')
 vim.api.nvim_command('sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=')
 
-vim.api.nvim_command('autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = \'line\', close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})')
+vim.api.nvim_command('autocmd CursorHold * lua vim.diagnostic.open_float(nil, {scope = \'line\'})')
 vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
--- use this function instead of vim.lsp.buf.hover()
--- solves issue where line_diagnostics would hide hover info because of CursorHold autocmd
+-- Fixes issue where the CursorHold autocmd for showing diagnostics
+-- would trigger when trying to Hover on the same line.
 function LspHover()
     vim.api.nvim_command('set eventignore=CursorHold')
     vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
     vim.lsp.buf.hover()
 end
 
+-- 0.6.1 seems to have fixed this issue? Leaving it for a while just in case
 function LspDiagnosticsFocus()
-    vim.api.nvim_command('set eventignore=WinLeave')
-    vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
-    vim.diagnostic.open_float(nil, {focusable = true, scope = 'line', close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
+    -- vim.api.nvim_command('set eventignore=WinLeave')
+    -- vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
+    vim.diagnostic.open_float(nil, {focusable = true, scope = 'line'})
 end
 
 -- WIP! This didn't work out as planned for all cases, jump manually for now

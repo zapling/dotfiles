@@ -19,7 +19,7 @@ return require('packer').startup(function()
   use 'tpope/vim-commentary'           -- Toggle code comments
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- commentstring based on lang
   use 'tpope/vim-surround'             -- Edit 'surroundings'
-  use 'tpope/vim-abolish'
+  use 'tpope/vim-abolish'              -- Coercion, e.g 'crs' (coerce to snake_case)
   use 'tpope/vim-repeat'               -- . repetition for custom motions
   use 'FooSoft/vim-argwrap'            -- Wrap function arguments with keypress
   use 'unblevable/quick-scope'         -- f,F,t,F motion highlighting
@@ -27,6 +27,8 @@ return require('packer').startup(function()
   use 'sindrets/winshift.nvim'         -- move windows around easily
 
   -- Git
+  -- use 'TimUntersberger/neogit'
+  -- use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'tpope/vim-fugitive'
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
@@ -40,8 +42,6 @@ return require('packer').startup(function()
 
   -- Language Server Protocol
   use 'neovim/nvim-lspconfig' -- config helper
-
-  -- use 'hrsh7th/nvim-compe'
 
   -- Snippets
   use 'L3MON4D3/LuaSnip'
@@ -62,8 +62,9 @@ return require('packer').startup(function()
   -- use {'antoinemadec/FixCursorHold.nvim', run = function() vim.g.curshold_updatime = 1000 end}
   use 'folke/zen-mode.nvim'
   use 'zapling/vim-go-utils'
+  -- use 'itchyny/calendar.vim'
 
   -- Org
-  use 'kristijanhusak/orgmode.nvim'
-  use 'akinsho/org-bullets.nvim'
+  -- use 'kristijanhusak/orgmode.nvim'
+  -- use 'akinsho/org-bullets.nvim'
 end)

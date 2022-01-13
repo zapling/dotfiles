@@ -11,6 +11,7 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 map('n', 'Q', '<Nop>', { noremap = true })
 
 -- git
+-- map('', '<Leader>vs', ':Neogit<CR>', {})
 map('', '<Leader>vs', ':tab G<CR>', {})
 map('', '<Leader>vf', ':diffget //2<CR>', {})
 map('', '<Leader>vj', ':diffget //3<CR>', {})
