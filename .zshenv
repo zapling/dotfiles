@@ -1,5 +1,5 @@
 export BROWSER=/usr/bin/firefox
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 
 export GOPATH=~/go
 
@@ -10,10 +10,7 @@ export PATH=~/go/bin:$PATH
 export PATH=~/.npm_global/bin:$PATH
 
 # Needed for private repos at work
-export GOPRIVATE="github.com/Zimpler/*"
-
-# fucks with script output
-# export ARTHUR_AUTO_UPDATE=true
+export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
 
 # GNU/ls like colors
 # Hack for alacritty as coreutils guys are lame
