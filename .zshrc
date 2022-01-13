@@ -59,15 +59,16 @@ function newdbmate() {
     echo "-- migrate:up\n\n-- migrate:down" > $filename
 }
 
+function arthur() {
+    ARTHUR_AUTO_UPDATE=true command arthur $@
+}
+
 alias vim="nvim"
 
 # YYYYMMDDHHMMSS
 alias timestamp="date '+%F%T' | tr -d ':-'"
 # seconds since epoch (unix)
 alias utimestamp="date '+%s'"
-
-# neovim nightly
-alias nightly-build="cd ~/build/neovim && git checkout master && git pull && make distclean && make CMAKE_BUILD_TYPE=Release && sudo make install"
 
 # docker
 alias docker-rm-all="docker ps --filter status=exited -q | xargs docker rm"
