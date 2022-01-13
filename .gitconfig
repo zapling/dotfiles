@@ -1,17 +1,26 @@
+[user]
+    name = Andreas Palm
+
 [include]
-    path = ~/.gitconfig_private
+    path = ~/.config/git/config_base
+
+[includeIf "gitdir:~/R/"]
+    path = ~/.config/git/config_work
 
 [core]
-    excludesfile = ~/.gitignore-global
+    excludesfile = ~/.config/git/gitignore_global
 
 [pull]
     rebase = true
 
 [rebase]
     autoStash = true
-    autosquash = true
+    autoSquash = true
+    # https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
 
 [url "ssh://git@github.com/zimpler"]
     insteadof = https://github.com/zimpler
     insteadof = https://github.com/Zimpler
 
+[url "ssh://git@gitlab.zimpler.com"]
+	insteadof = https://gitlab.zimpler.com
