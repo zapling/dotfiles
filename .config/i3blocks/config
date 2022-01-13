@@ -29,31 +29,31 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[set-compose-key]
+[change-lang-key]
 interval=5
-command=setxkbmap -option compose:menu
+command=setxkbmap -layout se,us -option 'grp:alt_space_toggle' && setxkbmap -option compose:menu
 
 [spotify]
 interval=5
 color=#1DB954
 
 [certificate-checker]
-interval=3600 # once a per hour
+interval=10800 # every 3 hours
 certificate=${HOME}/.cert/nm-openvpn/zimpler-cert.pem
 
 [weather-applet]
 command=~/go/bin/./weatherapplet
-interval=60
+interval=3600 # once per hour
 color=#ebdbb2
 
 [nm-vpn]
-label=🔒 
+label= 
 init_color=#fabc2e
 on_color=#ebdbb2
 interval=5
 
 [battery]
-interval=5
+interval=60
 markup=pango
 color=#ebdbb2
 color_charging=#b8ba25
@@ -63,11 +63,11 @@ wrap_in_brackets=true
 [pacman-updates]
 color=#f7a728
 label=📦 
-interval=60
+interval=3600
 
 [keyboard_layout]
-command=LANG=$(xkblayout-state print "%s" ; echo) ; [[ $LANG != "us" ]] && echo [$LANG]
-interval=1
+command=LANG=$(xkblayout-state print "%s") ; [[ $LANG != "us" ]] && echo [$LANG] || exit 0
+interval=2
 color=#fb4833
 
 [volume]
