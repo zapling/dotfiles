@@ -6,7 +6,7 @@ install_deps() {
 }
 
 build_neovim() {
-    cd ~/.build/neovim && git checkout master && git pull
+    cd ~/.build/neovim && git checkout v0.6.1 && git pull
     make distclean && make CMAKE_BUILD_TYPE=Release && sudo make install
 }
 
