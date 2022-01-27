@@ -11,6 +11,7 @@ export PATH=~/.npm_global/bin:$PATH
 
 # Needed for private repos at work
 export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
+export ARTHUR_GITCONFIG_PATH=$HOME/dotfiles/.gitconfig-arthur
 
 # GNU/ls like colors
 # Hack for alacritty as coreutils guys are lame
