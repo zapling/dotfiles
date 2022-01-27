@@ -1,3 +1,8 @@
+# vi:syntax=.gitconfig:
+# This config is only used by arthur
+# Seperated since arthur does not follow "include" directives when mounting, resulting in
+# missing files and other weirdness.
+
 [user]
     name = Andreas Palm
     email = andreas@zimpler.com
