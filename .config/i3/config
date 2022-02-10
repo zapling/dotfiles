@@ -47,14 +47,14 @@ font pango:monospace 10
 exec --no-startup-id xset -b
 
 # Compositor to fix tearing and flickering
-exec --no-startup-id picom &
+exec --no-startup-id picom
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id redshift-gtk -l 57.70:11.97
 
-exec --no-startup-id /usr/bin/alacritty --class dropdown1 &
-exec --no-startup-id /usr/bin/alacritty --class dropdown2 &
+exec --no-startup-id /usr/bin/alacritty --class dropdown1
+exec --no-startup-id /usr/bin/alacritty --class dropdown2
 
 exec --no-startup-id /usr/bin/xwallpaper --daemon --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
 
