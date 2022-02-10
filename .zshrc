@@ -59,6 +59,20 @@ function newdbmate() {
     echo "-- migrate:up\n\n-- migrate:down" > $filename
 }
 
+function docker() {
+    if [[ "$1" == "kill-all" ]]; then
+        docker kill $(docker ps -q)
+        return
+    fi
+
+    if [[ "$1" == "rm-all" ]]; then
+        docker ps --filter status=exited -q | xargs docker rm
+        return
+    fi
+
+    command docker $@
+}
+
 function arthur() {
     ARTHUR_AUTO_UPDATE=true command arthur $@
 }
@@ -70,5 +84,4 @@ alias timestamp="date '+%F%T' | tr -d ':-'"
 # seconds since epoch (unix)
 alias utimestamp="date '+%s'"
 
-# docker
-alias docker-rm-all="docker ps --filter status=exited -q | xargs docker rm"
+alias gom="go mod tidy && go mod vendor"
