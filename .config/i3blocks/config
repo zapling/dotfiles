@@ -29,10 +29,6 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[change-lang-key]
-interval=5
-command=setxkbmap -layout se,us -option 'grp:alt_space_toggle' && setxkbmap -option compose:menu
-
 [spotify]
 interval=5
 color=#1DB954
