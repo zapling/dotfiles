@@ -10,6 +10,10 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 -- Use the other default bind "g Q" if you ever need it.
 map('n', 'Q', '<Nop>', { noremap = true })
 
+-- quickfix
+map('', '<Leader>g[', ':cprev', {silent = true})
+map('', '<Leader>g]', ':cnext', {silent = true})
+
 -- git
 -- map('', '<Leader>vs', ':Neogit<CR>', {})
 map('', '<Leader>vs', ':tab G<CR>', {})
@@ -46,6 +50,3 @@ map('n', '<C-W><CR>', '<Cmd>WinShift<CR>', {noremap = true})
 
 -- go coverage
 map('', '<Leader>lc', '<Cmd>GoCoverageToggle<CR>', {silent = true})
-
--- zen
-map('', '<Leader>z', '<Cmd>ZenMode<CR>', {silent = true})

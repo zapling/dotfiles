@@ -17,6 +17,7 @@ lua <<EOF
             for _, r in pairs(res.result or {}) do
                 if r.edit then
                     vim.lsp.util.apply_workspace_edit(r.edit)
+                    -- vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
                 else
                     vim.lsp.buf.execute_command(r.command)
                 end

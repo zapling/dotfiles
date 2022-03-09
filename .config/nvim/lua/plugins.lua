@@ -16,35 +16,34 @@ return require('packer').startup(function()
   use 'lewis6991/impatient.nvim' -- lua speedup
 
   -- Core (feels like native vim functionality)
-  use 'tpope/vim-commentary'           -- Toggle code comments
+  use 'tpope/vim-commentary'                        -- Toggle code comments
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- commentstring based on lang
-  use 'tpope/vim-surround'             -- Edit 'surroundings'
-  use 'tpope/vim-abolish'              -- Coercion, e.g 'crs' (coerce to snake_case)
-  use 'tpope/vim-repeat'               -- . repetition for custom motions
-  use 'FooSoft/vim-argwrap'            -- Wrap function arguments with keypress
-  use 'unblevable/quick-scope'         -- f,F,t,F motion highlighting
-  use 'ntpeters/vim-better-whitespace' -- show that fucking whitespace
-  use 'sindrets/winshift.nvim'         -- move windows around easily
+  use 'tpope/vim-surround'                          -- Edit 'surroundings'
+  use 'tpope/vim-abolish'                           -- Coercion, e.g 'crs' (coerce to snake_case)
+  use 'tpope/vim-repeat'                            -- . repetition for custom motions
+  use 'FooSoft/vim-argwrap'                         -- Wrap function arguments with keypress
+  use 'unblevable/quick-scope'                      -- f,F,t,F motion highlighting
+  use 'ntpeters/vim-better-whitespace'              -- show that fucking whitespace
+  use 'sindrets/winshift.nvim'                      -- move windows around easily
+  use 'stefandtw/quickfix-reflector.vim'            -- editable quickfix window
 
   -- Git
-  -- use 'TimUntersberger/neogit'
-  -- use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'tpope/vim-fugitive'
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
   -- Theme and styling
-  use {'ellisonleao/gruvbox.nvim', requires = {'rktjmp/lush.nvim'}}
-  use {'nvim-lualine/lualine.nvim'}
+  use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they keep fucking my colors
+  use 'nvim-lualine/lualine.nvim'
+  use 'kyazdani42/nvim-web-devicons'  -- note: requires patched fonts
 
   -- Syntax
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- the good stuff
-  use 'kyazdani42/nvim-web-devicons'   -- note: requires patched fonts
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
   -- Language Server Protocol
-  use 'neovim/nvim-lspconfig' -- config helper
+  use 'neovim/nvim-lspconfig'
 
   -- Snippets
-  use 'L3MON4D3/LuaSnip'
+  use 'L3MON4D3/LuaSnip' -- note: required by cmp
 
   -- Completion
   use 'hrsh7th/nvim-cmp'         -- auto completion
@@ -57,14 +56,12 @@ return require('packer').startup(function()
 
   -- Search / Navigation
   use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
-
-  -- Misc
-  -- use {'antoinemadec/FixCursorHold.nvim', run = function() vim.g.curshold_updatime = 1000 end}
-  use 'folke/zen-mode.nvim'
-  use 'zapling/vim-go-utils'
-  -- use 'itchyny/calendar.vim'
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- Org
-  -- use 'kristijanhusak/orgmode.nvim'
-  -- use 'akinsho/org-bullets.nvim'
+  use 'nvim-orgmode/orgmode'
+
+  -- Misc
+  use 'zapling/vim-go-utils'
+
 end)
