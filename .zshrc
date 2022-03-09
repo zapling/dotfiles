@@ -21,6 +21,15 @@ protectDropdownTerminal
 # Source private stuff
 [ -e ~/.private ] && source ~/.private
 
+function killall() {
+    if [[ "$1" == "firefox" ]]; then
+        command killall /usr/lib/firefox/firefox
+        return
+    fi
+
+    command killall $@
+}
+
 # Dialog if user meant to open vim or really vi
 function vi() {
     echo -e "vi, did you mean vim? (y/n)"
@@ -61,12 +70,12 @@ function newdbmate() {
 
 function docker() {
     if [[ "$1" == "kill-all" ]]; then
-        docker kill $(docker ps -q)
+        command docker kill $(docker ps -q)
         return
     fi
 
     if [[ "$1" == "rm-all" ]]; then
-        docker ps --filter status=exited -q | xargs docker rm
+        command docker ps --filter status=exited -q | xargs docker rm
         return
     fi
 
