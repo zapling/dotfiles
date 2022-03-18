@@ -24,9 +24,15 @@ lua <<EOF
             end
         end
     end
+
+    function go_reset_lint()
+        local name_space_id = vim.api.nvim_get_namespaces()["NULL_LS_SOURCE_1"] -- this could break
+        if pcall(vim.diagnostic.reset(name_space_id)) then end
+    end
 EOF
 
 augroup GO_LSP
 	autocmd!
 	autocmd BufWritePre *.go :silent! lua go_lsp_save_actions()
+    autocmd TextChanged,TextChangedI *.go :silent! lua go_reset_lint()
 augroup END

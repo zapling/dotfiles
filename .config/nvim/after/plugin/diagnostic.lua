@@ -3,7 +3,8 @@ vim.diagnostic.config({
     underline = true,
     signs = true,
     float = {
-        source = 'if_many',
+        source = true,
+        -- source = 'if_many',
         focusable = false,
     },
 }, nil)
