@@ -158,6 +158,13 @@ post_install() {
         echo "typescript-language-server already installed."
     fi
 
+    if ! type "lua-language-server" > /dev/null; then
+        echo "Installing lua language server"
+        sudo pacman -S lua-language-server
+    else
+        echo "lua-language-server already instealled."
+    fi
+
     # LiberationMono Nerd font (LiterationMono Nerd Font)
     # https://www.nerdfonts.com/font-downloads
     if [[ ! -d "$HOME/.fonts" ]]; then
