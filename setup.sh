@@ -162,7 +162,24 @@ post_install() {
         echo "Installing lua language server"
         sudo pacman -S lua-language-server
     else
-        echo "lua-language-server already instealled."
+        echo "lua-language-server already installed."
+    fi
+
+    if ! type "bash-language-server" > /dev/null; then
+        echo "Installing bash language server"
+        sudo npm install -g bash-language-server
+    else
+        echo "bash language server already installed."
+    fi
+
+    # Other linters
+
+    # Linter for bash and shell script
+    if ! type "shellcheck" > /dev/null; then
+        echo "Installing shellcheck linter"
+        pamac build --no-confirm shellcheck-bin
+    else
+        echo "shellcheck linter already installed."
     fi
 
     # LiberationMono Nerd font (LiterationMono Nerd Font)
