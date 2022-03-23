@@ -1,0 +1,73 @@
+#!/usr/bin/bash
+
+LC_TIME=en_US.utf8
+PWD=$(pwd)
+EDITOR=nvim
+JOURNAL_REPO="${JOURNAL_REPO:-}"
+
+if [[ "$JOURNAL_REPO" == "" ]]; then
+    echo "\$JOURNAL_REPO most point to a git repository"
+    exit 1
+fi
+
+function create-journal {
+    FILE=$1
+
+    HEADING="$(date '+%A %d/%m-%Y')";
+    REPLACE='=';
+    HEADER=$(echo -e "${HEADING}\n${HEADING//?/$REPLACE}")
+
+    echo "$HEADER" > "$FILE"
+}
+
+function open-journal {
+    CURRENT_DATE=$(date +%Y-%m-%d)
+    FILE="$HOME/.cache/journal_$CURRENT_DATE.md"
+    if [[ ! -e "$FILE" ]]; then
+        create-journal "$FILE"
+    fi
+
+    $EDITOR "+normal G$" "$FILE"
+}
+
+function sync-old-entries {
+    TODAYS_DATE=$(date +%Y-%m-%d)
+    ENTRIES=$(find "$HOME"/.cache/journal_*.md -not -name "journal_$TODAYS_DATE.md")
+
+    if [[ "${ENTRIES[*]}" == "" ]]; then
+        return 1
+    fi
+
+    for ENTRY in "${ENTRIES[@]}"
+    do
+        NEW_ENTRY_NAME=$(echo "$ENTRY" | grep -o '_.*' | tr -d '_')
+        NEW_ENTRY_FULLPATH="entries/$NEW_ENTRY_NAME"
+        mv "$ENTRY" "$JOURNAL_REPO/$NEW_ENTRY_FULLPATH"
+        cd "$JOURNAL_REPO" && git add "$NEW_ENTRY_FULLPATH" && git commit -m "Added $NEW_ENTRY_NAME" > /dev/null
+    done
+
+    cd "$JOURNAL_REPO" && git push > /dev/null
+}
+
+
+CMD=$1 ; shift >/dev/null 2>&1
+case "$CMD" in
+    "entry"|"e")
+        sync-old-entries
+        open-journal
+        exit
+        ;;
+    "sync"|"s")
+        sync-old-entries
+        exit
+        ;;
+    *)
+        (cat <<EOF && exit 1)
+Usage: journal <command> [options]
+journal is a daily journal helper that automatically syncs entires to github
+Commands:
+    entry,  e    Create or open the currents day journal (Will sync old any old entries)
+    sync,   s    Sync journal entries manually
+EOF
+        exit 1
+esac
