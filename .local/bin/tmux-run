@@ -1,0 +1,60 @@
+#!/usr/bin/bash
+
+if ! type "tmux" &> /dev/null; then
+    echo "tmux must be installed"
+    exit 1
+fi
+
+if [[ "$1" == "--help" ]]; then
+    (cat <<EOF && exit 1)
+Usage: tmux-run [options]
+tmux-run is a helper util for sending commands to a tmux session.
+Takes standard input, each line will be treated as one command by default.
+Options:
+    -session=       tmux session to use
+    -one-command    replace \n with space before sending
+EOF
+    exit 1
+fi
+
+STDIN=$(< /dev/stdin)
+TMUX_SESSION=
+TREAT_AS_ONE_COMMAND=0
+
+for i in "$@"; do
+    case $i in
+    --session=*)
+        TMUX_SESSION="${i#*=}"
+      shift
+      ;;
+    --one-command)
+        TREAT_AS_ONE_COMMAND=1
+        shift
+      ;;
+    -*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+if ! tmux has-session -t "$TMUX_SESSION" &> /dev/null; then
+    echo "No such tmux session: $TMUX_SESSION"
+    exit 1
+fi
+
+# escape the last ; if there is one
+LAST_CHAR=${STDIN:${#STDIN}-1:1}
+if [[ "$LAST_CHAR" == ";" ]]; then
+    STDIN="${STDIN:0:${#STDIN}-1}\;"
+fi
+
+if [[ $TREAT_AS_ONE_COMMAND -eq 1 ]]; then
+    STDIN=$(echo "$STDIN" | tr '\n' ' ')
+    tmux send-keys -t "$TMUX_SESSION" "$STDIN" Enter
+    exit
+fi
+
+tmux send-keys -t "$TMUX_SESSION" "$STDIN" Enter
