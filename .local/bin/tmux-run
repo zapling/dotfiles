@@ -25,19 +25,19 @@ for i in "$@"; do
     case $i in
     --session=*)
         TMUX_SESSION="${i#*=}"
-      shift
-      ;;
+        shift
+        ;;
     --one-command)
         TREAT_AS_ONE_COMMAND=1
         shift
-      ;;
+        ;;
     -*)
-      echo "Unknown option $i"
-      exit 1
-      ;;
+        echo "Unknown option $i"
+        exit 1
+        ;;
     *)
-      ;;
-  esac
+        ;;
+    esac
 done
 
 if ! tmux has-session -t "$TMUX_SESSION" &> /dev/null; then
