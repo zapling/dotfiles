@@ -1,5 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
+HISTORY_IGNORE="jwt-decode*"
+
 ZSH_THEME="sunaku-zapling"
 
 plugins=(git)
@@ -85,6 +87,8 @@ function docker() {
 function arthur() {
     ARTHUR_AUTO_UPDATE=true command arthur $@
 }
+
+alias j="journal e"
 
 alias vim="nvim"
 
