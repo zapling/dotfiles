@@ -72,7 +72,7 @@ function newdbmate() {
 
 function docker() {
     if [[ "$1" == "kill-all" || "$1" == "stop-all" ]]; then
-        containers=$(docker ps -q)
+        containers=($(docker ps -q))
         if [[ "$containers" == "" ]]; then
             echo "Nothing to stop"
             return 1
