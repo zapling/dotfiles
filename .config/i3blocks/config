@@ -37,6 +37,10 @@ color=#1DB954
 interval=10800 # every 3 hours
 certificate=${HOME}/.cert/nm-openvpn/zimpler-cert.pem
 
+[docker-containers]
+interval=60
+color=#83a598
+
 [weather-applet]
 command=~/go/bin/./weatherapplet
 interval=3600 # once per hour
