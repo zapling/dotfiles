@@ -11,8 +11,8 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 map('n', 'Q', '<Nop>', { noremap = true })
 
 -- quickfix
-map('', '<Leader>g[', ':cprev', {silent = true})
-map('', '<Leader>g]', ':cnext', {silent = true})
+map('', '<Leader>g[', ':cprev<CR>', {silent = true})
+map('', '<Leader>g]', ':cnext<CR>', {silent = true})
 
 -- git
 -- map('', '<Leader>vs', ':Neogit<CR>', {})
@@ -38,14 +38,13 @@ map('', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', {silent = true})
 
 -- file navigation and search
 map('', '<Leader>p', '<Cmd>lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', {})
-map('', '<Leader>P', '<Cmd>Telescope file_browser<CR>', {})
+-- map('', '<Leader>P', '<Cmd>lua FilesChangedComparedToMain()<CR>', {})
 map('', '<Leader>gp', '<Cmd>Telescope git_status<CR>', {})
-map('', '<Leader>gP', '<Cmd>Telescope git_commits<CR>', {})
+map('', '<Leader>gP', '<Cmd>lua FilesChangedComparedToMain()<CR>', {})
 map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
 map('', '<Leader>}', '<Cmd>Telescope grep_string<CR>', {})
 
 -- winshift
--- map('n', '<C-W><C-M>', '<Cmd>WinShift<CR>', {noremap = true})
 map('n', '<C-W><CR>', '<Cmd>WinShift<CR>', {noremap = true})
 
 -- go coverage

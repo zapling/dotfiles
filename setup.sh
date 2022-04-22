@@ -182,6 +182,22 @@ post_install() {
         echo "shellcheck linter already installed."
     fi
 
+    # eslint_d for typescript / javascript
+    if ! type "eslint_d" > /dev/null; then
+        echo "Installing eslint_d linter"
+        sudo npm install -g eslint_d
+    else
+        echo "eslint_d linter already installed."
+    fi
+
+    # prettierd (formatter for ts js etc)
+    if ! type "prettierd" > /dev/null; then
+        echo "Installing prettierd formatter"
+        sudo npm install -g @fsouza/prettierd
+    else
+        echo "prettierd formatter already installed."
+    fi
+
     # LiberationMono Nerd font (LiterationMono Nerd Font)
     # https://www.nerdfonts.com/font-downloads
     if [[ ! -d "$HOME/.fonts" ]]; then

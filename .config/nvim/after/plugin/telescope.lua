@@ -11,3 +11,10 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
+
+function FilesChangedComparedToMain()
+    require'telescope.builtin'.find_files({
+        find_command = {'git', 'diff', '--name-only', 'main'},
+        prompt_title = 'Git files modified compared to main'
+    })
+end

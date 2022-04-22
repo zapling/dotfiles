@@ -46,7 +46,12 @@ require'lspconfig'.gopls.setup{
 require'lspconfig'.tsserver.setup{
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    -- disable formatting so null-ls can be the default (prettired)
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+    end,
 }
 
 local runtime_path = vim.split(package.path, ';')

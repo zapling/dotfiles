@@ -7,6 +7,7 @@ vim.diagnostic.config({
         -- source = 'if_many',
         focusable = false,
     },
+    severity_sort = true,
 }, nil)
 
 vim.api.nvim_command('sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=')

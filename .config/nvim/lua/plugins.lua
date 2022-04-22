@@ -10,7 +10,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- [ ===== Plugins ===== ]
-return require('packer').startup(function()
+return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'lewis6991/impatient.nvim' -- lua speedup
@@ -30,6 +30,7 @@ return require('packer').startup(function()
   -- Git
   use 'tpope/vim-fugitive'
   use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   -- Theme and styling
   use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they keep fucking my colors
@@ -64,5 +65,6 @@ return require('packer').startup(function()
 
   -- Misc
   use 'zapling/vim-go-utils'
+  -- use {'lukas-reineke/headlines.nvim'}
 
 end)
