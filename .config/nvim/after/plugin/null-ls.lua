@@ -10,6 +10,7 @@ local sources = {
     null_ls.builtins.diagnostics.shellcheck,
 
     -- typescript
+    -- null_ls.builtins.formatting.prettierd, -- sometimes I need this instead of eslint_d bellow :/
     null_ls.builtins.formatting.eslint_d.with({
         on_attach = function()
             Job:new({command = 'eslint_d', args = {'restart'}}):sync()
