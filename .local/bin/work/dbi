@@ -1,5 +1,4 @@
-#!/usr/bin/zsh
-
+#!/usr/bin/bash
 
 if ! type "arthur" > /dev/null; then
     echo "Command 'arthur' not found"
@@ -12,26 +11,27 @@ if ! type "psql" > /dev/null; then
 fi
 
 function help() {
-    echo "dbi SERVICE ENVIRONMENT [COMMAND]"
-    echo ""
-    echo "Example:"
-    echo "  dbi george staging"
-    echo ""
-    echo "Command:"
-    echo "  --arthur (default)"
-    echo "      Connect to database via arthur PSQL. Uses your AWS credentials to login."
-    echo "      Read-only mode is active by default, if you need write access there is two options"
-    echo "        1. Use param '--readwrite' when connecting"
-    echo "        2. Set your role after connecting with 'set role readwrite'"
-    echo "  --url"
-    echo "      Print postgres connection url."
-    echo "      URL is valid for 15 min, but once connected your session is valid until you disconnect."
-    echo "      Example output 'postgres://user:pass@host:port/db'"
-    echo "  --readwrite | --rw"
-    echo "      Connect to the database with read and write access."
-    echo "  --root"
-    echo "      Connect to database as root user. Don't use this as default."
+    cat <<EOF
+dbi SERVICE ENVIRONMENT [COMMAND]
 
+Example:
+  dbi george staging
+
+Command:
+  --arthur (default)
+      Connect to database via arthur PSQL. Uses your AWS credentials to login.
+      Read-only mode is active by default, if you need write access there is two options
+        1. Use param '--readwrite' when connecting
+        2. Set your role after connecting with 'set role readwrite'
+  --url
+      Print postgres connection url.
+      URL is valid for 15 min, but once connected your session is valid until you disconnect.
+      Example output 'postgres://user:pass@host:port/db'
+  --readwrite | --rw
+      Connect to the database with read and write access.
+  --root
+      Connect to database as root user. Don't use this as default.
+EOF
 }
 
 if [[ "$1" == "local" ]]; then
@@ -69,21 +69,27 @@ case $COMMAND in
     "")
         ;&
     "--arthur")
-        arthur psql $SERVICE-$ENVIRONMENT || echo "Invalid or unspported [SERVICE]" && exit 1
+        if ! arthur psql "$SERVICE-$ENVIRONMENT"; then
+            echo "Failed to login with normal database name, trying with legacy name"
+            if ! arthur psql "$SERVICE-$ENVIRONMENT-db"; then
+                echo "Invalid or unsupported [SERVICE]"
+                exit 1
+            fi
+        fi
         exit
         ;;
     "--url")
-        URL=$(arthur db-connection-url $SERVICE-$ENVIRONMENT)
-        echo $URL
+        URL=$(arthur db-connection-url "$SERVICE-$ENVIRONMENT")
+        echo "$URL"
         exit
         ;;
     "--rw")
         ;&
     "--readwrite")
-        arthur psql $SERVICE-$ENVIRONMENT --readwrite || echo "Invalid or unspported [SERVICE]" && exit 1
+        arthur psql "$SERVICE-$ENVIRONMENT" --readwrite || echo "Invalid or unspported [SERVICE]" && exit 1
         ;;
     "--root")
-        arthur psql $SERVICE-$ENVIRONMENT --root || echo "Invalid or unspported [SERVICE]" && exit 1
+        arthur psql "$SERVICE-$ENVIRONMENT" --root || echo "Invalid or unspported [SERVICE]" && exit 1
         exit
         ;;
     *)

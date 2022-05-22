@@ -13,9 +13,7 @@ fi
 function create-journal {
     FILE=$1
 
-    HEADING="$(date '+%A %d/%m-%Y')";
-    REPLACE='=';
-    HEADER=$(echo -e "${HEADING}\n${HEADING//?/$REPLACE}")
+    HEADER="# $(date '+%A %d/%m-%Y')";
 
     echo "$HEADER" > "$FILE"
 }
@@ -53,6 +51,10 @@ function sync-old-entries {
 CMD=$1 ; shift >/dev/null 2>&1
 case "$CMD" in
     "entry"|"e")
+        if [[ $(date +%u) -gt 5 ]]; then
+            echo "No weekend entries allowed"
+            exit 1
+        fi
         sync-old-entries
         open-journal
         exit

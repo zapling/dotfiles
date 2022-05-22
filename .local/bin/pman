@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
 cmd=$1 ; shift >/dev/null 2>&1
 case "$cmd" in
