@@ -43,6 +43,7 @@ map('', '<Leader>gp', '<Cmd>Telescope git_status<CR>', {})
 map('', '<Leader>gP', '<Cmd>lua FilesChangedComparedToMain()<CR>', {})
 map('', '<Leader>]', '<Cmd>Telescope live_grep<CR>', {})
 map('', '<Leader>}', '<Cmd>Telescope grep_string<CR>', {})
+map('', '<Leader>g}', '<Cmd>lua require(\'telescope.builtin\').resume()<CR>', {})
 
 -- winshift
 map('n', '<C-W><CR>', '<Cmd>WinShift<CR>', {noremap = true})
