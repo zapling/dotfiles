@@ -11,8 +11,8 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 map('n', 'Q', '<Nop>', { noremap = true })
 
 -- quickfix
-map('', '<Leader>g[', ':cprev<CR>', {silent = true})
-map('', '<Leader>g]', ':cnext<CR>', {silent = true})
+map('n', ']q', ':cnext<CR>', {noremap = true, silent = true})
+map('n', '[q', ':cprev<CR>', {noremap = true, silent = true})
 
 -- git
 -- map('', '<Leader>vs', ':Neogit<CR>', {})
