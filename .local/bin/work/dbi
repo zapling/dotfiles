@@ -48,10 +48,19 @@ COMMAND=${3:-}
 [[ "$ENVIRONMENT" == "" ]] && help && exit 1
 
 case $ENVIRONMENT in
+    "stan")
+        ENVIRONMENT="staging"
+        ;&
     "staging")
         ;;
+    "sand")
+        ENVIRONMENT="sandbox"
+        ;&
     "sandbox")
         ;;
+    "prod")
+        ENVIRONMENT="production"
+        ;&
     "production")
         ;;
     *)
