@@ -29,11 +29,11 @@ return require('packer').startup(function(use)
 
   -- Git
   use 'tpope/vim-fugitive'
-  use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
+  use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
 
   -- Theme and styling
-  use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they keep fucking my colors
+  use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they mess with my colors :(
   use 'nvim-lualine/lualine.nvim'
   use 'kyazdani42/nvim-web-devicons'  -- note: requires patched fonts
 
@@ -65,6 +65,7 @@ return require('packer').startup(function(use)
 
   -- Misc
   use 'zapling/vim-go-utils'
+  use {'zapling/reviewer.nvim', requires = 'nvim-lua/plenary.nvim'}
   -- use {'lukas-reineke/headlines.nvim'}
 
 end)
