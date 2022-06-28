@@ -48,23 +48,26 @@ COMMAND=${3:-}
 [[ "$ENVIRONMENT" == "" ]] && help && exit 1
 
 case $ENVIRONMENT in
-    "stan")
+    "stag")
         ENVIRONMENT="staging"
-        ;&
-    "staging")
         ;;
     "sand")
         ENVIRONMENT="sandbox"
-        ;&
-    "sandbox")
         ;;
     "prod")
         ENVIRONMENT="production"
-        ;&
+        ;;
+esac
+
+case $ENVIRONMENT in
+    "staging")
+        ;;
+    "sandbox")
+        ;;
     "production")
         ;;
     *)
-        echo "Invalid [ENVIRONMENT], most be either 'staging', 'sandbox' or 'production'"
+        echo "Invalid [ENVIRONMENT], must be either 'staging', 'sandbox' or 'production'"
         exit 1
 esac
 
