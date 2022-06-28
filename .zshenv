@@ -14,6 +14,9 @@ export GOPRIVATE="github.com/Zimpler/*,gitlab.zimpler.com/*"
 # Override .gitconfig for arthur
 export ARTHUR_GITCONFIG_PATH=$HOME/dotfiles/.config/git/config_work_arthur
 
+# Override JQ colors so null values are red, works better than grey on dark background
+export JQ_COLORS='0;31:0;39:0;39:0;39:0;32:1;39:1;39'
+
 # GNU/ls like colors
 # Hack for alacritty as coreutils guys are lame
 # https://github.com/alacritty/alacritty/issues/2210
