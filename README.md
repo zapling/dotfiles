@@ -7,5 +7,5 @@
 Use `manjaro-stable xfc4` as the base image.
 
 ```
-cd ~ && git clone --recurse-submodules git@github.com:zapling/dotfiles.git && cd dotfiles && ./setup.sh
+cd ~ && git clone git@github.com:zapling/dotfiles.git && cd dotfiles && ./setup.sh
 ```
