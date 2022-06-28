@@ -1,3 +1,0 @@
-[submodule ".config/i3blocks/scripts/i3blocks-weather-applet-yrno"]
-	path = .config/i3blocks/scripts/i3blocks-weather-applet-yrno
-	url = git@github.com:zapling/i3blocks-weather-applet-yrno.git
