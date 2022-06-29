@@ -4,7 +4,7 @@ HISTORY_IGNORE="jwt-decode*"
 
 ZSH_THEME="sunaku-zapling"
 
-plugins=(git)
+plugins=(git ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 

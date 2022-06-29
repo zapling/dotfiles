@@ -57,7 +57,6 @@ exec --no-startup-id /usr/bin/alacritty --class dropdown1
 exec --no-startup-id /usr/bin/alacritty --class dropdown2
 
 exec --no-startup-id /usr/bin/xwallpaper --daemon --maximize ~/dotfiles/wall/blade-runner-2049-2560x1440.jpg
-exec_always ~/dotfiles/.local/bin/system/start-ssh-agent
 
 #--------/ Status bar /-----#
 
