@@ -10,6 +10,7 @@ local function quick_jump(direction)
 
     vim.api.nvim_exec('silent ' .. search, nil)
     vim.api.nvim_exec('silent nohls', nil)
+    vim.api.nvim_exec('norm 0', nil)
 end
 
 vim.keymap.set('n', '[[', function() quick_jump('up') end, { silent = true, buffer = true})
