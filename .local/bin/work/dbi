@@ -73,8 +73,11 @@ esac
 
 CONNECTED_TO_VPN=$(nmcli -t connection show --active | grep zimpler)
 if [[ "$CONNECTED_TO_VPN" == "" ]]; then
-    echo "You need to be connected to Zimpler vpn!"
-    exit 1
+    nmcli connection up zimpler > /dev/null
+    if [[ "$(nmcli -t connection show --active | grep zimpler)" == "" ]]; then
+        echo "Could not connect to zimpler vpn"
+        exit 1
+    fi
 fi
 
 case $COMMAND in
