@@ -104,3 +104,5 @@ alias timestamp="date '+%F%T' | tr -d ':-'"
 alias utimestamp="date '+%s'"
 
 alias gom="go mod tidy && go mod vendor"
+
+alias status="arthur seer"
