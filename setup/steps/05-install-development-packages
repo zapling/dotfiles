@@ -1,0 +1,47 @@
+#!/usr/bin/bash
+
+packages=(
+    go
+    npm
+    yarn
+    docker
+    docker-compose
+    postgresql
+)
+
+sudo pacman -Sy --needed "${packages[@]}"
+
+# Golang language server
+if ! type "gopls" > /dev/null; then
+    go install golang.org/x/tools/gopls@latest
+fi
+
+# Typescript language server
+if ! type "tsserver" > /dev/null; then
+    sudo npm install -g typescript typescript-language-server
+fi
+
+# Eslint_d, typescript/javascript linter
+if ! type "eslint_d" > /dev/null; then
+    sudo npm install -g eslint_d
+fi
+
+# Prettierd, typescript/javascript formatter
+if ! type "prettierd" > /dev/null; then
+    sudo npm install -g @fsouza/prettierd
+fi
+
+# Lua language server
+if ! type "lua-language-server" > /dev/null; then
+    sudo pacman -S lua-language-server
+fi
+
+# Bash language server
+if ! type "bash-language-server" > /dev/null; then
+    sudo npm install -g bash-language-server
+fi
+
+# Bash linter
+if ! type "shellcheck" > /dev/null; then
+    pamac build --no-confirm shellcheck-bin
+fi

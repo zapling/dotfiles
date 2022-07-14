@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+
+# System packages
+core=(
+    i3-gaps
+    dmenu-manjaro
+    i3blocks
+    xwallpaper
+    alacritty
+    zsh
+    redshift
+    xorg-xbacklight
+    xorg-xrandr
+    xclip
+    picom
+    jq
+    ttf-liberation
+    neovim
+    ripgrep
+)
+
+sudo pacman -Sy --needed "${core[@]}"
+
+# LiberationMono Nerd Font (LiterationMono)
+if [[ ! -d ~/.fonts ]]; then
+    curl "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/LiberationMono.zip" -L --output "/tmp/LiberationMono.zip" && \
+        mkdir ~/.fonts && \
+        unzip /tmp/LiberationMono.zip -d ~/.fonts && \
+        fc-cache -fv
+fi
+
+# GTK Gruvbox theme
+if [[ ! -d "/usr/share/themes/gruvbox-dark-gtk" ]]; then
+    pamac build --no-confirm gruvbox-dark-gtk
+    pamac build --no-confirm gruvbox-dark-icons-gtk
+fi
+
+# deadd-notification-center
+if ! type "deadd-notification-center" > /dev/null; then
+    pamac build --no-confirm deadd-notification-center-bin
+fi
+
+# Improved notify-send
+if ! type "notify-send.sh" > /dev/null; then
+    pamac build --no-confirm notify-send.sh
+fi
+
+# Used for keyboard layout indicator in i3blocks script
+if ! type "xkblayout-state" > /dev/null; then
+    pamac build --no-confirm xkblayout-state-git
+fi
+
+# oh-my-zsh
+if [ ! -d ~/.oh-my-zsh ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+

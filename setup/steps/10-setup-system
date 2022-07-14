@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+# Default shell
+if [[ ! "$SHELL" =~ "zsh" ]]; then
+    chsh -s $(which zsh)
+fi
+
+# neovim folders
+[ ! -d ~/.vim ] && mkdir ~/.vim
+[ ! -d ~/.vim/backup ] && mkdir ~/.vim/backup
+[ ! -d ~/.vim/backupf ] && mkdir ~/.vim/backupf
+
+# grub custom background
+find=$(grep -o "#GRUB_BACKGROUND=" /etc/default/grub)
+if [[ "$find" != "" ]]; then
+    sudo cp ~/dotfiles/wall/grub/gta-stallman.png /usr/share/grub/.
+    sudo sed -i "s/#GRUB_BACKGROUND=.*/GRUB_BACKGROUND=\"\/usr\/share\/grub\/gta-stallman.png\"/" /etc/default/grub
+    sudo sed -i "s/GRUB_THEME/#GRUB_THEME/" /etc/default/grub
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+fi

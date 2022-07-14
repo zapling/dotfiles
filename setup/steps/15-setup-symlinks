@@ -1,0 +1,52 @@
+#!/usr/bin/bash
+
+symlink_file() {
+    TARGET=$1
+    DESTINATION=$2
+
+    # check if file is already symlink
+    if test -L "$DESTINATION"; then
+        return 0
+    fi
+
+    if [[ -e "$DESTINATION" ]]; then
+        ls -lh "$DESTINATION"
+
+        if ! cmp "$DESTINATION" "$TARGET"; then
+            diff --color -u "$DESTINATION" "$TARGET"
+
+            echo ""
+            read -p "Replace regular file $DESTINATION with symlink? (y/n) " -n 1 choice
+            echo ""
+
+            case "$choice" in
+                y|Y)
+                    rm -r "$DESTINATION"
+                    ;;
+                n|N)
+                    return 0
+                    ;;
+                *)
+                    return 0
+                    ;;
+            esac
+        fi
+    fi
+
+    ln -s "$TARGET" "$DESTINATION" && echo "Created symlink $DESTINATION"
+}
+
+# Symlink everything under .config/
+for path in ~/dotfiles/.config/*; do
+    folder=$(basename "$path")
+    symlink_file ~/dotfiles/.config/"$folder" ~/.config/"$folder"
+done
+
+# Symlink files in home directory
+files=(.Xresources .zshrc .zshenv .gtkrc-2.0 .gitconfig)
+for file in "${files[@]}"; do
+    symlink_file ~/dotfiles/"$file" ~/"$file"
+done
+
+# Symlink oh-my-zsh theme
+symlink_file ~/dotfiles/.oh-my-zsh/custom/themes/sunaku-zapling.zsh-theme ~/.oh-my-zsh/custom/themes/.
