@@ -1,7 +1,7 @@
 -- Get current git branch
 -- Longer branch names gets cut off in smaller windows
 local function GitBranchCutOff()
-    local branch = vim.api.nvim_eval('fugitive#head()')
+    local branch = vim.api.nvim_eval('FugitiveHead()')
     local max_length = 29
 
     local win_width = vim.api.nvim_win_get_width(0)
