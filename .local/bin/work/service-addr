@@ -7,3 +7,4 @@ ENVIRONMENT=$2
 [[ "$ENVIRONMENT" == "" ]] && echo "service-addr [SERVICE] [ENVIRONMENT]" && exit 1
 
 echo "http://$SERVICE.$SERVICE.$ENVIRONMENT.internal/"
+echo "$SERVICE.$SERVICE.svc.cluster.local"
