@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+current_version=$(gopls version | grep -o "v.* ")
+res=$(curl -s "https://api.github.com/repos/golang/tools/releases")
+releases=($(echo "$res" | jq '.[].tag_name' | tr -d '"'))
+latest=$(echo "${releases[0]}" | grep -o "v.*")
+
+if [[ "$current_version" != "$latest" ]]; then
+    echo "[12]"
+    exit 1
+fi
