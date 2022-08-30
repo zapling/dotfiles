@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+echo "TODO: fix this script"
+exit 1
+
+URL="$1"
+ID=$(echo "$URL" | sed 's/https:\/\/imgur.com\/a\///')
+ENDPOINT="https://api.imgur.com/post/v1/albums/$ID?client_id=546c25a59c58ad7&include=media"
+RESPONSE=$(curl -s "$ENDPOINT")
+IMAGE_URLS=($(echo $RESPONSE | jq '.media[].url' | sed 's/"//g'))
+
+# mkdir "$ID"
+
+# for i in "${IMAGE_URLS[@]}"
+# do
+#     :
+#     curl $i --output "$ID/1"
+# done
