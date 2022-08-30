@@ -12,6 +12,11 @@ allDisplays=($(xrandr | grep " connected " | awk '{ print $1 }'))
 laptopDisplay=${allDisplays[1]}
 externalDisplays=("${allDisplays[@]/$laptopDisplay}")
 
+# Set mode manually
+if [[ "$1" != "" ]]; then
+    current_mode=$1
+fi
+
 case $current_mode in
     0) # Laptop screen only
         current_mode_name="laptop"
@@ -47,11 +52,13 @@ if type "notify-send.sh" > /dev/null; then
     notify-send.sh --replace-file=/tmp/current-monitor-notification "Display output changed" "Mode: $current_mode_name"
 fi
 
-current_mode=$((current_mode + 1))
+if [[ "$1" == "" ]]; then
+    current_mode=$((current_mode + 1))
 
-if [ $current_mode -gt 2 ]; then
-    current_mode=0
+    if [ $current_mode -gt 2 ]; then
+        current_mode=0
+    fi
+
+    echo "$current_mode" > "$cache_file"
 fi
-
-echo "$current_mode" > "$cache_file"
 
