@@ -1,4 +1,5 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
+# WIP! not working fully?
 
 CACHE_FOLDER=${XDG_CACHE_HOME:-"$HOME/.cache"}
 CACHE_PATH="${CACHE_FOLDER}/yr-weather"
