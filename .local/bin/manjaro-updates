@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# TODO: rewrite to something that I would actually use
+# curl -s https://forum.manjaro.org/c/announcements/stable-updates/12.json | jq '.topic_list.topics[0].title'
 import os
 import json
 import urllib.request
