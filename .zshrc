@@ -90,6 +90,27 @@ function docker() {
     command docker $@
 }
 
+function timestamp() {
+    cmd=$1 ; shift > /dev/null 2>&1
+    case "$cmd" in
+        # YYYYMMDDHHMMSS
+        "")
+            date '+%F%T' | tr -d ':-'
+            ;;
+        # seconds since epoch (unix)
+        "unix")
+            date "+%s"
+            ;;
+        # yyyy-mm-ddThh:mm:ss.mms+00:00 (utc)
+        "utc")
+            date '+%FT%T.%N+00:00' --utc
+            ;;
+        *)
+            echo "Unsupported option"
+            return 1
+    esac
+}
+
 function arthur() {
     ARTHUR_AUTO_UPDATE=true command arthur $@
 }
@@ -97,11 +118,6 @@ function arthur() {
 alias j="journal e"
 
 alias vim="nvim"
-
-# YYYYMMDDHHMMSS
-alias timestamp="date '+%F%T' | tr -d ':-'"
-# seconds since epoch (unix)
-alias utimestamp="date '+%s'"
 
 alias gom="go mod tidy && go mod vendor"
 
