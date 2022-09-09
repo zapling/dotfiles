@@ -41,6 +41,11 @@ require'lspconfig'.gopls.setup{
         ),
         ['window/logMessage'] = goplsLogMessageWrapper,
     },
+    settings = {
+        gopls = {
+            buildFlags = {"-tags=integration_test"}
+        }
+    }
 }
 
 require'lspconfig'.tsserver.setup{
