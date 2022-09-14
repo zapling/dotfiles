@@ -71,6 +71,12 @@ case $ENVIRONMENT in
         exit 1
 esac
 
+
+if ! certcheck ~/.cert/nm-openvpn/zimpler-cert.pem > /dev/null; then
+    echo "Zimpler VPN cert out of date, updating..."
+    arthur vpn-config update-networkmanager
+fi
+
 CONNECTED_TO_VPN=$(nmcli -t connection show --active | grep zimpler)
 if [[ "$CONNECTED_TO_VPN" == "" ]]; then
     nmcli connection up zimpler > /dev/null
