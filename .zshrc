@@ -93,7 +93,7 @@ function docker() {
 function timestamp() {
     cmd=$1 ; shift > /dev/null 2>&1
     case "$cmd" in
-        # YYYYMMDDHHMMSS
+        # YYYYMMDDHHMMSS (local time)
         "")
             date '+%F%T' | tr -d ':-'
             ;;
@@ -120,5 +120,7 @@ alias j="journal e"
 alias vim="nvim"
 
 alias gom="go mod tidy && go mod vendor"
+
+alias copy="xclip -sel clip"
 
 alias status="arthur seer"

@@ -1,8 +1,0 @@
-#!/usr/bin/bash
-
-if [[ "$1" == "" ]]; then
-    echo "copy needs command to execute"
-    exit 1
-fi
-
-$@ | xclip -selection clipboard
