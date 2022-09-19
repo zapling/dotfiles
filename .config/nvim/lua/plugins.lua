@@ -33,7 +33,8 @@ return require('packer').startup(function(use)
   use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
 
   -- Theme and styling
-  use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they mess with my colors :(
+  -- use {'zapling/gruvbox.nvim', branch = 'color-fix'} -- fork because they mess with my colors :(
+  use { "ellisonleao/gruvbox.nvim" }
   use 'nvim-lualine/lualine.nvim'
   use 'kyazdani42/nvim-web-devicons'  -- note: requires patched fonts
 
