@@ -9,12 +9,36 @@ REMOTE_ORIGIN=$(git config --get remote.origin.url)
 
 if [[ "$REMOTE_ORIGIN" =~ "@gitlab.zimpler.com" ]]; then
     REPO_NAME=$(echo $REMOTE_ORIGIN | grep -o '\/.*\.' | tr -d '/.')
-elif [[ "$REMOTE_ORIGIN" =~ "@github.com:Zimpler" ]]; then
-    REPO_NAME=$(git config --get remote.origin.url | grep -o '\/.*\.' | tr -d '/.\n')
 else
     echo "Only allowed on repos owned by Zimpler"
     exit 1
 fi
 
-arthur rollback-to-main $REPO_NAME staging && \
+ENVIRONMENT=${1:-staging}
+
+case $ENVIRONMENT in
+    "stag")
+        ENVIRONMENT="staging"
+        ;;
+    "sand")
+        ENVIRONMENT="sandbox"
+        ;;
+    "prod")
+        ENVIRONMENT="production"
+        ;;
+esac
+
+case $ENVIRONMENT in
+    "staging")
+        ;;
+    "sandbox")
+        ;;
+    "production")
+        ;;
+    *)
+        echo "Invalid [ENVIRONMENT], must be either 'staging', 'sandbox' or 'production'"
+        exit 1
+esac
+
+arthur rollback-to-main $REPO_NAME $ENVIRONMENT && \
     notify-send "Rollback" "$REPO_NAME staging was rolled back"
