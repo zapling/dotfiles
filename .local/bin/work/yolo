@@ -41,4 +41,4 @@ case $ENVIRONMENT in
 esac
 
 arthur yolo-deploy $REPO_NAME $ENVIRONMENT && \
-    notify-send "YOLO deploy" "$REPO_NAME pushed to staging"
+    notify-send "YOLO deploy" "$REPO_NAME pushed to $ENVIRONMENT"

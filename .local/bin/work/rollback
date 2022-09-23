@@ -41,4 +41,4 @@ case $ENVIRONMENT in
 esac
 
 arthur rollback-to-main $REPO_NAME $ENVIRONMENT && \
-    notify-send "Rollback" "$REPO_NAME staging was rolled back"
+    notify-send "Rollback" "$REPO_NAME $ENVIRONMENT was rolled back"
