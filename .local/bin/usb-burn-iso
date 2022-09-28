@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+
+DEVICE=${1:-}
+PATH_TO_ISO=${2:-}
+
+function usage() {
+    cat <<EOF
+Usage: usb-burn-iso DEVICE PATH_TO_ISO
+Example: usb-burn-iso /dev/sda2 ~/Downloads/ubuntu-22.04.1-desktop-amd64.iso
+EOF
+}
+
+if [[ "$DEVICE" == "" ]]; then
+    printf "Device must be provided, use 'lsblk' to list available devices\n"
+    usage
+    exit 1
+fi
+
+if [[ "$PATH_TO_ISO" == "" ]]; then
+    printf "Path to ISO must be provided\n"
+    usage
+    exit 1
+fi
+
+COMMAND="sudo dd bs=4M if=$PATH_TO_ISO of=$DEVICE conv=fdatasync status=progress"
+
+cat <<EOF
+Careful! This command will format the device $DEVICE, unsaved data will be lost!
+
+Are you sure? y/n
+EOF
+
+read -sN1 answer
+if [[ "$answer" != "y" ]]; then
+    echo "Aborting"
+    exit 1
+fi
+
+echo "$COMMAND"
+$COMMAND
