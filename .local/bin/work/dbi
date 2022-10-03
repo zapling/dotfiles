@@ -12,17 +12,14 @@ fi
 
 function help() {
     cat <<EOF
-dbi SERVICE ENVIRONMENT [COMMAND]
+dbi SERVICE ENVIRONMENT [OPTION]
 
-Example:
+Examples:
   dbi george staging
+  dbi george stag
+  dbi . stag
 
-Command:
-  --arthur (default)
-      Connect to database via arthur PSQL. Uses your AWS credentials to login.
-      Read-only mode is active by default, if you need write access there is two options
-        1. Use param '--readwrite' when connecting
-        2. Set your role after connecting with 'set role readwrite'
+Option:
   --url
       Print postgres connection url.
       URL is valid for 15 min, but once connected your session is valid until you disconnect.
@@ -30,7 +27,7 @@ Command:
   --readwrite | --rw
       Connect to the database with read and write access.
   --root
-      Connect to database as root user. Don't use this as default.
+      Connect to database as root user. Required for some operations.
 EOF
 }
 
@@ -71,6 +68,15 @@ case $ENVIRONMENT in
         exit 1
 esac
 
+# Attempt to use service name from current working dir
+if [[ "$SERVICE" == "." ]]; then
+    SERVICE=$(git config --get remote.origin.url | grep -o '\/.*\.' | tr -d '/.')
+    if [[ "$SERVICE" == "" ]]; then
+        echo "Failed to parse service name from cwd"
+        exit 1
+    fi
+fi
+
 
 if ! certcheck ~/.cert/nm-openvpn/zimpler-cert.pem > /dev/null; then
     echo "Zimpler VPN cert out of date, updating..."
@@ -88,8 +94,6 @@ fi
 
 case $COMMAND in
     "")
-        ;&
-    "--arthur")
         if ! arthur psql "$SERVICE-$ENVIRONMENT"; then
             echo "Failed to login with normal database name, trying with legacy name"
             if ! arthur psql "$SERVICE-$ENVIRONMENT-db"; then
