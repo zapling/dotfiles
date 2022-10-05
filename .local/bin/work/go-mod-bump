@@ -1,47 +1,126 @@
 #!/usr/bin/bash
 
-DEP=${1:-}
+function print_help() {
+    cat <<EOF
+Usage: go-mod-bump package-name version [options]
+    options:
+      -h        Show help information
+      -c        Commit and push changes to new branch
+      -r        Recursively go through folders, max depth 1
+EOF
+}
+
+OPTS=$(getopt -o c,r,h -l help --name "go-mod-bump" -- "$@" 2>/dev/null)
+if [[ $? -ne 0 ]]; then
+    echo "Unsupported option!"
+    print_help
+    exit 1
+fi
+
+eval set -- "$OPTS"
+unset OPTS
+
+# Flags
+FLAG_COMMIT=0
+FLAG_RECURSIVE_UPDATE=0
+
+while :
+do
+    case "$1" in
+        -c)
+            FLAG_COMMIT=1
+            shift
+            ;;
+        -r)
+            FLAG_RECURSIVE_UPDATE=1
+            shift
+            ;;
+        -h)
+            print_help
+            exit 1
+            ;;
+        "--")
+            shift
+            break
+            ;;
+        *)
+            echo "Unexpected option: $1"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
+PACKAGE=${1:-}
 VERSION=${2:-}
 
-DO_COMMIT=0
-
-if [[ "$DEP" == "" ]]; then
-    echo "DEP must be provided!"
+if [[ "$PACKAGE" == "" ]]; then
+    echo "package-name must be provided!"
+    print_help
     exit 1
 fi
 
 if [[ "$VERSION" == "" ]]; then
-    echo "VERSION must be provided!"
+    echo "version must be provided!"
+    print_help
     exit 1
 fi
 
-function find_dep_fuzzy() {
+
+FOLDERS=()
+if [[ $FLAG_RECURSIVE_UPDATE -eq 1 ]]; then
+    for f in *; do
+        if [ -d "$f" ]; then
+            p=$(readlink -f "$f")
+            FOLDERS=(${FOLDERS[@]} "$p")
+        fi
+    done
+else
+    FOLDERS=("$(pwd)")
+fi
+
+function find_package_fuzzy() {
     echo $(grep -Po "\w.*$1*\/\w*\d*(?!.*\/\/ indirect)" go.mod)
 }
 
-function find_dep() {
+function find_package() {
     echo $(grep -Po "$1(?!.*\/\/ indirect)" go.mod)
 }
 
+origin_pwd=$(pwd)
 
-DEP_FULLNAME=$(find_dep "$DEP")
-if [[ $(echo $DEP | grep -o "/") == "" ]]; then
-    DEP_FULLNAME=$(find_dep_fuzzy "$DEP")
-fi
+for folder in "${FOLDERS[@]}";
+do
+    :
+    cd $folder || exit 1
 
-if [[ "$DEP_FULLNAME" == "" ]]; then
-    echo "Unknown dependency $DEP"
-    exit 1
-fi
+    if [[ ! -e "go.mod" ]]; then
+        echo "No go.mod file found in directory"
+        exit 1
+    fi
 
-TIMESTAMP=$(date '+%F%T' | tr -d ':-')
-BRANCH_NAME="chore/go-mod-bump-$TIMESTAMP"
 
-go mod edit -require="$DEP_FULLNAME@$VERSION"
-go mod tidy
+    PACKAGE_FULLNAME=$(find_package "$PACKAGE")
+    if [[ $(echo $PACKAGE | grep -o "/") == "" ]]; then
+        PACKAGE_FULLNAME=$(find_package_fuzzy "$PACKAGE")
+    fi
 
-if [[ "$(git status --porcelain)" != "" && $DO_COMMIT -eq 1 ]]; then
-    git checkout -b "$BRANCH_NAME"
-    git commit -am "Bumped $DEP_FULLNAME to $VERSION"
-    git push -o merge_request.create -u origin "$BRANCH_NAME"
-fi
+    if [[ "$PACKAGE_FULLNAME" == "" ]]; then
+        echo "Unknown package $PACKAGE"
+        exit 1
+    fi
+
+    TIMESTAMP=$(date '+%F%T' | tr -d ':-')
+    BRANCH_NAME="chore/go-mod-bump-$TIMESTAMP"
+
+    go mod edit -require="$PACKAGE_FULLNAME@$VERSION"
+    go mod tidy
+
+    if [[ "$(git status --porcelain)" != "" && $FLAG_COMMIT -eq 1 ]]; then
+        git checkout -b "$BRANCH_NAME"
+        git commit -am "Bumped $PACKAGE_FULLNAME to $VERSION"
+        git push -o merge_request.create -u origin "$BRANCH_NAME"
+    fi
+done
+
+cd $origin_pwd
