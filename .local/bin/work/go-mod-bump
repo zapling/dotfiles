@@ -79,30 +79,26 @@ else
     FOLDERS=("$(pwd)")
 fi
 
-function find_package_fuzzy() {
-    echo $(grep -Po "\w.*$1*\/\w*\d*(?!.*\/\/ indirect)" go.mod)
-}
-
-function find_package() {
-    echo $(grep -Po "$1(?!.*\/\/ indirect)" go.mod)
-}
-
 origin_pwd=$(pwd)
 
 for folder in "${FOLDERS[@]}";
 do
     :
-    cd $folder || exit 1
+
+    if [[ ! -d "$folder" ]]; then
+        continue
+    fi
+
+    cd $folder
 
     if [[ ! -e "go.mod" ]]; then
         echo "No go.mod file found in directory"
         exit 1
     fi
 
-
-    PACKAGE_FULLNAME=$(find_package "$PACKAGE")
+    PACKAGE_FULLNAME=$(grep -Po "$1(?!.*\/\/ indirect)" go.mod)
     if [[ $(echo $PACKAGE | grep -o "/") == "" ]]; then
-        PACKAGE_FULLNAME=$(find_package_fuzzy "$PACKAGE")
+        PACKAGE_FULLNAME=$(grep -Po "\w.*$1*\/\w*\d*(?!.*\/\/ indirect)" go.mod)
     fi
 
     if [[ "$PACKAGE_FULLNAME" == "" ]]; then
