@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+DEP=${1:-}
+VERSION=${2:-}
+
+DO_COMMIT=0
+
+if [[ "$DEP" == "" ]]; then
+    echo "DEP must be provided!"
+    exit 1
+fi
+
+if [[ "$VERSION" == "" ]]; then
+    echo "VERSION must be provided!"
+    exit 1
+fi
+
+TIMESTAMP=$(date '+%F%T' | tr -d ':-')
+BRANCH_NAME="chore/go-mod-bump-$TIMESTAMP"
+
+go mod edit -require="$DEP@$VERSION"
+go mod tidy
+
+if [[ "$(git status --porcelain)" != "" && $DO_COMMIT -eq 1 ]]; then
+    git checkout -b "$BRANCH_NAME"
+    git commit -am "Bumped $DEP to $VERSION"
+    git push -o merge_request.create -u origin "$BRANCH_NAME"
+fi
