@@ -10,6 +10,11 @@ if ! type "psql" > /dev/null; then
     exit 1
 fi
 
+if ! type "nmcli" > /dev/null; then
+    echo "Command 'nmcli' not found"
+    exit 1
+fi
+
 function help() {
     cat <<EOF
 dbi SERVICE ENVIRONMENT [OPTION]
