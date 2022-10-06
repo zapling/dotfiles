@@ -6,8 +6,8 @@ if [[ "$1" == "" ]]; then
 fi
 
 TIMESTAMP=$(date '+%F%T' | tr -d ':-')
-FILENAME="$TIMESTAMP$1.sql"
+FILENAME="${TIMESTAMP}_${1}.sql"
 
 touch $FILENAME
 
-echo "-- migrate:up\n\n-- migrate:down" > $FILENAME
+echo -e "-- migrate:up\n\n-- migrate:down" > $FILENAME
