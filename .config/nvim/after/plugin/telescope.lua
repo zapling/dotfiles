@@ -1,4 +1,17 @@
+local rg_additional_args = function(args)
+    return {'--hidden'}
+end
+
+
 require('telescope').setup {
+  pickers = {
+      live_grep = {
+          additional_args = rg_additional_args
+      },
+      grep_string = {
+          additional_args = rg_additional_args
+      },
+  },
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
