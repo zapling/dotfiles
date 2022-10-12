@@ -37,6 +37,8 @@ vim.g['better_whitespace_guicolor'] = 'Red'
 
 -- ]]
 
+vim.cmd([[ set mouse= ]])
+
 vim.opt.updatetime = 100
 vim.opt.backupdir = os.getenv('HOME') .. '/.vim/backup'
 vim.opt.directory = os.getenv('HOME') .. '/.vim/backupf'
