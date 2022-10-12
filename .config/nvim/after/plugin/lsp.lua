@@ -52,10 +52,10 @@ require'lspconfig'.tsserver.setup{
     flags = {
       debounce_text_changes = 150,
     },
-    -- disable formatting so null-ls can be the default (prettired)
+    -- disable formatting so null-ls can handle this
     on_attach = function(client)
-        client.server_capabilities.document_formatting = false
-        client.server_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
     end,
 }
 
