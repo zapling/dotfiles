@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+i3-msg gaps left current set 800
+i3-msg gaps right current set 800
