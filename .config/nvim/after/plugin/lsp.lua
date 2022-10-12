@@ -54,8 +54,8 @@ require'lspconfig'.tsserver.setup{
     },
     -- disable formatting so null-ls can be the default (prettired)
     on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
     end,
 }
 
