@@ -43,7 +43,7 @@ for path in ~/dotfiles/.config/*; do
 done
 
 # Symlink files in home directory
-files=(.Xresources .zshrc .zshenv .gtkrc-2.0 .gitconfig)
+files=(.Xresources .zshrc .zshenv .gtkrc-2.0 .gitconfig .psqlrc)
 for file in "${files[@]}"; do
     symlink_file ~/dotfiles/"$file" ~/"$file"
 done
