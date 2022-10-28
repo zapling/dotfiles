@@ -85,7 +85,7 @@ fi
 
 if ! certcheck ~/.cert/nm-openvpn/zimpler-cert.pem > /dev/null; then
     echo "Zimpler VPN cert out of date, updating..."
-    arthur vpn-config update-networkmanager
+    arthur vpn networkmanager
 fi
 
 CONNECTED_TO_VPN=$(nmcli -t connection show --active | grep zimpler)
@@ -99,9 +99,9 @@ fi
 
 case $COMMAND in
     "")
-        if ! arthur psql "$SERVICE-$ENVIRONMENT"; then
+        if ! arthur db psql "$SERVICE-$ENVIRONMENT"; then
             echo "Failed to login with normal database name, trying with legacy name"
-            if ! arthur psql "$SERVICE-$ENVIRONMENT-db"; then
+            if ! arthur db psql "$SERVICE-$ENVIRONMENT-db"; then
                 echo "Invalid or unsupported [SERVICE]"
                 exit 1
             fi
@@ -109,17 +109,17 @@ case $COMMAND in
         exit
         ;;
     "--url")
-        URL=$(arthur db-connection-url "$SERVICE-$ENVIRONMENT")
+        URL=$(arthur db db-connection-url "$SERVICE-$ENVIRONMENT")
         echo "$URL"
         exit
         ;;
     "--rw")
         ;&
     "--readwrite")
-        arthur psql "$SERVICE-$ENVIRONMENT" --readwrite || echo "Invalid or unspported [SERVICE]" && exit 1
+        arthur db psql "$SERVICE-$ENVIRONMENT" --readwrite || echo "Invalid or unspported [SERVICE]" && exit 1
         ;;
     "--root")
-        arthur psql "$SERVICE-$ENVIRONMENT" --root || echo "Invalid or unspported [SERVICE]" && exit 1
+        arthur db psql "$SERVICE-$ENVIRONMENT" --root || echo "Invalid or unspported [SERVICE]" && exit 1
         exit
         ;;
     *)

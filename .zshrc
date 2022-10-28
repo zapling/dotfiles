@@ -97,10 +97,6 @@ function timestamp() {
     esac
 }
 
-function arthur() {
-    ARTHUR_AUTO_UPDATE=true command arthur $@
-}
-
 alias j="journal e"
 
 alias vim="nvim"
