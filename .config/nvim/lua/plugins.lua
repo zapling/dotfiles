@@ -40,6 +40,7 @@ return require('packer').startup(function(use)
 
   -- Syntax
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use {'nvim-treesitter/nvim-treesitter-context'}
 
   -- Language Server Protocol
   use 'neovim/nvim-lspconfig'
