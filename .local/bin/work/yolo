@@ -40,5 +40,5 @@ case $ENVIRONMENT in
         exit 1
 esac
 
-arthur deploy yolo $REPO_NAME $ENVIRONMENT && \
+arthur deploy yolo -e $ENVIRONMENT && \
     notify-send "YOLO deploy" "$REPO_NAME pushed to $ENVIRONMENT"

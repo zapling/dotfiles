@@ -40,5 +40,5 @@ case $ENVIRONMENT in
         exit 1
 esac
 
-arthur deploy rollback-to-main $REPO_NAME $ENVIRONMENT && \
+arthur deploy rollback-to-main -e $ENVIRONMENT && \
     notify-send "Rollback" "$REPO_NAME $ENVIRONMENT was rolled back"
