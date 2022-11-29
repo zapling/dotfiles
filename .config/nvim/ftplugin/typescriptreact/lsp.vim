@@ -7,6 +7,6 @@ EOF
 
 augroup TS_LSP
     autocmd!
-    autocmd BufWritePre *.ts,*.tsx :silent! lua vim.lsp.buf.formatting_sync(nil, 3000)
+    autocmd BufWritePre *.ts,*.tsx :silent! lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})
     autocmd TextChanged,TextChangedI *.go :silent! lua reset_eslint()
 augroup END

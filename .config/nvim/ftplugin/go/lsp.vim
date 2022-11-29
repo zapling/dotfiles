@@ -5,7 +5,7 @@ lua <<EOF
             return
         end
 
-        vim.lsp.buf.formatting()
+        vim.lsp.buf.format({async = true})
         org_imports(3000)
     end
 
