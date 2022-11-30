@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+QUEUE_URL=$1
+VISIBILITY_TIMEOUT=$2
+
+if [[ "$QUEUE_URL" == "" ]]; then
+    echo "Param 1 QUEUE_URL must be supplied"
+    exit 1
+fi
+
+if [[ "$VISIBILITY_TIMEOUT" == "" ]]; then
+    echo "Param 2 VISIBILITY_TIMEOUT must be supplied"
+    exit 1
+fi
+
+while true; do aws sqs receive-message --queue-url $QUEUE_URL --visibility-timeout $VISIBILITY_TIMEOUT | jq -r '.Messages[] | .Body' ; done
