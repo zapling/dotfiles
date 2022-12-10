@@ -98,11 +98,8 @@ function timestamp() {
 }
 
 alias j="journal e"
-
 alias vim="nvim"
-
 alias gom="go mod tidy && go mod vendor"
-
 alias copy="xclip -sel clip"
-
 alias status="arthur seer"
+alias task="go-task"
