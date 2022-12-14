@@ -1,5 +1,5 @@
 local function quick_jump(direction)
-    local flags = 'b'
+    local flags = 'bz'
     local regex = [[^\\(package\\|import\\|type\\|const\\|var\\|func\\)]]
 
     if direction == 'down' then
