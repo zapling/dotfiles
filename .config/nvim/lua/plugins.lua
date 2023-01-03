@@ -68,6 +68,8 @@ return require('packer').startup(function(use)
   -- Misc
   use 'zapling/vim-go-utils'
   use {'git@github.com:zapling/reviewer.nvim', requires = 'nvim-lua/plenary.nvim'}
+  use {'zapling/plantuml.nvim', requires = {'nvim-lua/plenary.nvim'}}
+  -- use 'nvim-treesitter/playground'
   -- use {'lukas-reineke/headlines.nvim'}
 
 end)

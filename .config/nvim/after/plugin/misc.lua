@@ -10,3 +10,5 @@ require("winshift").setup({
     colorcolumn = "",
   }
 })
+
+require("plantuml").setup()
