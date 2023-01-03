@@ -16,6 +16,7 @@ require'nvim-treesitter.configs'.setup {
       'dockerfile',
       'hcl',
       'org',
+      'markdown',
   },
   highlight = {
     enable = true,
