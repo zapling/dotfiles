@@ -38,7 +38,7 @@ EOF
 
 if [[ "$1" == "local" ]]; then
     echo "Connecting to localhost server"
-    psql postgres://postgres:postgres@localhost:5432
+    psql postgres://postgres:postgres@localhost:6432
     exit
 fi
 
@@ -82,8 +82,7 @@ if [[ "$SERVICE" == "." ]]; then
     fi
 fi
 
-
-if ! certcheck ~/.cert/nm-openvpn/zimpler-cert.pem > /dev/null; then
+if ! openssl x509 -checkend 86400 -noout -in ~/.cert/nm-openvpn/zimpler-cert.pem > /dev/null; then
     echo "Zimpler VPN cert out of date, updating..."
     arthur vpn networkmanager
 fi
