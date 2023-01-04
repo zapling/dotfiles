@@ -18,6 +18,7 @@ require("gruvbox").setup({
         -- GitSignsChange = {fg = require("gruvbox.palette").bright_aqua},
         -- Delimiter = {fg = require("gruvbox.palette").bright_orange},
         Operator = {fg = "#f2e5bc", italic = false, bold = false},
+        ["@variable"] = { fg = "#f2e5bc" },
     },
     italic = false,
     contrast = "hard",
