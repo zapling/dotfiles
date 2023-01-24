@@ -4,6 +4,11 @@ end
 
 
 require('telescope').setup {
+  defaults = {
+      preview = {
+          msg_bg_fillchar = "░",
+      },
+  },
   pickers = {
       live_grep = {
           additional_args = rg_additional_args
