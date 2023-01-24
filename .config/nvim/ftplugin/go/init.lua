@@ -13,3 +13,5 @@ end
 
 vim.keymap.set('n', '[[', function() quick_jump('up') end, { silent = true, buffer = true})
 vim.keymap.set('n', ']]', function() quick_jump('down') end, { silent = true, buffer = true})
+vim.keymap.set('v', '[[', function() quick_jump('up') end, { silent = true, buffer = true})
+vim.keymap.set('v', ']]', function() quick_jump('down') end, { silent = true, buffer = true})
