@@ -1,6 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh
 
-HISTORY_IGNORE="jwt-decode*"
+HISTORY_IGNORE="(jwt-decode*|systemctl poweroff)"
 
 ZSH_THEME="sunaku-zapling"
 
@@ -101,5 +101,5 @@ alias j="journal e"
 alias vim="nvim"
 alias gom="go mod tidy && go mod vendor"
 alias copy="xclip -sel clip"
-alias status="arthur seer"
+alias seer="arthur deploy seer"
 alias task="go-task"
