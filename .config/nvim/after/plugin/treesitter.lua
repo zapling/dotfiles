@@ -15,6 +15,7 @@ require'nvim-treesitter.configs'.setup {
       'tsx',
       'dockerfile',
       'hcl',
+      'terraform',
       'org',
       'markdown',
   },
