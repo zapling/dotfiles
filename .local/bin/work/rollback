@@ -8,7 +8,7 @@ fi
 REMOTE_ORIGIN=$(git config --get remote.origin.url)
 
 if [[ "$REMOTE_ORIGIN" =~ "@gitlab.zimpler.com" ]]; then
-    REPO_NAME=$(echo $REMOTE_ORIGIN | grep -o '\/.*\.' | tr -d '/.')
+    REPO_NAME=$(echo $REMOTE_ORIGIN | grep -o '/.*\.' | tr -d '/.')
 else
     echo "Only allowed on repos owned by Zimpler"
     exit 1
