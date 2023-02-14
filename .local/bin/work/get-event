@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+event_type="$1"
+
+if [[ "$event_type" == "" ]]; then
+    echo "event_type can not be empty"
+    exit 1
+fi
+
+event=$(cat <<EOF
+{
+    "message_id": "$(uuidgen)",
+    "event_type": "${event_type}",
+    "correlation_id": "$(uuidgen)",
+    "created_at": "$(date '+%FT%T.%N+00:00' --utc)",
+    "producer": "netscape@andreas",
+    "payload": {}
+}
+EOF
+)
+
+echo "$event"
