@@ -23,7 +23,7 @@ sudo pacman -Sy --needed "${core[@]}"
 
 # LiberationMono Nerd Font (LiterationMono)
 if [[ ! -d ~/.fonts ]]; then
-    curl "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/LiberationMono.zip" -L --output "/tmp/LiberationMono.zip" && \
+    curl "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/LiberationMono.zip" -L --output "/tmp/LiberationMono.zip" && \
         mkdir ~/.fonts && \
         unzip /tmp/LiberationMono.zip -d ~/.fonts && \
         fc-cache -fv
