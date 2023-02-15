@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+total_space=0
+
+mapfile -t < <(docker system df --format='{{.Reclaimable}}' | awk '{print $1}') docker_space
+
+for i in "${docker_space[@]}"
+do
+    :
+    bytes=0
+    if [[ "$i" == *"MB"* ]]; then
+        bytes=$(echo "$i" | tr -d 'MB' | awk '{ print $1 * 1000 * 1000 }')
+    elif [[ "$i" == *"GB"* ]]; then
+        bytes=$(echo "$i" | tr -d 'GB' | awk '{ print $1 * 1000 * 1000 * 1000 }')
+    elif [[ "$i" == *"B"* ]]; then
+        bytes=$(echo "$i" | tr -d 'B')
+    fi
+
+    total_space=$(echo "$total_space $bytes" | awk '{ print $1 + $2}')
+done
+
+total_gb=$(echo $total_space | awk '{ print $1 / 1000 / 1000 / 1000 }')
+echo "$total_gb GB"
+
