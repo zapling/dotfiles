@@ -33,6 +33,10 @@ markup=none
 interval=5
 color=#1DB954
 
+[disk-usage]
+interval=3600
+color=#fb4833
+
 [certificate-checker]
 interval=10800 # every 3 hours
 certificate=${HOME}/.cert/nm-openvpn/zimpler-cert.pem

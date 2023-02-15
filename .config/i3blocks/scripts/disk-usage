@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+percentage_used=$(df -h / | grep /dev/ | awk '{print $5}' | tr -d '%')
+
+if [[ $percentage_used -gt 50 ]]; then
+    echo "[  Disk usage $percentage_used %]"
+fi
