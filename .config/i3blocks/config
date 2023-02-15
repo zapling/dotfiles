@@ -29,9 +29,9 @@ command=/home/andreas/.config/i3blocks/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[spotify]
-interval=5
-color=#1DB954
+[docker-reclaimable-space]
+interval=3600
+color=#fb4833
 
 [disk-usage]
 interval=3600
@@ -40,6 +40,10 @@ color=#fb4833
 [certificate-checker]
 interval=10800 # every 3 hours
 certificate=${HOME}/.cert/nm-openvpn/zimpler-cert.pem
+
+[spotify]
+interval=5
+color=#1DB954
 
 [docker-containers]
 interval=60

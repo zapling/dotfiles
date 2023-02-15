@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+space_used=$(~/.local/bin/system/docker-reclaimable-space | awk '{ print int($1+0.5) }')
+
+if [[ $space_used -gt 80 ]]; then
+    echo "[  Docker disk usage $space_used GB]"
+fi
