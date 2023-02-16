@@ -97,9 +97,17 @@ function timestamp() {
     esac
 }
 
+function seer() {
+    if [[ "$1" == "" ]]; then
+        arthur deploy seer -s netscape
+        return
+    fi
+
+    arthur deploy seer -s "$1"
+}
+
 alias j="journal e"
 alias vim="nvim"
 alias gom="go mod tidy && go mod vendor"
 alias copy="xclip -sel clip"
-alias seer="arthur deploy seer -s netscape"
 alias task="go-task"
