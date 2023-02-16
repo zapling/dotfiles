@@ -26,6 +26,10 @@ return require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
 
     -- Language Server Protocol
+    'williamboman/mason.nvim', -- Package manager for LSP, linters etc
+    'williamboman/mason-lspconfig.nvim',
+    'jay-babu/mason-null-ls.nvim',
+
     'neovim/nvim-lspconfig',
     {'jose-elias-alvarez/null-ls.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
 

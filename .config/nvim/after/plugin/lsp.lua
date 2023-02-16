@@ -1,84 +1,15 @@
-local Job = require'plenary.job'
-local protocol = require 'vim.lsp.protocol'
+require("mason").setup({
+    install_root_dir = os.getenv("HOME") .. '/.local/bin/nvim-mason/',
+    PATH = 'skip',
+})
 
--- Wrapper around gopls lsp handler 'window/LogMessage'
--- Attempts to solve 'inconsistent vendoring' errors by running 'go mod vendor' in an async job.
--- Triggers only once in a 60 seconds window to allow the job to be completed.
-local lastVendoringError = 0
-local goplsLogMessageWrapper = function(_, result, ctx, _)
-    local now = os.time()
+require("mason-lspconfig").setup({automatic_installation = true})
 
-    if result.type == protocol.MessageType.Error then
-        local delta = lastVendoringError - now
-        if string.find(result.message, "inconsistent vendoring") and lastVendoringError == 0 or delta >= 60 then
-            lastVendoringError = now
+require('lspconfig').gopls.setup(require("zapling.lsp.go").config)
+require('lspconfig').tsserver.setup(require("zapling.lsp.tsserver").config)
+require('lspconfig').sumneko_lua.setup(require("zapling.lsp.lua").config)
+require('lspconfig').bashls.setup({})
+require("null-ls").setup(require("zapling.lsp.null_ls").config)
 
-            Job:new({
-                command = 'go',
-                args = {'mod', 'vendor'},
-                cwd = vim.fn.getcwd(),
-                on_exit = function(j, return_val)
-                    vim.schedule(function()
-                        vim.notify(
-                            "Automatically ran 'go mod vendor' to fix inconsistent vendoring",
-                            vim.log.levels.WARN
-                        )
-                    end)
-                end,
-            }):sync()
-        end
-    end
-
-    return vim.lsp.handlers["window/logMessage"](_, result, ctx, _)
-end
-
-require'lspconfig'.gopls.setup{
-    handlers = {
-        ['textDocument/publishDiagnostics'] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                update_in_insert = false,
-            }
-        ),
-        ['window/logMessage'] = goplsLogMessageWrapper,
-    },
-    settings = {
-        gopls = {
-            buildFlags = {"-tags=integration_test"}
-        }
-    }
-}
-
-require'lspconfig'.tsserver.setup{
-    flags = {
-      debounce_text_changes = 150,
-    },
-    root_dir = require'lspconfig.util'.root_pattern("package.json"),
-    -- on_attach = function(client)
-    --     client.server_capabilities.documentFormattingProvider = false
-    --     client.server_capabilities.documentRangeFormattingProvider = false
-    -- end,
-}
-
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-require'lspconfig'.sumneko_lua.setup{
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-                path = runtime_path
-            },
-            diagnostics = {
-                globals = {'vim'}
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-                checkThirdParty = false
-            }
-        }
-    }
-}
-
-require'lspconfig'.bashls.setup{}
+-- Needs to setup after null-ls
+require("mason-null-ls").setup({automatic_installation = true})

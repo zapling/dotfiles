@@ -5,3 +5,6 @@
 .config/gtk-3.0/bookmarks
 .aws/
 .local/bin/arthur
+.local/bin/nvim-mason/bin
+.local/bin/nvim-mason/.packages
+.local/bin/nvim-mason/packages
