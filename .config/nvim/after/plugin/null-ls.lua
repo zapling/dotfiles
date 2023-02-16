@@ -3,7 +3,15 @@ local Job = require'plenary.job'
 
 local sources = {
     null_ls.builtins.diagnostics.golangci_lint.with({
-        args = { "run", "--fix=false", "--out-format=json", "$DIRNAME", "--path-prefix", "$ROOT" }
+        args = {
+            "run",
+            "--fix=false",
+            "--build-tags=integration_test",
+            "--out-format=json",
+            "$DIRNAME",
+            "--path-prefix",
+            "$ROOT"
+        }
     }),
 
     -- shell / bash
