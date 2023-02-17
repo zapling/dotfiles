@@ -1,10 +1,12 @@
 local null_ls = require("null-ls")
 local Job = require'plenary.job'
+local arthur = require('zapling.lsp.null_ls_arthur_lint')
 
 local M = {}
 
 M.config = {
     sources = {
+        arthur.null_ls_diagnostics_go_lint("netscape"),
         null_ls.builtins.diagnostics.golangci_lint.with({
             args = {
                 "run",
@@ -14,7 +16,10 @@ M.config = {
                 "$DIRNAME",
                 "--path-prefix",
                 "$ROOT"
-            }
+            },
+            runtime_condition = function()
+                return not vim.g.arthur_diagnostics_go_lint_loaded
+            end
         }),
 
         -- shell / bash
