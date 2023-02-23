@@ -53,4 +53,5 @@ return require("lazy").setup({
     'zapling/vim-go-utils',
     --{'zapling/reviewer.nvim', dependencies = 'nvim-lua/plenary.nvim'},
     {'zapling/plantuml.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
+    {url = 'git@gitlab.zimpler.com:shared/zimpler.nvim.git', dependencies = {'nvim-lua/plenary.nvim'}},
 })

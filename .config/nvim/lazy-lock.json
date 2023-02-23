@@ -34,5 +34,6 @@
   "vim-go-utils": { "branch": "master", "commit": "0a2799c9dbdf0936352b036d9b94aca9e8e8fe16" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" }
+  "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" },
+  "zimpler.nvim": { "branch": "main", "commit": "4ef61513efa8e31d973db2577b56460c91a1f57a" }
 }

@@ -1,12 +1,25 @@
 local null_ls = require("null-ls")
 local Job = require'plenary.job'
-local arthur = require('zapling.lsp.null_ls_arthur_lint')
 
 local M = {}
 
 M.config = {
     sources = {
-        arthur.null_ls_diagnostics_go_lint("netscape"),
+        require("zimpler.null_ls").diagnostics_go_lint("netscape").with({
+            args = {
+                "go",
+                "lint",
+                "netscape",
+                "--",
+                "--fix=false",
+                "--build-tags=integration_test",
+                "--out-format=json",
+                "$DIRNAME",
+                "--path-prefix",
+                "$ROOT"
+            },
+        }),
+
         null_ls.builtins.diagnostics.golangci_lint.with({
             args = {
                 "run",
