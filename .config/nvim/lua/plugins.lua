@@ -6,7 +6,10 @@ return require("lazy").setup({
     'tpope/vim-abolish',                           -- Coercion, e.g 'crs' (coerce to snake_case)
     'tpope/vim-repeat',                            -- . repetition for custom motions
     'FooSoft/vim-argwrap',                         -- Wrap function arguments with keypress
-    'unblevable/quick-scope',                      -- f,F,t,F motion highlighting
+    {
+        'unblevable/quick-scope',
+        init = require('zapling.quickscope').init
+    },                                             -- f,F,t,F motion highlighting
     'ntpeters/vim-better-whitespace',              -- show that fucking whitespace
     'sindrets/winshift.nvim',                      -- move windows around easily
     'stefandtw/quickfix-reflector.vim',            -- editable quickfix window
@@ -46,7 +49,7 @@ return require("lazy").setup({
     'onsails/lspkind-nvim',     -- fancy icons for completion
 
     -- Search / Navigation
-    {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}},
+    {'nvim-telescope/telescope.nvim', dependencies = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}},
     {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
     -- Misc
