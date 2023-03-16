@@ -42,6 +42,22 @@ if [[ "$1" == "local" ]]; then
     exit
 fi
 
+# Try and start embedded postgres and connect to it
+if [[ "$1" == "emb" ]]; then
+    if [[ ! -e bin/pg_ctl ]]; then
+        echo "No bin/pg_ctl found in your current directory"
+        exit 1
+    fi
+
+    database_name=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+
+    bin/pg_ctl start -w -D data --options="-p 6432" > /dev/null && \
+    psql "postgres://postgres:postgres@localhost:6432/$database_name" && \
+    bin/pg_ctl stop -D data > /dev/null
+
+    exit
+fi
+
 SERVICE=$1
 ENVIRONMENT=$2
 COMMAND=${3:-}
