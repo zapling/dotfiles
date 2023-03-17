@@ -48,5 +48,9 @@ map('', '<Leader>g}', '<Cmd>lua require(\'telescope.builtin\').resume()<CR>', {}
 -- winshift
 map('n', '<C-W><CR>', '<Cmd>WinShift<CR>', {noremap = true})
 
+-- Insert helpers
+map('n', '<Leader>iu', '<Cmd>UUIDGen<CR>', {silent = true})
+map('n', '<Leader>it', '<Cmd>TimestampUTC<CR>', {silent = true})
+
 -- go coverage
 map('', '<Leader>lc', '<Cmd>GoCoverageToggle<CR>', {silent = true})

@@ -76,27 +76,6 @@ function docker() {
     command docker $@
 }
 
-function timestamp() {
-    cmd=$1 ; shift > /dev/null 2>&1
-    case "$cmd" in
-        # YYYYMMDDHHMMSS (local time)
-        "")
-            date '+%F%T' | tr -d ':-'
-            ;;
-        # seconds since epoch (unix)
-        "unix")
-            date "+%s"
-            ;;
-        # yyyy-mm-ddThh:mm:ss.mms+00:00 (utc)
-        "utc")
-            date '+%FT%T.%N+00:00' --utc
-            ;;
-        *)
-            echo "Unsupported option"
-            return 1
-    esac
-}
-
 function seer() {
     if [[ "$1" == "" ]]; then
         arthur deploy seer -s netscape

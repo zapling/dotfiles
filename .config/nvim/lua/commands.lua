@@ -63,4 +63,37 @@ local git_rebase_current_branch = function()
     vim.api.nvim_command(command)
 end
 
+local function insert_uuid()
+    local uuid = nil
+    Job:new({
+        command = 'uuidgen',
+        on_exit = function(j, return_val)
+            if return_val ~= 0 then
+                return
+            end
+
+            uuid = j:result()[1]
+        end,
+    }):sync()
+    vim.cmd('normal i' .. uuid)
+end
+
+local function insert_timestamp()
+    local timestamp = nil
+    Job:new({
+        command = 'timestamp',
+        args = {'utc'},
+        on_exit = function(j, return_val)
+            if return_val ~= 0 then
+                return
+            end
+
+            timestamp = j:result()[1]
+        end,
+    }):sync()
+    vim.cmd('normal i' .. timestamp)
+end
+
 vim.api.nvim_create_user_command('Gitrebase', git_rebase_current_branch, {})
+vim.api.nvim_create_user_command('UUIDGen', insert_uuid, {})
+vim.api.nvim_create_user_command('TimestampUTC', insert_timestamp, {})
