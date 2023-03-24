@@ -3,22 +3,25 @@ local Job = require'plenary.job'
 
 local M = {}
 
+local zimpler_null_ls_config = {
+    args = {
+        "go",
+        "lint",
+        "netscape",
+        "--",
+        "--fix=false",
+        "--build-tags=integration_test",
+        "--out-format=json",
+        "$DIRNAME",
+        "--path-prefix",
+        "$ROOT"
+    },
+}
+
 M.config = {
     sources = {
-        require("zimpler.null_ls").diagnostics_go_lint("netscape").with({
-            args = {
-                "go",
-                "lint",
-                "netscape",
-                "--",
-                "--fix=false",
-                "--build-tags=integration_test",
-                "--out-format=json",
-                "$DIRNAME",
-                "--path-prefix",
-                "$ROOT"
-            },
-        }),
+        require("zimpler.null_ls").diagnostics_go_lint("netscape").with(zimpler_null_ls_config),
+        require("zimpler.null_ls").diagnostics_go_lint("napster").with(zimpler_null_ls_config),
 
         null_ls.builtins.diagnostics.golangci_lint.with({
             args = {
