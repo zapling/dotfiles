@@ -104,7 +104,7 @@ local function insert_timestamp()
     vim.cmd('normal i' .. timestamp)
 end
 
-local function show_file_in_gitlab()
+local function open_line_in_browser()
     local filepath = vim.fn.expand('%')
     local linenum = vim.fn.line('.')
 
@@ -164,6 +164,6 @@ local function show_file_in_gitlab()
 end
 
 vim.api.nvim_create_user_command('Gitrebase', git_rebase_current_branch, {})
-vim.api.nvim_create_user_command('GitOpen', show_file_in_gitlab, {})
+vim.api.nvim_create_user_command('GitOpen', open_line_in_browser, {})
 vim.api.nvim_create_user_command('UUIDGen', insert_uuid, {})
 vim.api.nvim_create_user_command('TimestampUTC', insert_timestamp, {})
