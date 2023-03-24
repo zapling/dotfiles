@@ -49,27 +49,27 @@ case "$cmd" in
                 echo "$updates updates available"
                 ;;
             *)
-                echo "Usage: pman aur [command]\n"
-                echo "pman arch user repository helper\n"
-                echo "Commands:"
-                echo "    list,    ls   List available AUR updates"
+                printf "Usage: pman aur [command]\n"
+                printf "pman arch user repository helper\n"
+                printf "Commands:"
+                printf "    list,    ls   List available AUR updates\n"
                 exit 1
             ;;
         esac
         ;;
     *)
-        echo "Usage: pman <command> [options]\n"
-        echo "pman is syntactic sugar for the pacman package manager\n"
-        echo "Commands:"
-        echo "    list,    ls   List available updates"
-        echo "    info          Information about installed package"
-        echo "    fetch,   f    Update package database"
-        echo "    search,  s    Search for a package"
-        echo "    install, i    Install a package"
-        echo "    remove,  rm   Remove a package"
-        echo "    upgrade, u    Install updates for all packages available"
-        echo "    aur    , a    Arch user repository helper"
-        echo ""
+        printf "Usage: pman <command> [options]\n"
+        printf "pman is syntactic sugar for the pacman package manager\n"
+        printf "Commands:\n"
+        printf "    list,    ls   List available updates\n"
+        printf "    info          Information about installed package\n"
+        printf "    fetch,   f    Update package database\n"
+        printf "    search,  s    Search for a package\n"
+        printf "    install, i    Install a package\n"
+        printf "    remove,  rm   Remove a package\n"
+        printf "    upgrade, u    Install updates for all packages available\n"
+        printf "    aur    , a    Arch user repository helper\n"
+        printf "\n"
         exit 1
         ;;
 esac
