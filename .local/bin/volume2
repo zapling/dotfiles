@@ -37,7 +37,7 @@ function getAvailableSinks() {
 # hardcoded sinks for x1-carbon setup
 function toggleSpeaker() {
     speaker=3
-    bluetooth=5
+    bluetooth=7
 
     [[ $(getCurrentSinkNumber) -eq $speaker ]] && pacmd set-default-sink $bluetooth && return
 
@@ -57,6 +57,8 @@ case "$1" in
         esac
 
         volume=$(getCurrentVolume)
+
+        echo $volume
 
         output=""
 
