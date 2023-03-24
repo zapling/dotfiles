@@ -23,6 +23,11 @@ Examples:
   dbi george staging
   dbi george stag
   dbi . stag
+  dbi local
+  dbi emb
+
+When SERVICE is 'local' an attempt to connect to localhost is made.
+When SERVICE is 'emb' an attempt to connect to a embedded postgres instance is made.
 
 Option:
   --url
