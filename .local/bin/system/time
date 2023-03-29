@@ -1,4 +1,10 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
-LC_TIME=en_US.utf8
-echo `date +"%a %Y-%m-%d %H:%M"`
+args=""
+
+if [[ "$button" == "1" ]]; then
+    args="--utc"
+fi
+
+t=$(LC_TIME=en_US.utf8 date +"%a %Y-%m-%d %H:%M" $args)
+echo $t
