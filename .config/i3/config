@@ -122,6 +122,8 @@ bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 100
 
 # Monitor
 bindsym XF86Display exec ~/.local/bin/system/cycle-monitor
+bindsym Shift+XF86Display exec ~/.local/bin/system/cycle-monitor mirror-to-projector
+bindsym Shift+Ctrl+XF86Display exec ~/.local/bin/system/cycle-monitor 0
 
 #--------/ Styling /--------#
 

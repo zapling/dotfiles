@@ -42,6 +42,14 @@ case $current_mode in
             xrandr --output $display --auto --output $display --same-as $laptopDisplay
         done
     ;;
+    "mirror-to-projector")
+        current_mode_name="projector"
+        xrandr --output $laptopDisplay --auto
+        for display in ${externalDisplays[@]}
+        do
+            xrandr --output $display --auto --mode 1920x1080
+        done
+    ;;
     *)
         echo "We should not be here!"
         exit 1
