@@ -14,7 +14,11 @@ require("gruvbox").setup({
         Operator = {fg = "#f2e5bc", italic = false, bold = false},
         ["@variable"] = { fg = "#f2e5bc" },
     },
-    italic = false,
+    italic = {
+        strings = false,
+        operators = false,
+        comments = false
+    },
     contrast = "hard",
 })
 
