@@ -56,6 +56,19 @@ function git() {
     command git $@
 }
 
+function git-checkout-date () {
+    date_input=$1
+    time_input=${2:-00:00:00}
+    branch_input=${3:-main}
+
+    if [[ "$date_input" == "" ]]; then
+        echo "git-checkout-date <date> [time] [branch]"
+        return 1
+    fi
+
+    git checkout "${branch}@{${date_input} ${time_input}}"
+}
+
 function docker() {
     if [[ "$1" == "kill-all" || "$1" == "stop-all" ]]; then
         containers=($(docker ps -q))
