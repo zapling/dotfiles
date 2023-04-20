@@ -53,6 +53,7 @@ return require("lazy").setup({
     {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
     -- Misc
+    'jose-elias-alvarez/typescript.nvim',
     'zapling/vim-go-utils',
     {'zapling/plantuml.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
     {url = 'git@gitlab.zimpler.com:shared/zimpler.nvim.git', dependencies = {'nvim-lua/plenary.nvim'}},

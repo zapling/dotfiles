@@ -7,6 +7,7 @@ EOF
 
 augroup TS_LSP
     autocmd!
+    autocmd BufWritePre *.ts,*.tsx :silent! lua require("typescript").actions.addMissingImports()
     autocmd BufWritePre *.ts,*.tsx :silent! lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})
     autocmd TextChanged,TextChangedI *.ts,*.tsx :silent! lua reset_eslint()
 augroup END
