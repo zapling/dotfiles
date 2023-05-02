@@ -32,6 +32,7 @@ return require("lazy").setup({
     'williamboman/mason.nvim', -- Package manager for LSP, linters etc
     'williamboman/mason-lspconfig.nvim',
     'jay-babu/mason-null-ls.nvim',
+    'yioneko/nvim-vtsls', -- tsserver wrapper for lsp
 
     'neovim/nvim-lspconfig',
     {'jose-elias-alvarez/null-ls.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
@@ -53,7 +54,6 @@ return require("lazy").setup({
     {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
     -- Misc
-    'jose-elias-alvarez/typescript.nvim',
     'zapling/vim-go-utils',
     {'zapling/plantuml.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
     {url = 'git@gitlab.zimpler.com:shared/zimpler.nvim.git', dependencies = {'nvim-lua/plenary.nvim'}},
