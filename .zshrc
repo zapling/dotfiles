@@ -48,8 +48,12 @@ function git() {
         confirm=1
     fi
 
+    if [[ "$1" == "push" ]] && [[ "$2" == "-f" ]]; then
+        confirm=1
+    fi
+
     if [[ $confirm -eq 1 ]]; then
-        echo "Are you being retarted? Press any key to continue..."
+        echo "Are you being retarded? Press any key to continue..."
         read -sk1
     fi
 
