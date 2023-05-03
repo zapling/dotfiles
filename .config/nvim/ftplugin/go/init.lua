@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
             return
         end
 
-        vim.lsp.buf.format({async = true})
+        vim.lsp.buf.format({async = false})
         organize_imports(3000)
     end,
     desc = 'Run gofmt and re-organize imports',
