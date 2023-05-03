@@ -14,3 +14,5 @@ require("null-ls").setup(require("zapling.lsp.null_ls").config)
 
 -- Needs to setup after null-ls
 require("mason-null-ls").setup({automatic_installation = true})
+
+require"fidget".setup()
