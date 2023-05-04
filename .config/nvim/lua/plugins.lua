@@ -1,7 +1,6 @@
 return require("lazy").setup({
     -- Core (feels like native vim functionality)
     'tpope/vim-commentary',                        -- Toggle code comments
-    'JoosepAlviste/nvim-ts-context-commentstring', -- commentstring based on lang
     'tpope/vim-surround',                          -- Edit 'surroundings'
     'tpope/vim-abolish',                           -- Coercion, e.g 'crs' (coerce to snake_case)
     'tpope/vim-repeat',                            -- . repetition for custom motions
@@ -25,7 +24,11 @@ return require("lazy").setup({
     'kyazdani42/nvim-web-devicons', -- note: requires patched fonts
 
     -- Syntax
-    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        dependencies = {'JoosepAlviste/nvim-ts-context-commentstring'}
+    },
     'nvim-treesitter/nvim-treesitter-context',
 
     -- Language Server Protocol
@@ -56,10 +59,11 @@ return require("lazy").setup({
 
     -- Misc
     'zapling/vim-go-utils',
-    {'zapling/plantuml.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
+    {'zapling/plantuml.nvim', dependencies = {'nvim-lua/plenary.nvim'}, lazy = true},
     {url = 'git@gitlab.zimpler.com:shared/zimpler.nvim.git', dependencies = {'nvim-lua/plenary.nvim'}},
     {
         dir = '~/P/reviewer.nvim',
-        dependencies = 'nvim-lua/plenary.nvim'
+        dependencies = 'nvim-lua/plenary.nvim',
+        lazy = true,
     },
 })
