@@ -16,12 +16,10 @@ require'nvim-treesitter.configs'.setup {
       'dockerfile',
       'hcl',
       'terraform',
-      'org',
       'markdown',
   },
   highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = {'org'},
+    enable = true
   },
   context_commentstring = {
     enable = true
