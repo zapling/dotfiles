@@ -6,13 +6,14 @@ vim.g['gruvbox_invert_selection'] = 0
 vim.opt.termguicolors = true -- enable truecolors (requires compatible terminal)
 vim.opt.background = 'dark'
 
+local gruvbox_colors = require("gruvbox.palette").colors
 require("gruvbox").setup({
-    -- TODO: not needed anymore?
     overrides = {
-        -- GitSignsChange = {fg = require("gruvbox.palette").bright_aqua},
-        -- Delimiter = {fg = require("gruvbox.palette").bright_orange},
-        Operator = {fg = "#f2e5bc", italic = false, bold = false},
-        ["@variable"] = { fg = "#f2e5bc" },
+        Operator = {fg = gruvbox_colors.light0_soft, italic = false, bold = false},
+        ["@variable"] = { fg = gruvbox_colors.light0_soft }, -- #f2e5bc
+
+        -- GO: NewThing() should be green, not some other color
+        ["@constructor.go"] = {fg = gruvbox_colors.bright_green},
     },
     italic = {
         strings = false,
