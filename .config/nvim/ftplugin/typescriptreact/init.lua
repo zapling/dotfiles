@@ -1,4 +1,7 @@
 local null_ls = require("null-ls")
+local vtsls = require("vtsls")
+
+-- vim.keymap.set('', '<Leader>gd', function() vtsls.commands.goto_source_definition() end, {silent = true})
 
 local augroup_typescript = vim.api.nvim_create_augroup('TS_LSP', { clear = true })
 
@@ -7,6 +10,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   group = augroup_typescript,
   callback = function()
       vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})
+      vtsls.commands.add_missing_imports()
   end,
   desc = 'Format buffer before save with client NOT named tsserver',
 })
