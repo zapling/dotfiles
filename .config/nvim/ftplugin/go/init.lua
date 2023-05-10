@@ -1,4 +1,5 @@
 local null_ls = require("null-ls")
+local null_ls_diagnostics = require("null-ls.diagnostics")
 
 local function quick_jump(direction)
     local flags = 'bz'
@@ -60,21 +61,21 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
         source = null_ls.get_source({
             name = 'arthur go lint',
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE
-        })[1]
+        })[2]
 
         -- Try and get golangci_lint
         if source == nil then
             source = null_ls.get_source({
                 name = 'golangci_lint',
                 method = null_ls.methods.DIAGNOSTICS_ON_SAVE
-            })[1]
+            })[1] -- TODO: should this be 2 as well?
         end
 
         if source == nil then
             return
         end
 
-        local namespace = require('null-ls.diagnostics').get_namespace(source.id)
+        local namespace = null_ls_diagnostics.get_namespace(source.id)
         if namespace ~= nil then
             vim.diagnostic.reset(namespace)
         end
