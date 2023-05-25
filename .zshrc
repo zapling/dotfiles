@@ -52,6 +52,10 @@ function git() {
         confirm=1
     fi
 
+    if [[ "$1" == "clean" ]] && [[ "$2" == "-fd" ]]; then
+        confirm=1
+    fi
+
     if [[ $confirm -eq 1 ]]; then
         echo "Are you being retarded? Press any key to continue..."
         read -sk1
