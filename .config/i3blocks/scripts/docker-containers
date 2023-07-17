@@ -4,5 +4,5 @@ NUM=$(docker ps | wc -l)
 ACTIVE_CONTAINERS="$((NUM-1))"
 
 if [[ $ACTIVE_CONTAINERS -gt 0 ]]; then
-    echo "[$ACTIVE_CONTAINERS]"
+    echo " [$ACTIVE_CONTAINERS]"
 fi
