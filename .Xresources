@@ -1,3 +1,5 @@
+Xcursor.size: 16
+
 ! i3bar
 i3bar.background: #272727
 i3bar.workspace_foreground: #888888
