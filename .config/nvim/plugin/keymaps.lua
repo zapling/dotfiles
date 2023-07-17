@@ -2,7 +2,9 @@ local map = vim.api.nvim_set_keymap
 
 -- basic rebinds
 map('n', '<Backspace>', '<Nop>', {noremap = true})
+-- map('n', '<Space>', '<Nop>', {noremap = true})
 map('n', '<Backspace>', '<Leader>', {})
+-- map('n', '<Space>', '<LocalLeader>', {})
 map('n', '<CR>', ':noh<CR>', {noremap = true})
 map('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 

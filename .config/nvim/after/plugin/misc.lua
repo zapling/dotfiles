@@ -11,4 +11,4 @@ require("winshift").setup({
   }
 })
 
-require("plantuml").setup()
+require("plantuml").setup({tmp_dir = '/tmp/other-dir'})

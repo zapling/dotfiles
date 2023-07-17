@@ -1,6 +1,7 @@
 return require("lazy").setup({
     -- Core (feels like native vim functionality)
-    'tpope/vim-commentary',                        -- Toggle code comments
+    -- 'tpope/vim-commentary',                        -- Toggle code comments
+    { 'echasnovski/mini.comment', version = false },
     'tpope/vim-surround',                          -- Edit 'surroundings'
     'tpope/vim-abolish',                           -- Coercion, e.g 'crs' (coerce to snake_case)
     'tpope/vim-repeat',                            -- . repetition for custom motions
@@ -36,7 +37,6 @@ return require("lazy").setup({
     'williamboman/mason-lspconfig.nvim',
     'jay-babu/mason-null-ls.nvim',
     'yioneko/nvim-vtsls', -- tsserver wrapper for lsp
-    'j-hui/fidget.nvim', -- lsp server progress
 
     'neovim/nvim-lspconfig',
     {'jose-elias-alvarez/null-ls.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
