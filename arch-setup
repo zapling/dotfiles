@@ -1,0 +1,76 @@
+cryptsetup luksClose luks
+lsblk -plnx size -o name "${device}" | xargs -n1 wipefs --all
+
+sgdisk --clear "${device}" --new 1::-551MiB "${device}" --new 2::0 --typecode 2:ef00 "${device}"
+sgdisk --change-name=1:primary --change-name=2:ESP "${device}"
+
+cryptsetup luksFormat /dev/nvme0n1p1
+cryptsetup open /dev/nvme0n1p1 luks
+
+mkfs.vfat -F32 -n EFI /dev/nvme0n1p2
+
+mkfs.btrfs -L ROOT /dev/mapper/luks
+
+mount /dev/mapper/luks /mnt
+btrfs sub create /mnt/@
+btrfs sub create /mnt/@swap
+btrfs sub create /mnt/@home
+btrfs sub create /mnt/@pkg
+btrfs sub create /mnt/@snapshots
+umount /mnt
+
+mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@ /dev/mapper/luks /mnt
+mkdir -p /mnt/{boot,home,var/cache/pacman/pkg,.snapshots,btrfs}
+mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@home /dev/mapper/luks /mnt/home
+mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@pkg /dev/mapper/luks /mnt/var/cache/pacman/pkg
+mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvol=@snapshots /dev/mapper/luks /mnt/.snapshots
+mount -o noatime,nodiratime,compress=zstd,space_cache=v2,ssd,subvolid=5 /dev/mapper/luks /mnt/btrfs
+
+mount /dev/nvme0n1p2 /mnt/boot
+
+pacstrap /mnt linux linux-firmware base btrfs-progs amd-ucode vim networkmanager
+genfstab -U /mnt >> /mnt/etc/fstab
+
+echo "z16" > /mnt/etc/hostname
+echo "en_GB.UTF-8 UTF-8" >> /mnt/etc/locale.gen
+ln -sf /usr/share/zoneinfo/Europe/Stockholm /mnt/etc/localtime
+arch-chroot /mnt locale-gen
+
+echo "KEYMAP=sv-latin1" > /mnt/etc/vconsole.conf
+echo "FONT=lat9w-16" >> /mnt/etc/vconsole.conf
+
+cat > /mnt/etc/hosts << EOF
+# Static table lookup for hostnames.
+# See hosts(5) for details.
+#<ip-address>	<hostname.domain.org>	<hostname>
+127.0.0.1	z16.localdomain         z16
+::1		localhost.localdomain	localhost
+EOF
+
+arch-chroot /mnt passwd
+
+cat << EOF > /mnt/etc/mkinitcpio.conf
+MODULES=()
+BINARIES=()
+FILES=()
+HOOKS=(base udev autodetect modconf kms keyboard keymap encrypt btrfs consolefont block filesystems fsck)
+EOF
+arch-chroot /mnt mkinitcpio -p linux
+
+arch-chroot /mnt bootctl --path=/boot install
+cat > /mnt/boot/loader/entries/arch.conf << EOF
+title Arch Linux
+linux /vmlinuz-linux
+initrd /amd-ucode.img
+initrd /initramfs-linux.img
+options cryptdevice=UUID=3312d1e8-f030-463c-b3ae-054b32677a27:luks:allow-discards root=/dev/mapper/luks rootflags=subvol=@ rd.luks.options=discard
+EOF
+
+cat > /mnt/boot/loader/loader.conf << EOF
+default arch.conf
+timeout 4
+console-mode max
+editor no
+EOF
+
+umount -R /mnt
